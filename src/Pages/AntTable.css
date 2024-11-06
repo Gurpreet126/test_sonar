@@ -1,0 +1,20 @@
+.ant-table-cell {
+  color: white !important;
+  background: #212121 !important;
+  border-bottom: 2px solid #484748 !important;
+  text-transform: capitalize !important;
+}
+.ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th:not(:last-child):not(.ant-table-selection-column):not(
+    .ant-table-row-expand-icon-cell
+  ):not([colspan])::before,
+.ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td:not(:last-child):not(.ant-table-selection-column):not(
+    .ant-table-row-expand-icon-cell
+  ):not([colspan])::before {
+  background-color: transparent !important;
+}

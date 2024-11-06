@@ -1,0 +1,85 @@
+{
+  "name": "ibeor-admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@emotion/css": "^11.10.6",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@giphy/js-fetch-api": "^4.8.2-alpha.0",
+    "@giphy/react-components": "^6.8.2-alpha.0",
+    "@reduxjs/toolkit": "^1.9.3",
+    "antd": "^5.2.2",
+    "axios": "^1.3.3",
+    "base64-arraybuffer": "^1.0.2",
+    "bootstrap-daterangepicker": "^3.1.0",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.10",
+    "emoji-picker-react": "3.6.5",
+    "firebase": "^9.19.1",
+    "formik": "^2.2.9",
+    "moment": "^2.29.4",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-bootstrap-daterangepicker": "^8.0.0",
+    "react-click-away-listener": "^2.2.3",
+    "react-country-region-selector": "^3.6.1",
+    "react-doc-viewer": "^0.1.5",
+    "react-dom": "^18.2.0",
+    "react-full-screen": "^1.1.1",
+    "react-html-email": "^3.0.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-moment": "^1.1.3",
+    "react-phone-input-2": "^2.15.1",
+    "react-phone-number-input": "^3.2.19",
+    "react-redux": "^8.0.5",
+    "react-responsive": "^9.0.2",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "5.0.1",
+    "react-select-country-list": "^2.2.3",
+    "react-toastify": "^9.1.1",
+    "redux-persist": "^6.0.0",
+    "styled-components": "^5.3.6",
+    "wavesurfer.js": "^7.7.10",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.11.0",
+    "openpgp": "^5.9.0",
+    "prettier": "^3.3.3"
+  }
+}

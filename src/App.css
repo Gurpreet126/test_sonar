@@ -1,0 +1,163 @@
+.error {
+  color: red;
+  padding: 10px 0px;
+}
+
+.modal-cheakbox .ant-checkbox-group-item {
+  display: block;
+  margin-right: 0;
+  display: flex;
+  color: grey;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.modal-cheakbox .ant-checkbox-wrapper {
+  margin-inline-start: 0px !important;
+}
+
+.btn-style {
+  height: 42px;
+  min-width: 87px;
+  padding: 10px 25px;
+  text-transform: capitalize;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.close {
+  background-color: #dcdcdc;
+  color: #8b8b8b;
+}
+
+.update {
+  background-color: #2879ff;
+  color: white;
+}
+video::-webkit-media-controls-status-display {
+  display: none !important;
+}
+
+.radio-label {
+  padding: 0px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #878787;
+}
+
+.ant-radio-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.select-style {
+  width: 100%;
+  padding: 10px;
+  background: #212121;
+  border: 1px solid #484748;
+  color: white;
+}
+
+.flex-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  margin: 10px 0;
+}
+
+.field-wrapper label {
+  margin-bottom: 10px;
+  color: white;
+  font-weight: 500;
+}
+
+.custome-select {
+  width: 100%;
+  padding: 10px;
+  background: #212121;
+  border: 1px solid #484748;
+  color: white;
+}
+
+@media screen and (max-width: 991px) {
+  .field-wrapper {
+    width: 100%;
+  }
+}
+
+.infinite-scroll-component__outerdiv {
+  height: 100%;
+}
+
+/*  used to change the icon color in white of fields type either date or time  */
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.ant-switch {
+  min-width: 50px;
+  background: #fdfdfd40;
+  height: 30px;
+  padding: 4px 2px;
+}
+
+.ant-switch .ant-switch-handle {
+  top: 5px;
+}
+
+/* used to change color of placeholder and "timer icon" for the antd timer selector  */
+.ant-picker .ant-picker-input > input {
+  color: white;
+}
+.ant-picker .ant-picker-input > input::placeholder {
+  color: white;
+}
+.ant-picker .ant-picker-suffix {
+  color: white;
+}
+
+/* used to change the color of cross button in antd modal */
+.ant-modal-close-icon svg {
+  fill: white;
+}
+
+/* used to set the css for sticky notes modal */
+
+.sticky-notes {
+  width: fit-content !important;
+  height: fit-content !important;
+}
+.sticky-notes .ant-modal-content {
+  padding: 0px !important;
+}
+.sticky-notes button.ant-modal-close {
+  top: 6px;
+  height: 20px;
+  width: 20px;
+}
+.sticky-notes .ant-modal-close-icon svg {
+  fill: grey;
+}
+
+.incompleted-popconfirm{
+  width:300px;
+
+}
+.incompleted-popconfirm-description{
+  color: white !important;
+
+}
+.incompleted-popconfirm-message-title-only {
+  color: white !important;
+
+}
