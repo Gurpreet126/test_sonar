@@ -57,7 +57,17 @@ export default function Navbar() {
               <img src={ibeorlogo} alt="logo" />
             </div>
           )}
-          <div className="menu-logo" onClick={onclick}>
+          <div
+            className="menu-logo"
+            role="button"
+            tabIndex={0}
+            onClick={onclick}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                onclick(e);
+              }
+            }}
+          >
             <img src={menu} alt="menu" />
           </div>
         </Navlogo>
