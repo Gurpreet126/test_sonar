@@ -86,6 +86,8 @@ export default function Navbar() {
               content={
                 <Popoverinfo>
                   <div
+                    role="button"
+                    tabIndex={0}
                     onClick={(e) => {
                       e.preventDefault();
                       Navigate("/dashboard/updateprofile");
