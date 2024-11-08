@@ -145,7 +145,7 @@ export default function SuperAdminAction() {
                 (el) => el?.countryName === obj?.countryName
               )
             ) {
-              return selectedRowsData.map((el) => {
+              return selectedRowsData?.forEach((el) => {
                 if (el.countryName === obj.countryName) {
                   setSelectedRowsData(obj);
                 }

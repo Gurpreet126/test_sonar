@@ -841,7 +841,7 @@ export default function FakeMessager() {
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
         });
-        arr?.filter((item) => {
+        arr?.forEach((item) => {
           if (item?.userType) {
             let userDetails = [
               {
@@ -855,7 +855,7 @@ export default function FakeMessager() {
             ];
 
             if (item?.unreadMessageCount) {
-              userDetails?.filter((ele) => {
+              userDetails?.forEach((ele) => {
                 if (ele?.userType) {
                   let id = ele.id;
                   count = count + item?.unreadMessageCount[id];
@@ -990,7 +990,7 @@ export default function FakeMessager() {
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
         });
-        arr?.filter((item) => {
+        arr?.forEach((item) => {
           if (item?.userType) {
             let userDetails = [
               {
@@ -1004,7 +1004,7 @@ export default function FakeMessager() {
             ];
 
             if (item?.unreadMessageCount) {
-              userDetails?.filter((ele) => {
+              userDetails?.forEach((ele) => {
                 if (ele?.userType) {
                   let id = ele.id;
                   count = count + item?.unreadMessageCount[id];
@@ -1098,7 +1098,7 @@ export default function FakeMessager() {
           arr?.push(doc?.data());
         });
 
-        arr?.filter((item) => {
+        arr?.forEach((item) => {
           if (item?.userType) {
             let userDetails = [
               {
@@ -1112,7 +1112,7 @@ export default function FakeMessager() {
             ];
 
             if (item?.unreadMessageCount) {
-              userDetails?.filter((ele) => {
+              userDetails?.forEach((ele) => {
                 if (ele?.userType) {
                   let id = ele.id;
                   count = count + item?.unreadMessageCount[id];
@@ -1123,7 +1123,7 @@ export default function FakeMessager() {
           }
         });
         if (arr?.length > 0) {
-          const filteredArray = arr.filter(
+          const filteredArray = arr?.filter(
             (item) => item?.isBlockByAdmin?.length == 0
           );
           if (scrollPosition.current <= 7000) {
@@ -1201,7 +1201,7 @@ export default function FakeMessager() {
           arr.push(doc?.data());
         });
 
-        arr?.filter((item) => {
+        arr?.forEach((item) => {
           if (item?.userType) {
             let userDetails = [
               {
@@ -1215,7 +1215,7 @@ export default function FakeMessager() {
             ];
 
             if (item?.unreadMessageCount) {
-              userDetails?.filter((ele) => {
+              userDetails?.forEach((ele) => {
                 if (ele?.userType) {
                   let id = ele?.id;
                   count = count + item?.unreadMessageCount[id];
@@ -1231,7 +1231,7 @@ export default function FakeMessager() {
           );
           let finalArray = [];
           if (filteredArray?.length > 0) {
-            filteredArray?.map((val) => {
+            filteredArray?.forEach((val) => {
               if (val?.lastMessage) {
                 finalArray = [];
               } else {
