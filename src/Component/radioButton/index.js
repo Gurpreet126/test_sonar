@@ -7,8 +7,8 @@ const RadioGroup = ({ onChange, options, name, value }) => {
     <Radio.Group onChange={onChange} value={value} name={name}>
       <Space direction="vertical">
         {options.length &&
-          options.map((option, index) => (
-            <Radio key={index} value={option.value}>
+          options.map((option) => (
+            <Radio key={option?.id} value={option.value}>
               <div className="radio-label">{option.label}</div>
             </Radio>
           ))}

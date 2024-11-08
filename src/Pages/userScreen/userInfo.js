@@ -134,7 +134,7 @@ const UserBasicInfo = (props) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <div className="modal-info">
-            <label className="subheading">Birthday</label>
+            <label className="subheading" htmlFor="dob">Birthday</label>
             <br />
             <input
               type="date"
@@ -149,7 +149,7 @@ const UserBasicInfo = (props) => {
             )}
           </div>
           <div className="modal-info">
-            <label className="subheading">Gender</label>
+            <label className="subheading" htmlFor="gender">Gender</label>
             <br />
             <select
               name="gender"
@@ -167,7 +167,7 @@ const UserBasicInfo = (props) => {
             )}
           </div>
           <div className="modal-info">
-            <label className="subheading">About me</label>
+            <label className="subheading" htmlFor="about_me">About me</label>
             <br />
             <textarea
               id="about_me"
@@ -181,7 +181,7 @@ const UserBasicInfo = (props) => {
           </div>
 
           <div className="modal-info">
-            <label className="subheading">language</label>
+            <label className="subheading" htmlFor="language">language</label>
             <br />
             <Select
               mode="multiple"
@@ -204,7 +204,7 @@ const UserBasicInfo = (props) => {
           </div>
 
           <div className="modal-info">
-            <label className="subheading">Current Work</label>
+            <label className="subheading" htmlFor="current_work">Current Work</label>
             <br />
             <input
               type="text"
@@ -217,7 +217,7 @@ const UserBasicInfo = (props) => {
             )}
           </div>
           <div className="modal-info">
-            <label className="subheading">School</label>
+            <label className="subheading" htmlFor="school">School</label>
             <br />
             <input
               type="text"
@@ -230,7 +230,7 @@ const UserBasicInfo = (props) => {
             )}
           </div>
           <div className="modal-info">
-            <label className="subheading">City</label>
+            <label className="subheading" htmlFor="city">City</label>
             <br />
             <input
               type="text"
@@ -243,7 +243,7 @@ const UserBasicInfo = (props) => {
             )}
           </div>
           <div className="modal-info">
-            <label className="subheading">State</label>
+            <label className="subheading" htmlFor="state">State</label>
             <br />
             <input
               type="text"
@@ -256,7 +256,7 @@ const UserBasicInfo = (props) => {
             )}
           </div>
           <div className="modal-info">
-            <label className="subheading">Country</label>
+            <label className="subheading" htmlFor="country">Country</label>
             <br />
             <input
               type="text"
@@ -271,7 +271,7 @@ const UserBasicInfo = (props) => {
           {/* Roots */}
 
           <div className="modal-info">
-            <label className="subheading">Roots</label>
+            <label className="subheading" htmlFor="roots_one">Roots</label>
             <hr />
           </div>
 
@@ -324,7 +324,7 @@ const UserBasicInfo = (props) => {
 
           <div className="flex-section">
             <div className="field-wrapper">
-              <label className="subheading">Lat</label>
+              <label className="subheading" htmlFor="latitude">Lat</label>
               <input
                 type="text"
                 name="latitude"
@@ -336,7 +336,7 @@ const UserBasicInfo = (props) => {
               )}
             </div>
             <div className="field-wrapper">
-              <label className="subheading">Long</label>
+              <label className="subheading" htmlFor="longitude">Long</label>
               <input
                 type="text"
                 name="longitude"

@@ -52,7 +52,7 @@ export default function Updateprofile() {
           >
             <Form>
               <div>
-                <label>Status</label>
+                <label htmlFor="status">Status</label>
                 <Field as="select" name="status">
                   <option value="0">Away</option>
                   <option value="1">Busy</option>
@@ -60,7 +60,7 @@ export default function Updateprofile() {
                 </Field>
               </div>
               <div>
-                <label>Profile</label>
+                <label htmlFor="myfile">Profile</label>
                 <input
                   type="file"
                   name="myfile"

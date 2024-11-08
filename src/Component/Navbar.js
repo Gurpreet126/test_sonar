@@ -75,13 +75,23 @@ export default function Navbar() {
               placement="bottomRight"
               content={
                 <Popoverinfo>
-                  <div onClick={() => Navigate("/dashboard/updateprofile")}>
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      Navigate("/dashboard/updateprofile");
+                    }}
+                  >
                     <img className="Online-Status" src={OnlineStatus} alt="" />
                     <p> Online</p>
                   </div>
 
                   <>
-                    <div onClick={() => Navigate("/dashboard/superadmin")}>
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        Navigate("/dashboard/superadmin");
+                      }}
+                    >
                       <img src={AccountSettings} alt="" />
                       <p>Account settings</p>
                     </div>

@@ -284,15 +284,15 @@ export default function FakeMessager() {
     const currentTimeStamp = Date.now();
     const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
 
-    var difference = currentTimeStamp - msgTimeStamp;
+    let difference = currentTimeStamp - msgTimeStamp;
 
-    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
     difference -= daysDifference * 1000 * 60 * 60 * 24;
 
-    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
     difference -= hoursDifference * 1000 * 60 * 60;
 
-    var minutesDifference = Math.floor(difference / 1000 / 60);
+    let minutesDifference = Math.floor(difference / 1000 / 60);
     difference -= minutesDifference * 1000 * 60;
 
     const lastChatDate = moment
@@ -478,7 +478,7 @@ export default function FakeMessager() {
       );
 
       onSnapshot(q, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
         querySnapshot.forEach((doc) => {
           arr.push({ ...doc.data(), messageId: doc.id });
         });
@@ -671,13 +671,13 @@ export default function FakeMessager() {
       setsavelastdata(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
 
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
         });
 
-        arr?.filter((item) => {
+        arr?.forEach((item) => {
           if (item?.userType) {
             let userDetails = [
               {
@@ -691,7 +691,7 @@ export default function FakeMessager() {
             ];
 
             if (item?.unreadMessageCount) {
-              userDetails?.filter((ele) => {
+              userDetails?.forEach((ele) => {
                 if (ele?.userType) {
                   let id = ele.id;
                   count = count + item?.unreadMessageCount[id];
@@ -734,12 +734,12 @@ export default function FakeMessager() {
       );
 
       onSnapshot(collectionRef, async (querySnapshot) => {
-        var arr = [];
+        const arr = [];
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
         });
 
-        arr?.filter((item) => {
+        arr?.forEach((item) => {
           if (item?.userType) {
             let userDetails = [
               {
@@ -753,7 +753,7 @@ export default function FakeMessager() {
             ];
 
             if (item?.unreadMessageCount) {
-              userDetails?.filter((ele) => {
+              userDetails?.forEach((ele) => {
                 if (ele?.userType) {
                   let id = ele.id;
                   count = count + item?.unreadMessageCount[id];
@@ -836,7 +836,7 @@ export default function FakeMessager() {
       setFilterChatLastData(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
 
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
@@ -931,7 +931,7 @@ export default function FakeMessager() {
       setUnreadFilterChatLastData(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
           setAllConversationLoading(false);
@@ -985,7 +985,7 @@ export default function FakeMessager() {
       setFilterChatLastData(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
 
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
@@ -1092,7 +1092,7 @@ export default function FakeMessager() {
       setPrivateChatLastVisible(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
 
         querySnapshot?.forEach((doc) => {
           arr?.push(doc?.data());
@@ -1195,7 +1195,7 @@ export default function FakeMessager() {
       setWomensChatLastVisible(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
 
         querySnapshot?.forEach((doc) => {
           arr.push(doc?.data());

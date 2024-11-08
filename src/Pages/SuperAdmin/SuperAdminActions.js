@@ -190,11 +190,7 @@ export default function SuperAdminAction() {
             <Button key="submit" type="primary" onClick={handleCancel}>
               Cancel
             </Button>
-            <Button
-              type="primary"
-              danger
-              onClick={() => handleToggle(isModalOpen)}
-            >
+            <Button type="primary" danger onClick={() => handleToggle()}>
               Confirm
             </Button>
           </>,

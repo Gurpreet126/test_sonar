@@ -64,7 +64,9 @@ const AppearanceAndHabit = (props) => {
           <form onSubmit={handleSubmit} className="vertical-checkbox">
             <div className="flex-section">
               <div className="field-wrapper">
-                <label className="subheading">Heights</label>
+                <label className="subheading" htmlFor="height">
+                  Heights
+                </label>
                 <select
                   name="height"
                   value={values.height}
@@ -85,7 +87,7 @@ const AppearanceAndHabit = (props) => {
                 </select>
               </div>
               <div className="field-wrapper">
-                <label className="subheading">BodyType</label>
+                <label className="subheading" htmlFor="bodyType">BodyType</label>
                 <RadioBoxGroup
                   options={bodyType}
                   name="bodyType"
@@ -97,7 +99,7 @@ const AppearanceAndHabit = (props) => {
 
             <div className="flex-section">
               <div className="field-wrapper">
-                <label className="subheading">Exercise</label>
+                <label className="subheading" htmlFor="exercise">Exercise</label>
                 <RadioBoxGroup
                   options={excercise}
                   name="exercise"
@@ -106,7 +108,7 @@ const AppearanceAndHabit = (props) => {
                 />
               </div>
               <div className="field-wrapper">
-                <label className="subheading">Drink</label>
+                <label className="subheading" htmlFor="drink">Drink</label>
                 <RadioBoxGroup
                   options={drink}
                   name="drink"
@@ -117,7 +119,7 @@ const AppearanceAndHabit = (props) => {
             </div>
             <div className="flex-section">
               <div className="field-wrapper">
-                <label className="subheading">Smoker</label>
+                <label className="subheading" htmlFor="smoker">Smoker</label>
                 <RadioBoxGroup
                   options={drink}
                   name="smoker"
@@ -126,7 +128,7 @@ const AppearanceAndHabit = (props) => {
                 />
               </div>
               <div className="field-wrapper">
-                <label className="subheading">Marijuana</label>
+                <label className="subheading" htmlFor="marijuana">Marijuana</label>
                 <RadioBoxGroup
                   options={drink}
                   name="marijuana"

@@ -108,7 +108,7 @@ export default function Addadmin() {
                   <div className="form-details">
                     <div className="form-input">
                       <div>
-                        <label>First Name</label>
+                        <label htmlFor="firstName">First Name</label>
                         <br />
                         <Field id="firstName" name="firstName" />
                         <div style={{ color: "red" }}>
@@ -116,7 +116,7 @@ export default function Addadmin() {
                         </div>
                       </div>
                       <div>
-                        <label>Last Name</label>
+                        <label htmlFor="lastName">Last Name</label>
                         <br />
                         <Field id="lastName" name="lastName" />
                         <div style={{ color: "red" }}>
@@ -126,7 +126,7 @@ export default function Addadmin() {
                     </div>
                     <div className="form-input">
                       <div>
-                        <label>Email</label>
+                        <label htmlFor="email">Email</label>
                         <br />
                         <Field id="email" name="email" />
                         <div style={{ color: "red" }}>
@@ -134,7 +134,7 @@ export default function Addadmin() {
                         </div>
                       </div>
                       <div>
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <br />
                         <Field id="password" name="password" type="password" />
                         <div style={{ color: "red" }}>
@@ -151,22 +151,22 @@ export default function Addadmin() {
                       <div className="rolesWrapper">
                         <div>
                           <Field type="radio" name="roles" value="1" />{" "}
-                          <label>Employee</label>
+                          <label htmlFor="roles">Employee</label>
                         </div>
                       </div>
                     ) : (
                       <div className="rolesWrapper">
                         <div>
                           <Field type="radio" name="roles" value="1" />{" "}
-                          <label>Employee</label>
+                          <label htmlFor="roles">Employee</label>
                         </div>
                         <div>
                           <Field type="radio" name="roles" value="2" />{" "}
-                          <label>Manager</label>
+                          <label htmlFor="roles">Manager</label>
                         </div>
                         <div>
                           <Field type="radio" name="roles" value="3" />{" "}
-                          <label>Super Admin </label>
+                          <label htmlFor="roles">Super Admin </label>
                         </div>
                       </div>
                     )}

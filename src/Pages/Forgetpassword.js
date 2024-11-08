@@ -54,7 +54,7 @@ export default function Forgetpassword() {
                   <h4>Enter your Email to reset Your password</h4>
                   <div className="email-section">
                     <div className="email-label">
-                      <label>Email:</label>
+                      <label htmlFor="email">Email:</label>
                     </div>
                     <div>
                       <Field name="email" type="mail" className="form-input" />

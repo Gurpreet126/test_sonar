@@ -39,9 +39,9 @@
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",
     "react-router-dom": "^6.8.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^4.0.3",
     "react-select-country-list": "^2.2.3",
-    "react-toastify": "^9.1.1",
+    "react-toastify": "^8.0.3",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
     "wavesurfer.js": "^7.7.10",
@@ -49,7 +49,7 @@
     "yup": "^1.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -73,11 +73,6 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.2",
     "globals": "^15.11.0",
     "openpgp": "^5.9.0",
     "prettier": "^3.3.3"

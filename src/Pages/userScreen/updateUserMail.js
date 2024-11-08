@@ -69,7 +69,9 @@ const UpdateUserMail = (props) => {
           ),
         ]}
       >
-        <label style={{ color: "white" }}>Email</label>
+        <label style={{ color: "white" }} htmlFor="email">
+          Email
+        </label>
         <br />
         <input
           name="email"

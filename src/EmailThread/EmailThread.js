@@ -79,7 +79,7 @@ export const EmailThread = () => {
     let finalData = data[0]?.content.data;
     const base64Code = encode(finalData);
 
-    var objbuilder = "";
+    const objbuilder = "";
     const view = (data, type) => {
       objbuilder = `<iframe width="100%" height="100%" src="data:${type};base64,${data}" type="text/html" class="internal">
           <embed src="text/html;base64,${data}" type="${type}" />
@@ -206,7 +206,14 @@ export const EmailThread = () => {
                       alt=""
                       src={deleteIcons}
                       className="deleteIcon"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => setOpenMessage(false)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          setOpenMessage(false);
+                        }
+                      }}
                     />
                   </div>
                 </TextAreaWrapper>

@@ -69,7 +69,7 @@ const UpdateUserName = (props) => {
           ),
         ]}
       >
-        <label style={{ color: "white" }}>Name</label>
+        <label style={{ color: "white" }} htmlFor="firstName">Name</label>
         <br />
         <input
           name="firstName"

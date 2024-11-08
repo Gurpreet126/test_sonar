@@ -46,11 +46,11 @@ export default function EditEmail() {
           >
             <Form>
               <div>
-                <label>Password*</label>
+                <label htmlFor="password">Password*</label>
                 <Field type="password" name="password" placeholder="Password" />
               </div>
               <div>
-                <label>Email Address*</label>
+                <label htmlFor="email">Email Address*</label>
                 <Field name="email" placeholder="Email Address" />
               </div>
               <section style={{ color: "red", textAlign: "center" }}>

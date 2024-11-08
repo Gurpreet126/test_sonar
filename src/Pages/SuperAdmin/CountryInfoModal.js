@@ -110,7 +110,7 @@ const CountryInfoModal = ({
                 onSubmit={handleEditCountry}
               >
                 <Form>
-                  <label className="label">Country Name</label>
+                  <label className="label" htmlFor="countryName">Country Name</label>
                   <Field type="text" name="countryName" className="input" />
                   <div style={{ color: "red" }}>
                     <ErrorMessage name="countryName" />

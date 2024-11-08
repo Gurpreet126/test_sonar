@@ -60,7 +60,7 @@ const AddCountryModal = ({
             onSubmit={onSubmitAddCountry}
           >
             <Form>
-              <label>Country Name</label>
+              <label htmlFor="countryName">Country Name</label>
               <Field type="text" name="countryName" />
               <div style={{ color: "red" }}>
                 <ErrorMessage name="countryName" />

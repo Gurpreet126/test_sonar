@@ -59,7 +59,7 @@ export const SSidebarButton = styled.button`
 export const SSidebarButton2 = styled.div`
   position: absolute;
   top: 15px;
-  right: ${({ isOpen }) => (isOpen ? "-40px" : "-40px")};
+  right: -40px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -80,8 +80,10 @@ export default function ChatLayout() {
   const [currentUserInfo, setCurrentUserInfo] = useState([]);
   const dispatch = useDispatch();
   const [showMemberConversation, setShowMemberConversation] = useState(false);
-
   const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+
+  const shouldDisplayChatSection = (isMobile, showMemberConversation) =>
+    !isMobile || (isMobile && !showMemberConversation);
 
   // used to get current date used in conversation section
   let today_date = moment().format("dddd,DD MMMM YYYY");
@@ -113,7 +115,7 @@ export default function ChatLayout() {
       );
 
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
         });
@@ -152,7 +154,7 @@ export default function ChatLayout() {
         orderBy("messageTime", "asc")
       );
       onSnapshot(q, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
         querySnapshot.forEach((doc) => {
           arr.push({ ...doc.data(), messageId: doc.id });
         });
@@ -224,15 +226,15 @@ export default function ChatLayout() {
     });
     const currentTimeStamp = Date.now();
     const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
-    var difference = currentTimeStamp - msgTimeStamp;
+    let difference = currentTimeStamp - msgTimeStamp;
 
-    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
     difference -= daysDifference * 1000 * 60 * 60 * 24;
 
-    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
     difference -= hoursDifference * 1000 * 60 * 60;
 
-    var minutesDifference = Math.floor(difference / 1000 / 60);
+    let minutesDifference = Math.floor(difference / 1000 / 60);
     difference -= minutesDifference * 1000 * 60;
 
     const lastChatDate = moment
@@ -467,7 +469,7 @@ export default function ChatLayout() {
         )
       );
       onSnapshot(collectionRef, (querySnapshot) => {
-        var arr = [];
+        const arr = [];
         querySnapshot.forEach((doc) => {
           arr.push(doc.data());
         });
@@ -501,7 +503,7 @@ export default function ChatLayout() {
       )}
 
       <ChatSectionLayout>
-        {(!isMobile || (isMobile && !showMemberConversation)) && (
+        {shouldDisplayChatSection(isMobile, showMemberConversation) && (
           <AllConversations>
             {allConversationLoading ? (
               <LoaderWrapper

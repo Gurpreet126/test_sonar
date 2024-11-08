@@ -202,8 +202,8 @@ export default function Messanger() {
     } else return {};
   };
 
-  const manupilateData = async (payload) => {
-    let response = await parseData(payload);
+  const manupilateData = (payload) => {
+    let response = parseData(payload);
     settableinfo(response);
   };
 

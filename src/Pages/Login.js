@@ -393,7 +393,7 @@ export default function Login() {
                 <Form>
                   <div className="login-wrapper">
                     <div className="email-section">
-                      <label>Old Password:</label>
+                      <label htmlFor="oldPassword">Old Password:</label>
                       <div style={{ position: "relative" }}>
                         <Field
                           name="oldPassword"
@@ -416,7 +416,7 @@ export default function Login() {
                       </div>
                     </div>
                     <div className="email-section">
-                      <label>New Password:</label>
+                      <label htmlFor="newPassword">New Password:</label>
                       <div style={{ position: "relative" }}>
                         <Field
                           name="newPassword"
@@ -439,7 +439,7 @@ export default function Login() {
                       </div>
                     </div>
                     <div className="email-section">
-                      <label>Confirm Password:</label>
+                      <label htmlFor="confirmPassword">Confirm Password:</label>
                       <div style={{ position: "relative" }}>
                         <Field
                           name="confirmPassword"
@@ -492,14 +492,14 @@ export default function Login() {
                 <Form>
                   <div className="login-wrapper">
                     <div className="email-section">
-                      <label>Email:</label>
+                      <label htmlFor="email">Email:</label>
                       <Field name="email" type="text" className="form-input" />
                       {errors.email && touched.email ? (
                         <div className="error-box">{errors.email}</div>
                       ) : null}
                     </div>
                     <div className="email-section">
-                      <label>Password:</label>
+                      <label htmlFor="password">Password:</label>
                       <div style={{ position: "relative" }}>
                         <Field
                           name="password"

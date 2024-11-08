@@ -124,7 +124,7 @@ export default function Editnotification() {
             >
               <Form>
                 <div className="form-group">
-                  <label>Title:</label>
+                  <label htmlFor="Title">Title:</label>
                   <br />
                   <Field id="Tilte" name="Title" />
                   <div style={{ color: "red" }}>
@@ -132,7 +132,7 @@ export default function Editnotification() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Message:</label>
+                  <label htmlFor="Textarea">Message:</label>
                   <br />
                   <Field
                     id="Textarea"
@@ -144,7 +144,7 @@ export default function Editnotification() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Date:</label>
+                  <label htmlFor="date">Date:</label>
                   <br />
                   <Field id="date" name="date" type="date" />
 
@@ -153,7 +153,7 @@ export default function Editnotification() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Time:</label>
+                  <label htmlFor="time">Time:</label>
                   <br />
                   <Field id="time" name="time" type="Time" />
                   <div style={{ color: "red" }}>

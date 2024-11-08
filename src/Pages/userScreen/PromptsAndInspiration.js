@@ -73,7 +73,7 @@ export default function PromptsAndInspiration(props) {
       {({ errors, touched }) => (
         <Form>
           <div className="modal-info">
-            <label className="subheading">Prompts</label>
+            <label className="subheading" htmlFor="Prompts">Prompts</label>
             <br />
             <Field as="select" name="Prompts" id="Prompts">
               <option hidden selected>
@@ -129,7 +129,7 @@ export default function PromptsAndInspiration(props) {
             </Field>
           </div>
           <div>
-            <label>Answer</label>
+            <label htmlFor="answer">Answer</label>
             <Field as="textarea" name="answer" />
 
             <div style={{ color: "red" }}>
@@ -138,7 +138,7 @@ export default function PromptsAndInspiration(props) {
           </div>
           {inspiration ? (
             <div className="modal-info">
-              <label className="subheading">Inspiration </label>
+              <label className="subheading" htmlFor="inspiration">Inspiration </label>
               <PlusCircleOutlined
                 className="add-inspiration"
                 onClick={() => setinspiration(false)}
@@ -234,7 +234,7 @@ export default function PromptsAndInspiration(props) {
             </div>
           ) : (
             <div className="modal-info">
-              <label className="subheading">My own inspiration </label>
+              <label className="subheading" htmlFor="Owninspiration">My own inspiration </label>
               <LeftOutlined
                 className="add-inspiration"
                 onClick={() => setinspiration(true)}

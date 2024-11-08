@@ -74,7 +74,7 @@ export default function Addauth() {
                   <div className="form-details">
                     <div className="form-input">
                       <div>
-                        <label>First Name</label>
+                        <label htmlFor="firstname">First Name</label>
                         <br />
                         <Field id="firstname" name="firstname" />
                         <div className="validation-box">
@@ -86,7 +86,7 @@ export default function Addauth() {
                     </div>
                     <div className="form-input">
                       <div>
-                        <label>Last Name</label>
+                        <label htmlFor="lastname">Last Name</label>
                         <br />
                         <Field id="lastname" name="lastname" />
                         <div className="validation-box">
@@ -98,7 +98,7 @@ export default function Addauth() {
                     </div>
                     <div className="form-input">
                       <div>
-                        <label>Email</label>
+                        <label htmlFor="email">Email</label>
                         <br />
                         <Field id="email" type="email" name="email" />
                         <div className="validation-box">
@@ -110,7 +110,7 @@ export default function Addauth() {
                     </div>
                     <div className="form-input">
                       <div>
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <br />
                         <Field id="password" type="password" name="password" />
                         <div className="validation-box">

@@ -8,7 +8,9 @@ export const IsEthncityEnable = ({ values, handleChange, field }) => {
     <div>
       {isIbeor_v2?.includes("official") && (
         <div className="field-wrapper">
-          <label className="subheading">Ethnicities</label>
+          <label className="subheading" htmlFor="ethnicity">
+            Ethnicities
+          </label>
           <div>
             <CheckboxGroup
               style={{ flexDirection: "column" }}

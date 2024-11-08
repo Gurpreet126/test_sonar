@@ -49,7 +49,7 @@ export default function Realusers() {
   const [pagesize, setpagesize] = useState(25);
   const [searchtext, setsearchtext] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [Date, setDate] = useState();
+  const [createdAt, setCreatedAt] = useState();
   const [genderValue, SetgenderValue] = useState();
   const [sortuser, setsortuser] = useState(false);
   const [sortcountry, setsortcountry] = useState(false);
@@ -127,7 +127,7 @@ export default function Realusers() {
   };
 
   const dateSelection = (date, dateString) => {
-    setDate(dateString);
+    setCreatedAt(dateString);
   };
 
   const exporttable = async () => {
@@ -165,7 +165,7 @@ export default function Realusers() {
     params.append("sortOrder", sortBasis.sortOrder);
     params.append("faceVerificationStatus", faceVerificationStatus);
     params.append("online_status", online);
-    params.append("createdAt", Date);
+    params.append("createdAt", createdAt);
     country !== undefined && params.append("country", country);
 
     if (genderValue === 1) {

@@ -103,7 +103,7 @@ export default function Addnotification() {
             >
               <Form>
                 <div className="form-group">
-                  <label>Title:</label>
+                  <label htmlFor="title">Title:</label>
                   <br />
                   <Field id="Tilte" name="Title" />
                   <div style={{ color: "red" }}>
@@ -111,7 +111,7 @@ export default function Addnotification() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Message:</label>
+                  <label htmlFor="Textarea">Message:</label>
                   <br />
                   <Field
                     id="Textarea"
@@ -123,7 +123,7 @@ export default function Addnotification() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Date:</label>
+                  <label htmlFor="date">Date:</label>
                   <br />
                   <Field id="date" name="date" type="date" />
                   <div style={{ color: "red" }}>
@@ -131,7 +131,7 @@ export default function Addnotification() {
                   </div>
                 </div>
                 <div className="">
-                  <label>Time:</label>
+                  <label htmlFor="time">Time:</label>
                   <br />
                   <Field
                     className="time-picker"

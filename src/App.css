@@ -4,7 +4,6 @@
 }
 
 .modal-cheakbox .ant-checkbox-group-item {
-  display: block;
   margin-right: 0;
   display: flex;
   color: grey;
@@ -149,15 +148,12 @@ video::-webkit-media-controls-status-display {
   fill: grey;
 }
 
-.incompleted-popconfirm{
-  width:300px;
-
+.incompleted-popconfirm {
+  width: 300px;
 }
-.incompleted-popconfirm-description{
+.incompleted-popconfirm-description {
   color: white !important;
-
 }
 .incompleted-popconfirm-message-title-only {
   color: white !important;
-
 }

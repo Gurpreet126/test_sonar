@@ -86,7 +86,7 @@ export default function EditContactName() {
           >
             <Form>
               <div>
-                <label>Contact Name*</label>
+                <label htmlFor="name">Contact Name*</label>
                 <Field name="name" placeholder="Enter Name" />
               </div>
               <section style={{ color: "red", textAlign: "center" }}>

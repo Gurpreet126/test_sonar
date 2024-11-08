@@ -80,7 +80,7 @@ const PersonalInfo = (props) => {
           <form onSubmit={handleSubmit} className="vertical-checkbox">
             <div className="modal-cheakbox">
               <div className="left-box">
-                <label className="subheading">Looking For</label>
+                <label className="subheading" htmlFor="lookingFor">Looking For</label>
 
                 <Field name="lookingFor">
                   {({ field }) => (
@@ -100,7 +100,7 @@ const PersonalInfo = (props) => {
                 </Field>
               </div>
               <div className="right-box">
-                <label className="subheading">Pets</label>
+                <label className="subheading" htmlFor="pets">Pets</label>
                 <Field name="pets">
                   {({ field }) => (
                     <CheckboxGroup
@@ -119,7 +119,7 @@ const PersonalInfo = (props) => {
                 </Field>
               </div>
               <div className="right-box">
-                <label className="subheading">Marriage History</label>
+                <label className="subheading" htmlFor="marriage">Marriage History</label>
                 <RadioBoxGroup
                   options={marriage}
                   name="marriage"
@@ -130,7 +130,7 @@ const PersonalInfo = (props) => {
             </div>
             <div className="modal-cheakbox">
               <div className="left-box">
-                <label className="subheading">Interests</label>
+                <label className="subheading" htmlFor="interest">Interests</label>
                 <Field name="interest">
                   {({ field }) => (
                     <CheckboxGroup
@@ -151,7 +151,7 @@ const PersonalInfo = (props) => {
             </div>
             <div className="modal-cheakbox">
               <div className="right-box">
-                <label className="subheading">Children</label>
+                <label className="subheading" htmlFor="childrens">Children</label>
                 <RadioBoxGroup
                   options={children}
                   name="childrens"
@@ -160,7 +160,7 @@ const PersonalInfo = (props) => {
                 />
               </div>
               <div className="left-box">
-                <label className="subheading">Education</label>
+                <label className="subheading" htmlFor="Education">Education</label>
                 <RadioBoxGroup
                   options={education}
                   name="Education"
@@ -172,7 +172,7 @@ const PersonalInfo = (props) => {
 
             <div className="modal-cheakbox">
               <div className="right-box">
-                <label className="subheading">Religion</label>
+                <label className="subheading" htmlFor="religion">Religion</label>
                 <RadioBoxGroup
                   options={religion}
                   name="religion"
@@ -181,7 +181,7 @@ const PersonalInfo = (props) => {
                 />
               </div>
               <div className="left-box">
-                <label className="subheading">Astrology sign</label>
+                <label className="subheading" htmlFor="astrologicalSign">Astrology sign</label>
                 <RadioBoxGroup
                   options={astrologySign}
                   name="astrologicalSign"

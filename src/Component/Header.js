@@ -16,17 +16,21 @@ export default function Header({ type }) {
 
   return (
     <Loginheader>
-      <img
-        className="loginlogo"
-        src={ibeorlogo}
-        alt=""
-        style={{
-          height: "63px",
-          marginTop: "10px",
-          cursor: "pointer",
-        }}
+      <button
         onClick={handleClick}
-      />
+        style={{ border: "none", background: "none", padding: 0 }}
+      >
+        <img
+          className="loginlogo"
+          src={ibeorlogo}
+          alt=""
+          style={{
+            height: "63px",
+            marginTop: "10px",
+            cursor: "pointer",
+          }}
+        />
+      </button>
     </Loginheader>
   );
 }

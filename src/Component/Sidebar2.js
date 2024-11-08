@@ -33,6 +33,7 @@ export default function Sidebar2() {
 
   const { pathname } = useLocation();
   //Updated sidenav
+  const shouldDisplayLabel = (over, count) => over || count;
 
   return (
     <>
@@ -53,7 +54,9 @@ export default function Sidebar2() {
                 <img src={mountain} alt="" />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Dashboard</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Dashboard</SLinkLabel>
+              )}
             </SLink>
           </SLinkContainer>
 
@@ -66,7 +69,9 @@ export default function Sidebar2() {
                 <img src={group} alt="" />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Users</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Users</SLinkLabel>
+              )}
             </div>
           </SLinkContainer>
           {subnav && (
@@ -77,7 +82,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("Pre-Reg"))}
               >
                 <SLink to="/dashboard/Pre-Reg">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Pre-Reg</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -88,7 +93,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("shadow-ban"))}
               >
                 <SLink to="/dashboard/shadow-ban">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Shadow ban</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -100,7 +105,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("hide-users"))}
               >
                 <SLink to="/dashboard/hide-users">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Hide Users</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -112,7 +117,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("realuser"))}
               >
                 <SLink to="/dashboard/realuser">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Real users</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -124,7 +129,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("fakeuser"))}
               >
                 <SLink to="/dashboard/fakeuser">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Fake users</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -135,7 +140,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("reporteduser"))}
               >
                 <SLink to="/dashboard/reporteduser">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Reported Users</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -146,7 +151,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("suspendeduser"))}
               >
                 <SLink to="/dashboard/suspendeduser">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Suspended users</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -157,7 +162,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("deleteuser"))}
               >
                 <SLink to="/dashboard/deleteuser">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel> Delete users</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -168,7 +173,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("incomplete"))}
               >
                 <SLink to="/dashboard/incomplete">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel> Incomplete Profile</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -181,17 +186,14 @@ export default function Sidebar2() {
               color={getThemeColor}
               onClick={() => dispatch(ActiveTab("admin"))}
             >
-              <SLink
-                to="/dashboard/admin"
-                style={
-                  !count ? { width: "fit-content" } : { width: "fit-content" }
-                }
-              >
+              <SLink to="/dashboard/admin" style={{ width: "fit-content" }}>
                 <SLogo>
                   <img src={invite} alt="" />
                 </SLogo>
 
-                {(over || count) && <SLinkLabel>Admin</SLinkLabel>}
+                {shouldDisplayLabel(over, count) && (
+                  <SLinkLabel>Admin</SLinkLabel>
+                )}
               </SLink>
             </SLinkContainer>
           )}
@@ -206,7 +208,9 @@ export default function Sidebar2() {
                 <img src={bell} alt="" />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Manage Notifications</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Manage Notifications</SLinkLabel>
+              )}
               {}
             </SLink>
           </SLinkContainer>
@@ -216,17 +220,14 @@ export default function Sidebar2() {
             color={getThemeColor}
             onClick={() => dispatch(ActiveTab("status"))}
           >
-            <SLink
-              to="/dashboard/status"
-              style={
-                !count ? { width: "fit-content" } : { width: "fit-content" }
-              }
-            >
+            <SLink to="/dashboard/status" style={{ width: "fit-content" }}>
               <SLogo>
                 <img src={message} alt="" />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Daily online Status</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Daily online Status</SLinkLabel>
+              )}
             </SLink>
           </SLinkContainer>
 
@@ -237,17 +238,14 @@ export default function Sidebar2() {
             }}
             color={getThemeColor}
           >
-            <SLink
-              to="/dashboard/messanger"
-              style={
-                !count ? { width: "fit-content" } : { width: "fit-content" }
-              }
-            >
+            <SLink to="/dashboard/messanger" style={{ width: "fit-content" }}>
               <SLogo>
                 <img src={messanger} alt="" />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Message Center</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Message Center</SLinkLabel>
+              )}
             </SLink>
           </SLinkContainer>
           {expenedMessageCenter && (
@@ -258,7 +256,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("messanger"))}
               >
                 <SLink to="/dashboard/messanger">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Matched User</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -270,7 +268,7 @@ export default function Sidebar2() {
                 onClick={() => dispatch(ActiveTab("messangerForFake"))}
               >
                 <SLink to="/dashboard/messangerForFake">
-                  {(over || count) && (
+                  {shouldDisplayLabel(over, count) && (
                     <SLinkdropdownlabel>Messenger</SLinkdropdownlabel>
                   )}
                 </SLink>
@@ -283,17 +281,14 @@ export default function Sidebar2() {
             color={getThemeColor}
             onClick={() => dispatch(ActiveTab("email"))}
           >
-            <SLink
-              to="/dashboard/email"
-              style={
-                !count ? { width: "fit-content" } : { width: "fit-content" }
-              }
-            >
+            <SLink to="/dashboard/email" style={{ width: "fit-content" }}>
               <SLogo>
                 <img src={Inbox} alt="" />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Inbox</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Inbox</SLinkLabel>
+              )}
             </SLink>
           </SLinkContainer>
 
@@ -304,9 +299,7 @@ export default function Sidebar2() {
           >
             <SLink
               to="/dashboard/supportmember"
-              style={
-                !count ? { width: "fit-content" } : { width: "fit-content" }
-              }
+              style={{ width: "fit-content" }}
             >
               <SLogo>
                 <IdcardOutlined
@@ -317,7 +310,9 @@ export default function Sidebar2() {
                 />
               </SLogo>
 
-              {(over || count) && <SLinkLabel>Staff Member</SLinkLabel>}
+              {shouldDisplayLabel(over, count) && (
+                <SLinkLabel>Staff Member</SLinkLabel>
+              )}
             </SLink>
           </SLinkContainer>
         </div>

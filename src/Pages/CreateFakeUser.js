@@ -117,7 +117,7 @@ export default function CreateFakeUser() {
                   <div className="form-details">
                     <div className="form-input">
                       <div>
-                        <label>First Name</label>
+                        <label htmlFor="firstName">First Name</label>
                         <br />
                         <Field id="firstname" name="firstname" />
                         <Validationbox>
@@ -127,7 +127,7 @@ export default function CreateFakeUser() {
                         </Validationbox>
                       </div>
                       <div>
-                        <label>Email</label>
+                        <label htmlFor="email">Email</label>
                         <br />
                         <Field id="email" name="email" />
                         <Validationbox>
@@ -156,7 +156,7 @@ export default function CreateFakeUser() {
                         </Validationbox>
                       </div>
                       <div>
-                        <label>Date of Birth</label>
+                        <label htmlFor="date">Date of Birth</label>
                         <br />
                         <Field name="date" type="date" />
                         <Validationbox>
@@ -168,7 +168,7 @@ export default function CreateFakeUser() {
                     </div>
                     <div className="form-input">
                       <div>
-                        <label>Lat</label>
+                        <label htmlFor="lat">Lat</label>
                         <br />
                         <Field id="lat" type="number" name="lat" />
                         <Validationbox>
@@ -178,7 +178,7 @@ export default function CreateFakeUser() {
                         </Validationbox>
                       </div>
                       <div>
-                        <label>Long</label>
+                        <label htmlFor="long">Long</label>
                         <br />
                         <Field id="long" name="long" type="number" />
                         <Validationbox>
@@ -189,7 +189,7 @@ export default function CreateFakeUser() {
                       </div>
                     </div>
                     <div className="phone-input">
-                      <label>Phone</label>
+                      <label htmlFor="contactNumber">Phone</label>
                       <br />
                       <PhoneInput
                         name="contactNumber"

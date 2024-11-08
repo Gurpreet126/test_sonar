@@ -71,7 +71,7 @@ export default function ChangePassword() {
           >
             <Form>
               <div>
-                <label>Old Password*</label>
+                <label htmlFor="oldpassword">Old Password*</label>
                 <Field name="oldpassword" placeholder="Enter Password" />
               </div>
               <section style={{ color: "red", textAlign: "center" }}>
@@ -79,14 +79,14 @@ export default function ChangePassword() {
               </section>
 
               <div>
-                <label>New Password*</label>
+                <label htmlFor="newpassword">New Password*</label>
                 <Field name="newpassword" placeholder="Enter New Password" />
               </div>
               <section style={{ color: "red", textAlign: "center" }}>
                 <ErrorMessage name="newpassword" />
               </section>
               <div>
-                <label>Confirm New Password*</label>
+                <label htmlFor="confirmpassword">Confirm New Password*</label>
                 <Field
                   name="confirmpassword"
                   placeholder="Confirm New Password"

@@ -246,7 +246,7 @@ export default function Admin() {
                   <Button key="submit" type="primary" onClick={handleCancel}>
                     Cancel
                   </Button>
-                  <Button type="primary" danger onClick={() => handleOk(data)}>
+                  <Button type="primary" danger onClick={() => handleOk()}>
                     Yes, delete it!
                   </Button>
                 </>
