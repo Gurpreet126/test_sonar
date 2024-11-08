@@ -47,7 +47,7 @@ const HideUsersModal = ({
       <ShadowBanModalWrapper>
         <div className="content">
           <h3>
-            {personlDetail?.isHideByAdmin == true
+            {personlDetail?.isHideByAdmin
               ? "Are you sure you want to unhide this profile"
               : "Are you sure you want to hide this profile"}
           </h3>

@@ -103,13 +103,30 @@ const cardarray = [
   },
 ];
 
+const TableHeader = ({ fullScreen, setFullScreen, handle }) => (
+  <Tableheader>
+    <h3>Recent Users</h3>
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => setFullScreen((value) => !value)}
+    >
+      {fullScreen ? (
+        <FullscreenOutlined onClick={handle.enter} />
+      ) : (
+        <FullscreenExitOutlined onClick={handle.exit} />
+      )}
+    </div>
+  </Tableheader>
+);
+
 export default function Dashbordinfo() {
   const Navigate = useNavigate();
   const handle = useFullScreenHandle();
-  const [fullscreen, setfullscreen] = useState(true);
+  const [fullScreen, setFullScreen] = useState(true);
   const [recentUser, setRecentUser] = useState([]);
   const [cardList, setCardList] = useState(cardarray);
-  const [showTableLoading, setTableLoading] = useState(false);
+  const [showTableLoading, setShowTableLoading] = useState(false);
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
@@ -150,7 +167,7 @@ export default function Dashbordinfo() {
   ];
 
   const getRecentUser = async () => {
-    setTableLoading(true);
+    setShowTableLoading(true);
     const res = await getRecentUserList(1, 20);
     if (res?.status === 200) {
       await setRecentUser(
@@ -170,9 +187,9 @@ export default function Dashbordinfo() {
             : "---";
       }
       setCardList(cardarray);
-      setTableLoading(false);
+      setShowTableLoading(false);
     } else {
-      setTableLoading(false);
+      setShowTableLoading(false);
       toast.error(
         res.response.data.message ||
           res.error ||
@@ -268,18 +285,11 @@ export default function Dashbordinfo() {
             columns={columns}
             dataSource={recentUser}
             title={() => (
-              <>
-                <Tableheader>
-                  <h3>Recent Users</h3>
-                  <div onClick={() => setfullscreen((value) => !value)}>
-                    {fullscreen ? (
-                      <FullscreenOutlined onClick={handle.enter} />
-                    ) : (
-                      <FullscreenExitOutlined onClick={handle.exit} />
-                    )}
-                  </div>
-                </Tableheader>
-              </>
+              <TableHeader
+                fullScreen={fullScreen}
+                setFullScreen={setFullScreen}
+                handle={handle}
+              />
             )}
           />
         </Tabledata>

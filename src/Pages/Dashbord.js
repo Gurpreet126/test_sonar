@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useMemo, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import Sidebar2 from "../Component/Sidebar2";
 import { GlobalStyle } from "../Styles/Globalstyle";
@@ -13,9 +13,10 @@ export const ThemeContext = createContext(null);
 const App = () => {
   const [theme, setTheme] = useState("light");
   const themeStyle = theme === "light" ? lightTheme : darkTheme;
+  const contextValue = useMemo(() => ({ setTheme, theme }), [setTheme, theme]);
 
   return (
-    <ThemeContext.Provider value={{ setTheme, theme }}>
+    <ThemeContext.Provider value={contextValue}>
       <ThemeProvider theme={themeStyle}>
         <GlobalStyle />
         <Main>

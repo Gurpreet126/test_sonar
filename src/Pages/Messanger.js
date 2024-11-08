@@ -19,6 +19,16 @@ import { toast } from "react-toastify";
 import { LoaderWrapper } from "Styles/Globalstyle";
 import moment from "moment";
 
+const SeleteDTabHeading = ({ selectedTab }) => {
+  if (selectedTab === 2) {
+    return <div>Real User Listing</div>;
+  } else if (selectedTab === 3) {
+    return <div>Fake User Listing</div>;
+  } else {
+    return <div>All Matched User Listing</div>;
+  }
+};
+
 export default function Messanger() {
   const [tableinfo, settableinfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
@@ -228,16 +238,6 @@ export default function Messanger() {
     }
   };
 
-  const SeleteDTabHeading = () => {
-    if (selectedTab === 2) {
-      return <div>Real User Listing</div>;
-    } else if (selectedTab === 3) {
-      return <div>Fake User Listing</div>;
-    } else {
-      return <div>All Matched User Listing</div>;
-    }
-  };
-
   useEffect(() => {
     if (searchtext) {
       handleSearch();
@@ -290,7 +290,7 @@ export default function Messanger() {
           </button>
         </section>
 
-        <SeleteDTabHeading />
+        <SeleteDTabHeading selectedTab={selectedTab} />
         <Searchbox>
           <input
             value={searchtext}

@@ -13,20 +13,20 @@ import {
 } from "StyledComponents";
 
 export default function Forgetpassword() {
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (values) => {
-    setloading(true);
+    setLoading(true);
     let req = {
       email: values.email,
     };
     let res = await reset_forgetPassword(req);
     if (res.status === 200) {
-      setloading(false);
+      setLoading(false);
       toast.success(
         res?.response?.data?.message || "Message sent successfully"
       );
     } else {
-      setloading(false);
+      setLoading(false);
       toast.error(res?.response?.data?.message || res.error || res.message, {
         theme: "colored",
       });

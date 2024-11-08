@@ -32,21 +32,45 @@ import {
   Status,
 } from "StyledComponents";
 
+const DeleteModalFooter = ({ deleteLoading, handleCancel, handleOk }) =>
+  deleteLoading ? (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "end",
+        paddingRight: "20px",
+        paddingTop: "5px",
+      }}
+    >
+      <Spin />
+    </div>
+  ) : (
+    <>
+      <Button key="submit" type="primary" onClick={handleCancel}>
+        Cancel
+      </Button>
+      <Button type="primary" danger onClick={handleOk}>
+        Yes, delete it!
+      </Button>
+    </>
+  );
+
 export default function Admin() {
   const Navigate = useNavigate();
 
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [deleteid, setdeleteid] = useState();
+  const [deleteId, setDeleteId] = useState();
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(20);
-  const [totalcount, settotalcount] = useState(2);
+  const [pageSize, setPageSize] = useState(20);
+  const [totalCount, setTotalCount] = useState(2);
 
   const adminDetails = useSelector((state) => state?.Authlogin?.data);
 
-  const [searchtext, setsearchtext] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   const switchchange = async (payload) => {
     const req = {
@@ -66,7 +90,7 @@ export default function Admin() {
   };
   const showModal = (payload) => {
     setIsModalOpen(true);
-    setdeleteid(payload.id);
+    setDeleteId(payload.id);
   };
   const editclick = (data) => {
     Navigate("/dashboard/editadmin", { state: data });
@@ -79,7 +103,7 @@ export default function Admin() {
   const handleOk = async () => {
     setDeleteLoading(true);
 
-    let req = await deleteadminlist(deleteid);
+    let req = await deleteadminlist(deleteId);
     if (req.status === 200) {
       setDeleteLoading(false);
       setIsModalOpen(false);
@@ -98,12 +122,12 @@ export default function Admin() {
     setLoading(true);
     const req = {
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     const res = await alladminlist(req);
     if (res.status === 200) {
-      settotalcount(res?.extraData);
-      settableinfo(
+      setTotalCount(res?.extraData);
+      setTableInfo(
         res?.data?.map((ele, index) => ({
           key: index + 1,
           id: ele?._id,
@@ -120,7 +144,7 @@ export default function Admin() {
       setLoading(false);
     } else {
       setLoading(false);
-      settableinfo([]);
+      setTableInfo([]);
     }
   };
 
@@ -134,7 +158,7 @@ export default function Admin() {
       };
       let searchBy = await adminsearchlist(searchtype);
       if (searchBy.status === 200) {
-        settableinfo(
+        setTableInfo(
           searchBy?.data?.map((ele, index) => ({
             key: index + 1,
             id: ele?._id,
@@ -149,7 +173,7 @@ export default function Admin() {
         setLoading(false);
       } else {
         setLoading(false);
-        settableinfo([]);
+        setTableInfo([]);
       }
     } else {
       getAllData();
@@ -157,22 +181,22 @@ export default function Admin() {
   };
 
   const handleSearch = (value) => {
-    setsearchtext(value);
+    setSearchText(value);
   };
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else getAllData();
 
     return () => clearTimeout(timeoutId);
-  }, [currentpage, pagesize, searchtext]);
+  }, [currentpage, pageSize, searchText]);
 
   const columns = [
     {
@@ -197,7 +221,7 @@ export default function Admin() {
       key: "image",
       render: (srcimg) =>
         srcimg && (
-          <>
+          <div>
             <img
               src={process.env.REACT_APP_BASEURL_IMAGE + srcimg}
               style={{
@@ -206,7 +230,7 @@ export default function Admin() {
               }}
               alt=" "
             />
-          </>
+          </div>
         ),
     },
     {
@@ -228,30 +252,13 @@ export default function Admin() {
           <Modal
             open={isModalOpen}
             onCancel={handleCancel}
-            footer={[
-              deleteLoading ? (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "end",
-                    paddingRight: "20px",
-                    paddingTop: "5px",
-                  }}
-                >
-                  <Spin />
-                </div>
-              ) : (
-                <>
-                  <Button key="submit" type="primary" onClick={handleCancel}>
-                    Cancel
-                  </Button>
-                  <Button type="primary" danger onClick={() => handleOk()}>
-                    Yes, delete it!
-                  </Button>
-                </>
-              ),
-            ]}
+            footer={
+              <DeleteModalFooter
+                deleteLoading={deleteLoading}
+                handleCancel={handleCancel}
+                handleOk={handleOk}
+              />
+            }
             okText="Delete"
           >
             <AdminModalbox>
@@ -281,7 +288,7 @@ export default function Admin() {
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Admin({totalcount})</p>
+          <p>Admin({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -313,18 +320,18 @@ export default function Admin() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
-              <>
+              <div>
                 <Pagination
                   current={currentpage}
                   onChange={onChange}
-                  total={totalcount}
+                  total={totalCount}
                   showSizeChanger
-                  defaultPageSize={pagesize}
+                  defaultPageSize={pageSize}
                 />
-              </>
+              </div>
             )}
           />
         )}

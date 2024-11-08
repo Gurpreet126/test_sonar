@@ -14,7 +14,7 @@ import {
 } from "models/ContactNameEditMailStyle";
 
 export default function EditContactName() {
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const adminDetails = useSelector((state) => state?.Authlogin?.data);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export default function EditContactName() {
 
   const handleSubmit = async (values) => {
     if (values?.name) {
-      setloading(true);
+      setLoading(true);
       let obj;
       if (values?.name.includes("")) {
         let x = values?.name.split(" ");
@@ -47,9 +47,9 @@ export default function EditContactName() {
           firstName: res?.data?.firstName,
         };
         dispatch(authlogin(obj));
-        setloading(false);
+        setLoading(false);
       } else {
-        setloading(false);
+        setLoading(false);
         toast.error(
           res?.response?.data?.message ||
             res?.message ||

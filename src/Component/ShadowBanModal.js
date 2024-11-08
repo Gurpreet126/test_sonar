@@ -51,9 +51,9 @@ const ShadowBanModal = ({
         <div className="ban-btn">
           <button
             onClick={() => handleBanUser()}
-            style={{ background: isShadowBan == true ? "green" : "red" }}
+            style={{ background: isShadowBan ? "green" : "red" }}
           >
-            {isShadowBan == true ? "Unban" : "Ban"}
+            {isShadowBan ? "Unban" : "Ban"}
           </button>
         </div>
       </ShadowBanModalWrapper>

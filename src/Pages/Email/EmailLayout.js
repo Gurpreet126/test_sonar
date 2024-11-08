@@ -27,15 +27,15 @@ import {
 
 export default function EmailLayout() {
   const navigate = useNavigate();
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [modalformessage, setmodalformessage] = useState(false);
+  const [modalForMessage, setModalForMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadinglogin, setLoadinglogin] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const cancelformessage = () => {
-    setmodalformessage(false);
+    setModalForMessage(false);
   };
 
   const handleCancel = () => {
@@ -121,7 +121,7 @@ export default function EmailLayout() {
         threads: el?.threads,
       };
     });
-    settableinfo(updated);
+    setTableInfo(updated);
   };
 
   const fetchingMail = async (payload) => {
@@ -255,7 +255,7 @@ export default function EmailLayout() {
           <Modal
             footer={false}
             onCancel={cancelformessage}
-            open={modalformessage}
+            open={modalForMessage}
           >
             <Loginsection>
               <Loginmodal />
@@ -268,9 +268,9 @@ export default function EmailLayout() {
             scroll={{ x: true }}
             pagination={false}
             rowSelection={rowSelection}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             title={() => (
-              <>
+              <div>
                 <Emailbox>
                   <div className="Top_bar">
                     <div className="Inbox">
@@ -278,7 +278,7 @@ export default function EmailLayout() {
                     </div>
                   </div>
                 </Emailbox>
-              </>
+              </div>
             )}
           />
         </Tabledata>

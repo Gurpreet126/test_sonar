@@ -26,9 +26,9 @@ export default function Navbar() {
   const notificationCount = useSelector(
     (state) => state?.UserCounts?.notificationCount
   );
-  const [done, setdone] = useState(false);
+  const [done, setDone] = useState(false);
   function onclick() {
-    setdone(!done);
+    setDone(!done);
     dispatch(sideopen(!done));
   }
   const over = useSelector((e) => e.Navslice.done);
@@ -67,6 +67,7 @@ export default function Navbar() {
                 onclick(e);
               }
             }}
+            aria-label="Menu"
           >
             <img src={menu} alt="menu" />
           </div>
@@ -92,26 +93,51 @@ export default function Navbar() {
                       e.preventDefault();
                       Navigate("/dashboard/updateprofile");
                     }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        navigate("/dashboard/updateprofile");
+                      }
+                    }}
+                    aria-label="Update Profile"
                   >
                     <img className="Online-Status" src={OnlineStatus} alt="" />
                     <p> Online</p>
                   </div>
 
-                  <>
+                  <div>
                     <div
+                      role="button"
+                      tabIndex={0}
                       onClick={(e) => {
                         e.preventDefault();
                         Navigate("/dashboard/superadmin");
                       }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          navigate("/dashboard/superadmin");
+                        }
+                      }}
+                      aria-label="Go to Super Admin Dashboard"
                     >
                       <img src={AccountSettings} alt="" />
                       <p>Account settings</p>
                     </div>
-                  </>
+                  </div>
 
                   <div
+                    role="button"
+                    tabIndex={0}
                     onClick={() => dispatch(authlogout())}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        dispatch(authlogout());
+                      }
+                    }}
                     style={{ borderBlockStart: "1px solid #484748" }}
+                    aria-label="Logout"
                   >
                     <LogoutOutlined />
                     <p>Logout</p>
@@ -162,6 +188,8 @@ export default function Navbar() {
             <p>Theme Color</p>
             <div className="card-box">
               <div
+                role="button"
+                tabIndex={0}
                 className="color-box"
                 onClick={() => {
                   dispatch(navcolor("white"));
@@ -171,6 +199,8 @@ export default function Navbar() {
                 <div className="box-header" style={{ background: "white" }} />
                 <div className="box-main">
                   <div
+                    role="button"
+                    tabIndex={0}
                     className="box-leftbar"
                     style={{ background: "white" }}
                   />
@@ -197,6 +227,8 @@ export default function Navbar() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 className="color-box"
                 onClick={() => {
                   dispatch(navcolor("black"));
@@ -213,6 +245,8 @@ export default function Navbar() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 className="color-box"
                 onClick={() => {
                   dispatch(navcolor("#212121"));
@@ -229,6 +263,8 @@ export default function Navbar() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 className="color-box"
                 onClick={() => {
                   dispatch(navcolor("#284152"));
@@ -245,6 +281,8 @@ export default function Navbar() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 className="color-box"
                 onClick={() => {
                   dispatch(navcolor("#351e28"));

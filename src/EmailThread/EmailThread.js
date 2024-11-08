@@ -15,6 +15,67 @@ import {
 } from "models/EmailThreadStyle";
 import PropTypes from "prop-types";
 
+const DomTest = ({ data }) => {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: data?.html,
+      }}
+    />
+  );
+};
+
+const ConvertArrayBufferToBase64 = ({ data }) => {
+  let finalData = data[0]?.content.data;
+  const base64Code = encode(finalData);
+
+  let objbuilder = "";
+  const view = (data, type) => {
+    objbuilder = `<iframe width="100%" height="100%" src="data:${type};base64,${data}" type="text/html" class="internal">
+        <embed src="text/html;base64,${data}" type="${type}" />
+    </iframe>
+
+    `;
+
+    const win = window.open(
+      "",
+      "_blank",
+      "titlebar=yes,width = 800, height = 600"
+    );
+    if (win) {
+      const document = `<html>
+                    <head>
+                  
+                      <link href="core/css/bootstrap.min.css" rel="stylesheet">
+                      <link href="core/css/bell.css" rel="stylesheet">
+                      <link href="core/css/global-connector.css" rel="stylesheet">
+                    </head>
+                    <body>
+                      <div style="background-color:#fff">
+                        <br />
+                        ${objbuilder}
+                      </div>
+                    </body>
+                  </html>`;
+      win.document.write(document);
+    }
+  };
+
+  return (
+    <div className="attachments">
+      <header>Attachment File</header>
+      <div
+        className="attachmentFile"
+        role="button"
+        tabIndex={0}
+        onClick={() => view(base64Code, data[0]?.contentType)}
+      >
+        <img alt="docIcons" src={docIcons} />
+      </div>
+    </div>
+  );
+};
+
 export const EmailThread = () => {
   const profile_Image = useSelector((e) => e?.Authlogin?.data?.profileImage[0]);
   const [openMessage, setOpenMessage] = useState(false);
@@ -33,16 +94,6 @@ export const EmailThread = () => {
     }
     storedValue.push(data);
     setViewBox(storedValue);
-  };
-
-  const DOMTEST = ({ data }) => {
-    return (
-      <div
-        dangerouslySetInnerHTML={{
-          __html: data?.html,
-        }}
-      />
-    );
   };
 
   const [loading, setLoading] = useState(false);
@@ -75,55 +126,6 @@ export const EmailThread = () => {
     }
   };
 
-  const ConvertArrayBufferToBase64 = ({ data }) => {
-    let finalData = data[0]?.content.data;
-    const base64Code = encode(finalData);
-
-    const objbuilder = "";
-    const view = (data, type) => {
-      objbuilder = `<iframe width="100%" height="100%" src="data:${type};base64,${data}" type="text/html" class="internal">
-          <embed src="text/html;base64,${data}" type="${type}" />
-      </iframe>
-
-      `;
-
-      const win = window.open(
-        "",
-        "_blank",
-        "titlebar=yes,width = 800, height = 600"
-      );
-      if (win) {
-        const document = `<html>
-                      <head>
-                    
-                        <link href="core/css/bootstrap.min.css" rel="stylesheet">
-                        <link href="core/css/bell.css" rel="stylesheet">
-                        <link href="core/css/global-connector.css" rel="stylesheet">
-                      </head>
-                      <body>
-                        <div style="background-color:#fff">
-                          <br />
-                          ${objbuilder}
-                        </div>
-                      </body>
-                    </html>`;
-        win.document.write(document);
-      }
-    };
-
-    return (
-      <div className="attachments">
-        <header>Attachment File</header>
-        <div
-          className="attachmentFile"
-          onClick={() => view(base64Code, data[0]?.contentType)}
-        >
-          <img alt="docIcons" src={docIcons} />
-        </div>
-      </div>
-    );
-  };
-
   useEffect(() => {
     structuringData(selectedData);
   }, [selectedData]);
@@ -153,7 +155,7 @@ export const EmailThread = () => {
                 <p className="senderName">to {el?.to?.value[0]?.address}</p>
 
                 <div className="content-Wrapper">
-                  <DOMTEST data={el} />
+                  <DomTest data={el} />
                 </div>
 
                 {el?.attachments.length > 0 && (
@@ -206,14 +208,7 @@ export const EmailThread = () => {
                       alt=""
                       src={deleteIcons}
                       className="deleteIcon"
-                      role="button"
-                      tabIndex={0}
                       onClick={() => setOpenMessage(false)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          setOpenMessage(false);
-                        }
-                      }}
                     />
                   </div>
                 </TextAreaWrapper>

@@ -302,7 +302,11 @@ export default function Reportedusers() {
       title: "Reason",
       dataIndex: "reason",
       render: (_, record) => (
-        <div onClick={() => handleNoteOpenClose(record?.reason)}>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => handleNoteOpenClose(record?.reason)}
+        >
           <img src={sticky_note} height="20px" alt="note" />
         </div>
       ),

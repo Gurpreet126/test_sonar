@@ -398,6 +398,8 @@ export default function FakeMessager() {
           <ClickAwayListener onClickAway={handleClickAway}>
             <SettingOption>
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => setIsPopupOpen(!isPopupOpen)}
                 className="three-dot"
               >
@@ -408,6 +410,9 @@ export default function FakeMessager() {
               {isPopupOpen && (
                 <div className="hiddenHeaderDiv">
                   <h4
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Unmatch user"
                     onClick={() =>
                       handleUnMatchUser(
                         selectedUserInfo?.[0].id,
@@ -420,6 +425,8 @@ export default function FakeMessager() {
                   </h4>
                   <hr className="hrTag" />
                   <h4
+                    role="button"
+                    tabIndex={0}
                     onClick={() =>
                       handleBlockUser(
                         selectedUserInfo?.[0].id,
@@ -1683,6 +1690,8 @@ export default function FakeMessager() {
                   isMessageRequestAccepted
                 ) && (
                   <img
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setEmojiPicker(!emojiPicker)}
                     src={emojiBtn}
                     className="CustomEmoji"
@@ -1846,6 +1855,8 @@ export default function FakeMessager() {
                                               item.message
                                             )}
                                             <div
+                                              role="button"
+                                              tabIndex={0}
                                               className="LikeMessageButton"
                                               onClick={() => LikeMessage(item)}
                                             >

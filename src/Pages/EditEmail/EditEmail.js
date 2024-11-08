@@ -10,7 +10,7 @@ import {
 } from "models/ContactNameEditMailStyle";
 
 export default function EditEmail() {
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required"),
@@ -18,7 +18,7 @@ export default function EditEmail() {
   });
 
   const handleSubmit = async () => {
-    setloading(true);
+    setLoading(true);
   };
 
   return (

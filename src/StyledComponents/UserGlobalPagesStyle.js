@@ -600,6 +600,10 @@ export const Followerwrap = styled.div`
   }
   .form {
     padding: 10px 15px;
+    span{
+      color: white;
+    font-size: 14px;
+    }
   }
   label {
     color: white;

@@ -5,7 +5,7 @@ import RadioBoxGroup from "Component/radioButton";
 import { bodyType, exercise, drink } from "./data";
 
 const ApperanceHabit = (props) => {
-  const { apperanceList, setShowAppearanceModal, id } = props;
+  const { apperanceList, setShowAppearanceModal } = props;
 
   const handleSubmit = (valueszxsdfsdf) => {};
   const handleClose = () => {
@@ -23,7 +23,7 @@ const ApperanceHabit = (props) => {
           <form onSubmit={handleSubmit} className="vertical-checkbox">
             <div className="modal-cheakbox">
               <div className="left-box">
-                <label>Education</label>
+                <span>Education</span>
                 <RadioBoxGroup
                   options={bodyType}
                   name="bodyType"
@@ -34,7 +34,7 @@ const ApperanceHabit = (props) => {
             </div>
             <div className="modal-cheakbox">
               <div className="right-box">
-                <label>Children</label>
+                <span>Children</span>
                 <RadioBoxGroup
                   options={exercise}
                   name="exercise"
@@ -43,7 +43,7 @@ const ApperanceHabit = (props) => {
                 />
               </div>
               <div className="left-box">
-                <label>Astrology sign</label>
+                <span>Astrology sign</span>
                 <RadioBoxGroup
                   options={drink}
                   name="drink"
@@ -55,7 +55,7 @@ const ApperanceHabit = (props) => {
 
             <div className="modal-cheakbox">
               <div className="right-box">
-                <label>Religion</label>
+                <span>Religion</span>
                 <RadioBoxGroup
                   options={drink}
                   name="smoker"
@@ -64,7 +64,7 @@ const ApperanceHabit = (props) => {
                 />
               </div>
               <div className="left-box">
-                <label>Education</label>
+                <span>Education</span>
                 <RadioBoxGroup
                   options={drink}
                   name="marijuana"

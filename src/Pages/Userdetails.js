@@ -117,6 +117,56 @@ const appearenceAndHabitInit = {
   marijuana: "",
 };
 
+const DraggableUploadListItem = ({ originNode, file }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: file.uid,
+  });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    cursor: "move",
+  };
+
+  // prevent preview event when drag end
+  const className = isDragging
+    ? css`
+        a {
+          pointer-events: none;
+        }
+      `
+    : "";
+  const type = file?.url?.split(".").pop();
+  const video_type = ["mp4", "mov", "avi"];
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={className}
+      {...attributes}
+      {...listeners}
+    >
+      {/* hide error tooltip when dragging */}
+      {file.status === "error" && isDragging ? (
+        originNode.props.children
+      ) : video_type?.includes(type) ? (
+        <div className="video-section">
+          <video src={file?.url} height="100%" width="100%" controls />
+        </div>
+      ) : (
+        originNode
+      )}
+    </div>
+  );
+};
+
 export default function Userdetails() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -203,56 +253,6 @@ export default function Userdetails() {
     setPreviewOpen(true);
     setPreviewTitle(
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
-    );
-  };
-
-  const DraggableUploadListItem = ({ originNode, file }) => {
-    const {
-      attributes,
-      listeners,
-      setNodeRef,
-      transform,
-      transition,
-      isDragging,
-    } = useSortable({
-      id: file.uid,
-    });
-    const style = {
-      transform: CSS.Transform.toString(transform),
-      transition,
-      cursor: "move",
-    };
-
-    // prevent preview event when drag end
-    const className = isDragging
-      ? css`
-          a {
-            pointer-events: none;
-          }
-        `
-      : "";
-    const type = file?.url?.split(".").pop();
-    const video_type = ["mp4", "mov", "avi"];
-
-    return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        className={className}
-        {...attributes}
-        {...listeners}
-      >
-        {/* hide error tooltip when dragging */}
-        {file.status === "error" && isDragging ? (
-          originNode.props.children
-        ) : video_type?.includes(type) ? (
-          <div className="video-section">
-            <video src={file?.url} height="100%" width="100%" controls />
-          </div>
-        ) : (
-          originNode
-        )}
-      </div>
     );
   };
 
@@ -953,6 +953,8 @@ export default function Userdetails() {
                           file?.url?.split(".").pop()
                         ) && (
                           <div
+                            role="button"
+                            tabIndex={0}
                             className="delete-icon"
                             onClick={() => handleRemove(file)}
                           >
@@ -1107,7 +1109,7 @@ export default function Userdetails() {
       children: (
         <Followerwrap>
           <div className="form">
-            <label>Name</label>
+            <span>Name</span>
             <div className="form-control-box">
               <div className="form-control">
                 <div>
@@ -1133,7 +1135,7 @@ export default function Userdetails() {
             ""
           ) : (
             <div className="form">
-              <label>Email</label>
+              <span>Email</span>
               <div className="form-control-box">
                 <div className="form-control">
                   <div>
@@ -1161,7 +1163,7 @@ export default function Userdetails() {
             ""
           ) : (
             <div className="form">
-              <label>Contant Number</label>
+              <span>Contant Number</span>
               <div className="form-control-box">
                 <div className="form-control">
                   <div className="phone-outlined">
@@ -1539,6 +1541,8 @@ export default function Userdetails() {
               )}
 
               <div
+                role="button"
+                tabIndex={0}
                 className="unverifed-account-box"
                 onClick={showVerificationModal}
               >
@@ -1583,6 +1587,8 @@ export default function Userdetails() {
                 </div>
                 <div className="social-info">
                   <div
+                    role="button"
+                    tabIndex={0}
                     style={{ cursor: "pointer" }}
                     onClick={() => setMatchListingModal(true)}
                   >
@@ -1590,6 +1596,8 @@ export default function Userdetails() {
                     <p className="name-info">Match</p>
                   </div>
                   <div
+                    role="button"
+                    tabIndex={0}
                     onClick={() => handleOpenHeartLikeModal()}
                     style={{ cursor: "pointer" }}
                   >
@@ -1601,6 +1609,8 @@ export default function Userdetails() {
                     <p className="name-info">Like</p>
                   </div>
                   <div
+                    role="button"
+                    tabIndex={0}
                     className="swipe-btn"
                     onClick={() => setModalSwipe(true)}
                   >

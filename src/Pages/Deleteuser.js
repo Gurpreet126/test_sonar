@@ -22,6 +22,16 @@ import {
   Searchbox,
 } from "StyledComponents";
 
+const PaginationFooter = ({ currentpage, onChange, totalcount, pagesize }) => (
+  <Pagination
+    current={currentpage}
+    onChange={onChange}
+    total={totalcount}
+    showSizeChanger
+    defaultPageSize={pagesize}
+  />
+);
+
 export default function Deleteuser() {
   const [tableinfo, settableinfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
@@ -326,15 +336,12 @@ export default function Deleteuser() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <PaginationFooter
+                currentpage={currentpage}
+                onChange={onChange}
+                totalcount={totalcount}
+                pagesize={pagesize}
+              />
             )}
           />
         </Tabledata>

@@ -232,6 +232,8 @@ export default function SuperAdminAction() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => navigate("/dashboard/editcontact")}
                 className="edit-icon"
               >
@@ -247,6 +249,8 @@ export default function SuperAdminAction() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => navigate("/dashboard/editemail")}
                 className="edit-icon"
               >
@@ -263,6 +267,8 @@ export default function SuperAdminAction() {
                 </div>
               </div>
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => navigate("/dashboard/changepassword")}
                 className="edit-icon"
               >
@@ -281,6 +287,8 @@ export default function SuperAdminAction() {
                   </div>
 
                   <img
+                    role="button"
+                    tabIndex={0}
                     style={{ cursor: "pointer", marginRight: "5px" }}
                     onClick={() => navigate("/dashboard/addadmin")}
                     src={add}

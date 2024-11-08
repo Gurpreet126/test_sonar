@@ -64,6 +64,88 @@ import {
 } from "models/MessagerStyle";
 import PropTypes from "prop-types";
 
+const MemberConversation = ({
+  chatMember,
+  currentUser,
+  getSelectedCoversation,
+}) => {
+  let selectedUserInfo = chatMember?.members.filter((item) => {
+    if (item !== currentUser.id) return item;
+  });
+  const currentTimeStamp = Date.now();
+  const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
+  let difference = currentTimeStamp - msgTimeStamp;
+
+  let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+  difference -= daysDifference * 1000 * 60 * 60 * 24;
+
+  let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+  difference -= hoursDifference * 1000 * 60 * 60;
+
+  let minutesDifference = Math.floor(difference / 1000 / 60);
+  difference -= minutesDifference * 1000 * 60;
+
+  const lastChatDate = moment
+    .unix(chatMember?.lastMessage?.messageTime)
+    .local()
+    .format("DD/MM/yyyy");
+
+  const time = daysDifference
+    ? lastChatDate
+    : hoursDifference
+      ? `${hoursDifference}${hoursDifference > 1 ? "hours" : "hour"} ago`
+      : minutesDifference > 0
+        ? `${minutesDifference}${minutesDifference > 1 ? "mins" : "min"} ago`
+        : !isNaN(msgTimeStamp)
+          ? "Now"
+          : "";
+
+  return (
+    <Conversation
+      name={chatMember[selectedUserInfo]?.name}
+      lastSenderName={
+        chatMember?.lastMessage?.senderID === selectedUserInfo[0]
+          ? chatMember[selectedUserInfo]?.name
+          : currentUser?.user
+      }
+      info={
+        chatMember?.lastMessage?.messageType === "2"
+          ? "Gif"
+          : chatMember?.lastMessage?.message
+      }
+      onClick={() => {
+        getSelectedCoversation(
+          chatMember?.chatID,
+          chatMember[selectedUserInfo]?.name,
+          chatMember[selectedUserInfo]?.image,
+          selectedUserInfo?.[0],
+          chatMember[currentUser?.id]
+        );
+      }}
+      unreadCnt={chatMember?.unreadMessageCount?.[currentUser?.id]}
+      lastActivityTime={
+        <span
+          style={{
+            color: "#349134",
+            width: "48px",
+            fontWeight: "bold",
+          }}
+        >
+          {time}
+        </span>
+      }
+    >
+      <Avatar
+        src={
+          process.env.REACT_APP_BASEURL_IMAGE +
+          chatMember[selectedUserInfo]?.image
+        }
+        name={chatMember[selectedUserInfo]?.name}
+      />
+    </Conversation>
+  );
+};
+
 export default function ChatLayout() {
   const currentUser = useLocation()?.state;
   const [chatMember, setChatMember] = useState([]);
@@ -218,84 +300,6 @@ export default function ChatLayout() {
     } catch (error) {
       handleLogout(error);
     }
-  };
-
-  const MemberConversation = ({ chatMember }) => {
-    let selectedUserInfo = chatMember?.members.filter((item) => {
-      if (item !== currentUser.id) return item;
-    });
-    const currentTimeStamp = Date.now();
-    const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
-    let difference = currentTimeStamp - msgTimeStamp;
-
-    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24;
-
-    let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-    difference -= hoursDifference * 1000 * 60 * 60;
-
-    let minutesDifference = Math.floor(difference / 1000 / 60);
-    difference -= minutesDifference * 1000 * 60;
-
-    const lastChatDate = moment
-      .unix(chatMember?.lastMessage?.messageTime)
-      .local()
-      .format("DD/MM/yyyy");
-
-    const time = daysDifference
-      ? lastChatDate
-      : hoursDifference
-        ? `${hoursDifference}${hoursDifference > 1 ? "hours" : "hour"} ago`
-        : minutesDifference > 0
-          ? `${minutesDifference}${minutesDifference > 1 ? "mins" : "min"} ago`
-          : !isNaN(msgTimeStamp)
-            ? "Now"
-            : "";
-
-    return (
-      <Conversation
-        name={chatMember[selectedUserInfo]?.name}
-        lastSenderName={
-          chatMember?.lastMessage?.senderID === selectedUserInfo[0]
-            ? chatMember[selectedUserInfo]?.name
-            : currentUser?.user
-        }
-        info={
-          chatMember?.lastMessage?.messageType === "2"
-            ? "Gif"
-            : chatMember?.lastMessage?.message
-        }
-        onClick={() => {
-          getSelectedCoversation(
-            chatMember?.chatID,
-            chatMember[selectedUserInfo]?.name,
-            chatMember[selectedUserInfo]?.image,
-            selectedUserInfo?.[0],
-            chatMember[currentUser?.id]
-          );
-        }}
-        unreadCnt={chatMember?.unreadMessageCount?.[currentUser?.id]}
-        lastActivityTime={
-          <span
-            style={{
-              color: "#349134",
-              width: "48px",
-              fontWeight: "bold",
-            }}
-          >
-            {time}
-          </span>
-        }
-      >
-        <Avatar
-          src={
-            process.env.REACT_APP_BASEURL_IMAGE +
-            chatMember[selectedUserInfo]?.image
-          }
-          name={chatMember[selectedUserInfo]?.name}
-        />
-      </Conversation>
-    );
   };
 
   const sendMessage = async (message) => {
@@ -536,6 +540,8 @@ export default function ChatLayout() {
                           <MemberConversation
                             key={index}
                             chatMember={chatMember}
+                            currentUser={currentUser}
+                            getSelectedCoversation={getSelectedCoversation}
                           />
                         ))}
                     </>
@@ -690,6 +696,8 @@ export default function ChatLayout() {
                                             item?.message
                                           )}
                                           <div
+                                            role="button"
+                                            tabIndex={0}
                                             className="LikeMessageButton"
                                             onClick={() => LikeMessage(item)}
                                           >

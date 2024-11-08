@@ -86,6 +86,8 @@ const CountryInfoModal = ({
             {deleteData?.countryName}
             <span>
               <img
+                role="button"
+                tabIndex={0}
                 src={EditCountry}
                 alt=""
                 onClick={() => setShowEditSection(true)}
@@ -94,6 +96,8 @@ const CountryInfoModal = ({
                 <Spin />
               ) : (
                 <img
+                  role="button"
+                  tabIndex={0}
                   src={DeleteCountry}
                   alt=""
                   onClick={() => handleDeleteCountry()}
@@ -110,7 +114,9 @@ const CountryInfoModal = ({
                 onSubmit={handleEditCountry}
               >
                 <Form>
-                  <label className="label" htmlFor="countryName">Country Name</label>
+                  <label className="label" htmlFor="countryName">
+                    Country Name
+                  </label>
                   <Field type="text" name="countryName" className="input" />
                   <div style={{ color: "red" }}>
                     <ErrorMessage name="countryName" />

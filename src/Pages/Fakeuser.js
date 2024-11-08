@@ -25,6 +25,40 @@ import {
   LoaderWrapper,
 } from "StyledComponents";
 
+const FilterDropdown = ({
+  tableinfo,
+  genderValue,
+  switchchange,
+  Male_female,
+  getAllData,
+}) => {
+  return (
+    <FakeUserDropdowndiv>
+      <div className="pause-btn">
+        <p>Pause Fake User</p>
+        <Switch
+          onChange={switchchange}
+          className="pause-switch"
+          checked={tableinfo?.[0]?.pauseStatus}
+        />
+      </div>
+      <div className="radio-btns-date">
+        <Radio.Group onChange={Male_female} value={genderValue}>
+          <Radio value={1}>Female</Radio>
+          <Radio value={0}>Male</Radio>
+        </Radio.Group>
+      </div>
+      <div className="dropdown-btn">
+        <div>
+          <button className="apply-btn" onClick={getAllData}>
+            Apply
+          </button>
+        </div>
+      </div>
+    </FakeUserDropdowndiv>
+  );
+};
+
 export default function Fakeuser() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
@@ -296,31 +330,15 @@ export default function Fakeuser() {
         />
         <div className="active-btn">
           <Dropdown
-            dropdownRender={() => (
-              <FakeUserDropdowndiv>
-                <div className="pause-btn">
-                  <p>Pause Fake User</p>
-                  <Switch
-                    onChange={switchchange}
-                    className="pause-switch"
-                    checked={tableinfo?.[0]?.pauseStatus}
-                  />
-                </div>
-                <div className="radio-btns-date">
-                  <Radio.Group onChange={Male_female} value={genderValue}>
-                    <Radio value={1}>Female</Radio>
-                    <Radio value={0}>Male</Radio>
-                  </Radio.Group>
-                </div>
-                <div className="dropdown-btn">
-                  <div>
-                    <button className="apply-btn" onClick={getAllData}>
-                      Apply
-                    </button>
-                  </div>
-                </div>
-              </FakeUserDropdowndiv>
-            )}
+            overlay={
+              <FilterDropdown
+                tableinfo={tableinfo}
+                genderValue={genderValue}
+                switchchange={switchchange}
+                Male_female={Male_female}
+                getAllData={getAllData}
+              />
+            }
             trigger={["click"]}
           >
             <button className="filter-btn">
@@ -350,7 +368,7 @@ export default function Fakeuser() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
+              <div>
                 <Pagination
                   current={currentpage}
                   onChange={onChange}
@@ -358,7 +376,7 @@ export default function Fakeuser() {
                   showSizeChanger
                   defaultPageSize={pagesize}
                 />
-              </>
+              </div>
             )}
           />
         </Tabledata>

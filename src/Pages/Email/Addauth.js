@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import { Formdata, Formdatainner, LoaderWrapper } from "models/EmailStyle";
 
 export default function Addauth() {
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const validation = Yup.object().shape({
     firstname: Yup.string().trim().required("First Name is Required*"),
@@ -19,7 +19,7 @@ export default function Addauth() {
     password: Yup.string().trim().required("Password Name is Required*"),
   });
   const handlesubmit = async (values) => {
-    setloading(true);
+    setLoading(true);
     let req = {
       firstName: values.firstname,
       lastName: values.lastname,
@@ -29,14 +29,14 @@ export default function Addauth() {
 
     let res = await createAuthadminUser(req);
     if (res.status === 200) {
-      setloading(false);
+      setLoading(false);
       navigate("/dashboard/supportmember");
       toast.success(
         res.reponse.data.message || res.message || "User addes successfully",
         { theme: "colored" }
       );
     } else {
-      setloading(false);
+      setLoading(false);
       toast.error(res.response.data.message || res.error || res.message, {
         theme: "colored",
       });

@@ -18,14 +18,14 @@ export default function Addadmin() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
-  const [openCopyModal, setOpenCopyPassword] = useState(false);
+  const [openCopyModal, setOpenCopyModal] = useState(false);
   const [allData, setAllData] = useState(null);
 
   const handleOpenCopyModal = () => {
-    setOpenCopyPassword(true);
+    setOpenCopyModal(true);
   };
   const handleCancelCopyModal = () => {
-    setOpenCopyPassword(false);
+    setOpenCopyModal(false);
   };
 
   const initialValues = {
@@ -144,17 +144,18 @@ export default function Addadmin() {
                     </div>
                   </div>
                   <div className="">
-                    {roleType !== 1 ? <h4>Roles</h4> : ""}
-                    {roleType == 1 ? (
-                      ""
-                    ) : roleType == 2 ? (
+                    {roleType !== 1 && <h4>Roles</h4>}
+
+                    {roleType == 2 && (
                       <div className="rolesWrapper">
                         <div>
                           <Field type="radio" name="roles" value="1" />{" "}
                           <label htmlFor="roles">Employee</label>
                         </div>
                       </div>
-                    ) : (
+                    )}
+
+                    {roleType > 2 && (
                       <div className="rolesWrapper">
                         <div>
                           <Field type="radio" name="roles" value="1" />{" "}
@@ -166,7 +167,7 @@ export default function Addadmin() {
                         </div>
                         <div>
                           <Field type="radio" name="roles" value="3" />{" "}
-                          <label htmlFor="roles">Super Admin </label>
+                          <label htmlFor="roles">Super Admin</label>
                         </div>
                       </div>
                     )}

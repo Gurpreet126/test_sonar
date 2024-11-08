@@ -13,7 +13,7 @@ import {
 } from "StyledComponents";
 
 export default function ChangePassword() {
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     oldpassword: Yup.string().required("Old Password required"),
@@ -25,7 +25,7 @@ export default function ChangePassword() {
   });
 
   const handleSubmit = async (values) => {
-    setloading(true);
+    setLoading(true);
     let req = {
       oldPassword: values.oldpassword,
       newPassword: values.newpassword,
@@ -35,12 +35,12 @@ export default function ChangePassword() {
       toast.success(
         res?.response?.data?.message || "Password updated successfully"
       );
-      setloading(false);
+      setLoading(false);
     } else {
       toast.error(res?.response?.data?.message || res.error || res.message, {
         theme: "colored",
       });
-      setloading(false);
+      setLoading(false);
     }
   };
 

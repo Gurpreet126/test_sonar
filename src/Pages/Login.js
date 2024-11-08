@@ -406,6 +406,9 @@ export default function Login() {
                         <span
                           onClick={() => setShowOldPassword(!showOldPassword)}
                           className="eye-icon"
+                          role="button"
+                          tabIndex={0}
+                          aria-label="Toggle password visibility"
                         >
                           {showOldPassword ? (
                             <EyeTwoTone />
@@ -429,6 +432,8 @@ export default function Login() {
                         <span
                           onClick={() => setShowNewPassword(!showNewPassword)}
                           className="eye-icon"
+                          role="button"
+                          tabIndex={0}
                         >
                           {showNewPassword ? (
                             <EyeTwoTone />
@@ -456,6 +461,8 @@ export default function Login() {
                             setShowConfirmPassword(!showConfirmPassword)
                           }
                           className="eye-icon"
+                          role="button"
+                          tabIndex={0}
                         >
                           {showConfirmPassword ? (
                             <EyeTwoTone />
@@ -513,6 +520,8 @@ export default function Login() {
                         <span
                           onClick={() => setShowPassword(!showPassword)}
                           className="eye-icon"
+                          role="button"
+                          tabIndex={0}
                           style={{
                             position: "absolute",
                             right: "25px",
@@ -528,7 +537,11 @@ export default function Login() {
                           )}
                         </span>
                       </div>
-                      <p onClick={() => navigate("/Forgetpassword")}>
+                      <p
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => navigate("/Forgetpassword")}
+                      >
                         Forget password?
                       </p>
                     </div>

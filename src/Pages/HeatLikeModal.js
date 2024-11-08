@@ -17,14 +17,14 @@ export default function HeartLikeModal({
   handleCancelHeartLikeModal,
   openHeartLikeModal,
 }) {
-  const [tableinfo, settableinfo] = useState();
+  const [tableInfo, setTableInfo] = useState();
   const params = useParams();
   const { id } = params;
 
   const handleGetHeartLikeListing = async () => {
     let res = await heartlikeinfo(id);
     if (res.status === 200) {
-      settableinfo(
+      setTableInfo(
         res?.data?.map((ele, index) => ({
           key: index + 1,
           id: ele?.userData._id,
@@ -125,7 +125,7 @@ export default function HeartLikeModal({
           className="recent-users-table"
           scroll={{ x: true, y: 400 }}
           columns={columns}
-          dataSource={tableinfo}
+          dataSource={tableInfo}
           pagination={false}
         />
       </div>

@@ -105,6 +105,8 @@ const WaveCreator = ({
         <div className="playPause">
           {isReadyToPlay ? (
             <img
+              role="button"
+              tabIndex={0}
               src={isPlaying ? PauseBtn : PlayBtn}
               alt=""
               onClick={handlePlay}

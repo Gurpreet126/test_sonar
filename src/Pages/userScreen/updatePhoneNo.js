@@ -110,7 +110,7 @@ const UpdateUserPhoneNo = (props) => {
         ]}
       >
         <LabelWrapper>
-          <label>Contact</label>
+          <span>Contact</span>
         </LabelWrapper>
         <FieldWrapper>
           <select
