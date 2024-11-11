@@ -18,6 +18,16 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import moment from "moment";
 
+const TableFooter = ({ currentpage, onChange, totalcount, pagesize }) => (
+  <Pagination
+    current={currentpage}
+    onChange={onChange}
+    total={totalcount}
+    showSizeChanger
+    defaultPageSize={pagesize}
+  />
+);
+
 export default function Incomplete() {
   const [tableinfo, settableinfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
@@ -311,15 +321,12 @@ export default function Incomplete() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <TableFooter
+                currentpage={currentpage}
+                onChange={onChange}
+                totalcount={totalcount}
+                pagesize={pagesize}
+              />
             )}
           />
         </Tabledata>

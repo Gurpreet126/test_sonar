@@ -37,6 +37,63 @@ import {
   RealUserTitle,
 } from "StyledComponents";
 
+const DropdownContent = ({
+  online,
+  handleChange_online,
+  faceVerificationStatus,
+  handleChange_verified,
+  countries,
+  setCountry,
+  Male_female,
+  genderValue,
+  dateSelection,
+  getAllData,
+}) => (
+  <RealUserDropdowndiv>
+    <div className="dropdown-items">
+      <Checkbox checked={online} onChange={handleChange_online}>
+        Online
+      </Checkbox>
+      <Checkbox
+        checked={faceVerificationStatus}
+        onChange={handleChange_verified}
+      >
+        Verified
+      </Checkbox>
+    </div>
+    <div className="search-box">
+      <div>
+        <select name="countries" onChange={(e) => setCountry(e.target.value)}>
+          {countries?.map((list) => (
+            <option
+              value={list?.name !== "None" ? list?.name : ""}
+              key={list?.code}
+            >
+              {list?.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+    <div className="radio-btns-date">
+      <Radio.Group onChange={Male_female} value={genderValue}>
+        <Radio value={1}>Female</Radio>
+        <Radio value={0}>Male</Radio>
+      </Radio.Group>
+    </div>
+    <div className="day-date">
+      <DatePicker onChange={dateSelection} style={{ background: "#979797" }} />
+    </div>
+    <div className="dropdown-btn">
+      <div>
+        <button className="apply-btn" onClick={getAllData}>
+          Apply
+        </button>
+      </div>
+    </div>
+  </RealUserDropdowndiv>
+);
+
 export default function Realusers() {
   const dispatch = useDispatch();
   const [tableinfo, settableinfo] = useState([]);
@@ -397,58 +454,18 @@ export default function Realusers() {
               items,
             }}
             dropdownRender={() => (
-              <RealUserDropdowndiv>
-                <div className="dropdown-items">
-                  <Checkbox checked={online} onChange={handleChange_online}>
-                    Online
-                  </Checkbox>
-                  <Checkbox
-                    checked={faceVerificationStatus}
-                    onChange={handleChange_verified}
-                  >
-                    verifed
-                  </Checkbox>
-                </div>
-                <div className="search-box">
-                  <div>
-                    <select
-                      name="countries"
-                      onChange={(e) => setCountry(e.target.value)}
-                    >
-                      {countries?.map((list, index) => {
-                        return (
-                          <option
-                            value={list?.name !== "None" ? list?.name : ""}
-                            key={index}
-                          >
-                            {list?.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                </div>
-                <div className="radio-btns-date">
-                  <Radio.Group onChange={Male_female} value={genderValue}>
-                    <Radio value={1}>Female</Radio>
-                    <Radio value={0}>Male</Radio>
-                  </Radio.Group>
-                </div>
-                <div className="day-date">
-                  <DatePicker
-                    onChange={dateSelection}
-                    style={{ background: "#979797" }}
-                  />
-                </div>
-                <div className="dropdown-btn">
-                  <div>
-                    <button className="apply-btn" onClick={getAllData}>
-                      Apply
-                    </button>
-                  </div>
-                </div>
-                <div />
-              </RealUserDropdowndiv>
+              <DropdownContent
+                online={online}
+                handleChange_online={handleChange_online}
+                faceVerificationStatus={faceVerificationStatus}
+                handleChange_verified={handleChange_verified}
+                countries={countries}
+                setCountry={setCountry}
+                Male_female={Male_female}
+                genderValue={genderValue}
+                dateSelection={dateSelection}
+                getAllData={getAllData}
+              />
             )}
             trigger={["click"]}
           >
@@ -477,15 +494,13 @@ export default function Realusers() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <Pagination
+                current={currentpage}
+                onChange={onChange}
+                total={totalcount}
+                showSizeChanger
+                defaultPageSize={pagesize}
+              />
             )}
           />
         </Tabledata>

@@ -226,7 +226,7 @@ export default function Messanger() {
 
     let res = await getAllMessagerListing(queryParameters);
     if (res.status === 200) {
-      let response = await parseData(res.data);
+      let response = parseData(res.data);
       settableinfo(response);
       settotaluser(res.extraData?.count);
       setLoading(false);
@@ -312,15 +312,13 @@ export default function Messanger() {
             pagination={false}
             scroll={{ x: true }}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totaluser}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <Pagination
+                current={currentpage}
+                onChange={onChange}
+                total={totaluser}
+                showSizeChanger
+                defaultPageSize={pagesize}
+              />
             )}
           />
         )}

@@ -222,11 +222,11 @@ export default function AddUser() {
                         value={values.roots_one}
                         onChange={(e) => setCountry(e.target.value)}
                       >
-                        {countries?.map((list, index) => {
+                        {countries?.map((list) => {
                           return (
                             <option
                               value={list?.name != "None" ? list?.name : ""}
-                              key={index}
+                              key={list?.code}
                               selected={values?.roots_one === list?.name}
                             >
                               {list?.name}
@@ -246,7 +246,7 @@ export default function AddUser() {
                           return (
                             <option
                               value={list?.name != "None" ? list?.name : ""}
-                              key={index}
+                              key={list?.code}
                               selected={values?.roots_one === list?.name}
                             >
                               {list?.name}

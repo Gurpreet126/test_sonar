@@ -80,6 +80,7 @@ export const EmailThread = () => {
   const profile_Image = useSelector((e) => e?.Authlogin?.data?.profileImage[0]);
   const [openMessage, setOpenMessage] = useState(false);
   const [viewBox, setViewBox] = useState([]);
+  console.log(viewBox, "viewbox");
   const selectedData = useLocation()?.state;
 
   const structuringData = (data) => {
@@ -208,6 +209,9 @@ export const EmailThread = () => {
                       alt=""
                       src={deleteIcons}
                       className="deleteIcon"
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Delete"
                       onClick={() => setOpenMessage(false)}
                     />
                   </div>

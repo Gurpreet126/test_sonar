@@ -126,6 +126,7 @@ export default function Dashbordinfo() {
   const [fullScreen, setFullScreen] = useState(true);
   const [recentUser, setRecentUser] = useState([]);
   const [cardList, setCardList] = useState(cardarray);
+  console.log(cardList, "cardList");
   const [showTableLoading, setShowTableLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -251,11 +252,11 @@ export default function Dashbordinfo() {
   return (
     <Mainwrapper>
       <Dashboardcard>
-        {cardList.map((values, i) => {
+        {cardList?.map((values) => {
           return (
             <Card
               onClick={() => screenRender(values)}
-              key={i}
+              key={values?.key}
               isActive={pathname === "/dashboard/userlisting"}
               style={{ background: `${values.bg}` }}
             >

@@ -25,6 +25,18 @@ import {
   LoaderWrapper,
 } from "StyledComponents";
 
+const FooterComponent = ({ currentpage, onChange, totalcount, pagesize }) => (
+  <div>
+    <Pagination
+      current={currentpage}
+      onChange={onChange}
+      total={totalcount}
+      showSizeChanger
+      defaultPageSize={pagesize}
+    />
+  </div>
+);
+
 const FilterDropdown = ({
   tableinfo,
   genderValue,
@@ -368,15 +380,12 @@ export default function Fakeuser() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <div>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </div>
+              <FooterComponent
+                currentpage={currentpage}
+                onChange={onChange}
+                totalcount={totalcount}
+                pagesize={pagesize}
+              />
             )}
           />
         </Tabledata>

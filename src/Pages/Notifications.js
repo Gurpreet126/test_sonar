@@ -29,6 +29,12 @@ import {
   NotificationsTimeField,
 } from "StyledComponents";
 
+const TableTitle = ({ onClick }) => (
+  <NotificationsTableheader>
+    <Notificationbtn onClick={onClick}>Add Notification</Notificationbtn>
+  </NotificationsTableheader>
+);
+
 export default function Notifications() {
   const [tableinfo, settableinfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
@@ -252,27 +258,18 @@ export default function Notifications() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <Pagination
+                current={currentpage}
+                onChange={onChange}
+                total={totalcount}
+                showSizeChanger
+                defaultPageSize={pagesize}
+              />
             )}
             title={() => (
-              <>
-                {" "}
-                <NotificationsTableheader>
-                  <Notificationbtn
-                    onClick={() => Navigate("/dashboard/addnotification")}
-                  >
-                    Add Notification
-                  </Notificationbtn>
-                </NotificationsTableheader>
-              </>
+              <TableTitle
+                onClick={() => Navigate("/dashboard/addnotification")}
+              />
             )}
           />
         </Tabledata>

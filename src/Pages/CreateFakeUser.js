@@ -222,11 +222,11 @@ export default function CreateFakeUser() {
                         value={values.roots_one}
                         onChange={(e) => setCountry(e.target.value)}
                       >
-                        {countries?.map((list, index) => {
+                        {countries?.map((list) => {
                           return (
                             <option
                               value={list?.name != "None" ? list?.name : ""}
-                              key={index}
+                              key={list?.code}
                               selected={values?.roots_one === list?.name}
                             >
                               {list?.name}
@@ -242,11 +242,11 @@ export default function CreateFakeUser() {
                         value={values.roots_two}
                         onChange={(e) => setCountry2(e.target.value)}
                       >
-                        {countries?.map((list, index) => {
+                        {countries?.map((list) => {
                           return (
                             <option
                               value={list?.name != "None" ? list?.name : ""}
-                              key={index}
+                              key={list?.code}
                               selected={values?.roots_one === list?.name}
                             >
                               {list?.name}

@@ -51,10 +51,6 @@ export default function Editnotification() {
 
   const handleSubmit = async (values) => {
     setLoading(true);
-    const currentdate = new Date();
-    const momenttime = moment(currentdate).format("MMMM Do YYYY");
-
-    const inputdate = moment(values.date).format("MMMM Do YYYY");
     let req = {
       Title: values.Title,
       message: values.Textarea,
@@ -62,35 +58,18 @@ export default function Editnotification() {
       notificationPushDate: values.date + " " + values.time,
       notification_id: editNoti_details?.uniqueid,
     };
-
-    if (momenttime === inputdate) {
-      let res = await editNotification(req);
-      if (res.status === 200) {
-        Navigate("/dashboard/notification");
-        setLoading(false);
-      } else {
-        toast.error(
-          res.response.data.message ||
-            res.error ||
-            res.message ||
-            "Something went wrong"
-        );
-        setLoading(false);
-      }
+    let res = await editNotification(req);
+    if (res.status === 200) {
+      Navigate("/dashboard/notification");
+      setLoading(false);
     } else {
-      let res = await editNotification(req);
-      if (res.status === 200) {
-        Navigate("/dashboard/notification");
-        setLoading(false);
-      } else {
-        toast.error(
-          res.response.data.message ||
-            res.error ||
-            res.message ||
-            "Something went wrong"
-        );
-        setLoading(false);
-      }
+      toast.error(
+        res.response.data.message ||
+          res.error ||
+          res.message ||
+          "Something went wrong"
+      );
+      setLoading(false);
     }
   };
   return (

@@ -294,13 +294,14 @@ export default function Deleteuser() {
       </Mainheading>
       <Filters>
         <div className="filters">
-          <label>Filter By Date</label>
+          <label htmlFor="date-input">Filter By Date</label>
           <DateRangePicker
             onCallback={(start, end) =>
               setCurrentDate({ start: start, end: end })
             }
           >
             <input
+              id="date-input"
               placeholder="hello"
               type="text"
               className="form-control input"

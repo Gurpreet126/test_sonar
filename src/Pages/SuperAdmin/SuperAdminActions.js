@@ -33,6 +33,7 @@ export default function SuperAdminAction() {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  console.log(filteredData, "filteredData");
   const [selectedRowsData, setSelectedRowsData] = useState([]);
   const [changeCountryLoading, setChangeCountryLoading] = useState(false);
 
@@ -287,12 +288,12 @@ export default function SuperAdminAction() {
                   </div>
 
                   <img
-                    role="button"
-                    tabIndex={0}
                     style={{ cursor: "pointer", marginRight: "5px" }}
                     onClick={() => navigate("/dashboard/addadmin")}
                     src={add}
                     alt=""
+                    tabIndex={0}
+                    aria-label="Add admin"
                   />
                 </div>
               </>
@@ -335,9 +336,9 @@ export default function SuperAdminAction() {
               <div className="grid-div">
                 {searchQuery == "" ? (
                   countryListing?.length > 0 &&
-                  countryListing?.map((val, index) => {
+                  countryListing?.map((val) => {
                     return (
-                      <div key={index}>
+                      <div key={val?.code}>
                         <p>
                           <input
                             type="checkbox"
@@ -356,9 +357,9 @@ export default function SuperAdminAction() {
                     );
                   })
                 ) : filteredData?.length > 0 ? (
-                  filteredData?.map((val, index) => {
+                  filteredData?.map((val) => {
                     return (
-                      <div key={index}>
+                      <div key="">
                         <p>
                           <input
                             type="checkbox"

@@ -175,15 +175,13 @@ export default function SupportMember() {
             columns={columns}
             dataSource={tableinfo}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={count}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <Pagination
+                current={currentpage}
+                onChange={onChange}
+                total={count}
+                showSizeChanger
+                defaultPageSize={pagesize}
+              />
             )}
             title={() => <TableHeading>Staff Member</TableHeading>}
           />

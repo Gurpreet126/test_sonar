@@ -86,21 +86,21 @@ const CountryInfoModal = ({
             {deleteData?.countryName}
             <span>
               <img
-                role="button"
-                tabIndex={0}
                 src={EditCountry}
                 alt=""
                 onClick={() => setShowEditSection(true)}
+                tabIndex={0}
+                style={{ cursor: "pointer" }}
               />
               {deleteLoading ? (
                 <Spin />
               ) : (
                 <img
-                  role="button"
-                  tabIndex={0}
                   src={DeleteCountry}
                   alt=""
                   onClick={() => handleDeleteCountry()}
+                  tabIndex={0}
+                  style={{ cursor: "pointer" }}
                 />
               )}
             </span>

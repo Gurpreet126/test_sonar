@@ -541,6 +541,11 @@ export default function Login() {
                         role="button"
                         tabIndex={0}
                         onClick={() => navigate("/Forgetpassword")}
+                        onKeyPress={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            navigate("/Forgetpassword");
+                          }
+                        }}
                       >
                         Forget password?
                       </p>

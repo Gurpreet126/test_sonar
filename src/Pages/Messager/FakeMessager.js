@@ -81,6 +81,227 @@ import {
 } from "models/MessagerStyle";
 import PropTypes from "prop-types";
 
+const MemberConversation = ({
+  chatMember,
+  key,
+  showSelectedChatId,
+  setShowSelectedChatId,
+  setFakeUserLocation,
+  getSelectedCoversation,
+  setSelectedChatDetails,
+  handleSubscriptionUserStatus,
+  currentUserUser,
+  handleUnMatchUser,
+  handleBlockUser,
+}) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  let userDetails = [
+    {
+      userType: chatMember?.userType?.[0],
+      id: chatMember?.members?.[0],
+    },
+    {
+      userType: chatMember?.userType?.[1],
+      id: chatMember?.members?.[1],
+    },
+  ];
+  let selectedUserInfo = userDetails?.filter((item) => {
+    if (!item?.userType) return item;
+  });
+  let currentUserUserInfo = userDetails?.filter((item) => {
+    if (item?.userType) return item;
+  });
+
+  const getUnReadCount = (payload) => {
+    if (payload?.unreadMessageCount?.[currentUserUserInfo?.[0].id] > 0) {
+      return (
+        <span className="unreadCount">
+          {payload?.unreadMessageCount[currentUserUserInfo?.[0].id]}
+        </span>
+      );
+    }
+    return;
+  };
+  const currentTimeStamp = Date.now();
+  const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
+
+  let difference = currentTimeStamp - msgTimeStamp;
+
+  let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+  difference -= daysDifference * 1000 * 60 * 60 * 24;
+
+  let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+  difference -= hoursDifference * 1000 * 60 * 60;
+
+  let minutesDifference = Math.floor(difference / 1000 / 60);
+  difference -= minutesDifference * 1000 * 60;
+
+  const lastChatDate = moment
+    .unix(chatMember?.lastMessage?.messageTime)
+    .local()
+    .format("MM/DD/yyyy");
+
+  const time = daysDifference
+    ? lastChatDate
+    : hoursDifference
+      ? `${hoursDifference} ${hoursDifference > 1 ? "hours" : "hour"} ago`
+      : minutesDifference > 0
+        ? `${minutesDifference} ${minutesDifference > 1 ? "mins" : "min"} ago`
+        : !isNaN(msgTimeStamp)
+          ? "Now"
+          : "";
+
+  const handleClickAway = () => {
+    setIsPopupOpen(false);
+  };
+  return (
+    chatMember[userDetails[0]?.id]?.name && (
+      <ConversationWrapper key={key}>
+        <Conversation
+          style={{
+            padding: "12px 5px",
+            width: "90%",
+            background:
+              chatMember?.chatID == showSelectedChatId
+                ? "#e2dfdfed"
+                : "transparent",
+          }}
+          onClick={() => {
+            setShowSelectedChatId(chatMember?.chatID);
+            setFakeUserLocation(
+              chatMember[currentUserUserInfo[0].id]?.fakeUserAddress ||
+                chatMember[selectedUserInfo[0].id]?.fakeUserAddress
+            );
+
+            getSelectedCoversation(
+              chatMember?.chatID,
+              chatMember[selectedUserInfo[0].id]?.name,
+              chatMember[selectedUserInfo[0].id]?.image,
+              selectedUserInfo?.[0].id,
+              currentUserUserInfo?.[0].id,
+              chatMember,
+              chatMember[currentUserUserInfo[0].id]
+            );
+
+            setSelectedChatDetails({
+              chatid: chatMember?.chatID,
+              name: chatMember[selectedUserInfo[0].id]?.name,
+              image: chatMember[selectedUserInfo[0].id]?.image,
+              selectedId: selectedUserInfo?.[0].id,
+              currentUserId: currentUserUserInfo?.[0].id,
+              chatMember: chatMember,
+              chatMemberData: chatMember[currentUserUserInfo[0].id],
+            });
+            handleSubscriptionUserStatus(currentUserUser);
+          }}
+        >
+          <AvatarGroup size="md" max={2} activeIndex={1}>
+            <Avatar
+              src={
+                process.env.REACT_APP_BASEURL_IMAGE +
+                chatMember[userDetails[0]?.id]?.image
+              }
+              name={chatMember[userDetails[0]?.id]?.name}
+            />
+            <Avatar
+              src={
+                process.env.REACT_APP_BASEURL_IMAGE +
+                chatMember[userDetails[1]?.id]?.image
+              }
+              name={chatMember[userDetails[1]?.id]?.name}
+            />
+          </AvatarGroup>
+
+          <Conversation.Content style={{ marginRight: "5px" }}>
+            <div style={{ display: "flex" }}>
+              <AvatarUsernameWrapper>
+                <div style={{ width: "100%" }}>
+                  <div>
+                    {chatMember[userDetails[0]?.id]?.name} &{" "}
+                    {chatMember[userDetails[1]?.id]?.name}
+                  </div>
+                  <div className="lastMessage">
+                    <div className="message">
+                      {chatMember?.lastMessage?.messageType == "3"
+                        ? "Audio"
+                        : chatMember?.lastMessage?.messageType === "2"
+                          ? "Gif"
+                          : chatMember?.lastMessage?.message}
+                    </div>{" "}
+                    <div className="messageTime">{time}</div>
+                  </div>
+                </div>
+              </AvatarUsernameWrapper>
+            </div>
+          </Conversation.Content>
+        </Conversation>
+
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <SettingOption>
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => setIsPopupOpen(!isPopupOpen)}
+              className="three-dot"
+            >
+              {" "}
+              ...
+            </div>
+            {getUnReadCount(chatMember)}
+            {isPopupOpen && (
+              <div className="hiddenHeaderDiv">
+                <h4
+                  tabIndex={0}
+                  aria-label="Unmatch user"
+                  onClick={() =>
+                    handleUnMatchUser(
+                      selectedUserInfo?.[0].id,
+                      currentUserUserInfo?.[0].id
+                    )
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleUnMatchUser(
+                        selectedUserInfo?.[0].id,
+                        currentUserUserInfo?.[0].id
+                      );
+                    }
+                  }}
+                  className="hiddenHead1"
+                >
+                  Unmatch
+                </h4>
+                <hr className="hrTag" />
+                <h4
+                  role="button"
+                  tabIndex={0}
+                  onClick={() =>
+                    handleBlockUser(
+                      selectedUserInfo?.[0].id,
+                      currentUserUserInfo?.[0].id
+                    )
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleBlockUser(
+                        selectedUserInfo?.[0].id,
+                        currentUserUserInfo?.[0].id
+                      );
+                    }
+                  }}
+                  className="hiddenHead2"
+                >
+                  Block
+                </h4>
+              </div>
+            )}
+          </SettingOption>
+        </ClickAwayListener>
+      </ConversationWrapper>
+    )
+  );
+};
+
 export default function FakeMessager() {
   const [allConversationLoading, setAllConversationLoading] = useState(true);
   const getAllUnreadChat = useSelector(
@@ -95,7 +316,6 @@ export default function FakeMessager() {
   const allWomensChat = useSelector(
     (state) => state?.UserCounts?.allWomensChat
   );
-
   const [chatMember, setChatMember] = useState([]);
   const [selectedUserHandle, setSelectedUserHandle] = useState(false);
   const [selectedChatLoading, setSelectedChatLoading] = useState(false);
@@ -252,199 +472,7 @@ export default function FakeMessager() {
       setIsSubscibed(false);
     }
   };
-  const MemberConversation = ({ chatMember, key }) => {
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    let userDetails = [
-      {
-        userType: chatMember?.userType?.[0],
-        id: chatMember?.members?.[0],
-      },
-      {
-        userType: chatMember?.userType?.[1],
-        id: chatMember?.members?.[1],
-      },
-    ];
-    let selectedUserInfo = userDetails?.filter((item) => {
-      if (!item?.userType) return item;
-    });
-    let currentUserUserInfo = userDetails?.filter((item) => {
-      if (item?.userType) return item;
-    });
 
-    const getUnReadCount = (payload) => {
-      if (payload?.unreadMessageCount?.[currentUserUserInfo?.[0].id] > 0) {
-        return (
-          <span className="unreadCount">
-            {payload?.unreadMessageCount[currentUserUserInfo?.[0].id]}
-          </span>
-        );
-      }
-      return;
-    };
-    const currentTimeStamp = Date.now();
-    const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
-
-    let difference = currentTimeStamp - msgTimeStamp;
-
-    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24;
-
-    let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-    difference -= hoursDifference * 1000 * 60 * 60;
-
-    let minutesDifference = Math.floor(difference / 1000 / 60);
-    difference -= minutesDifference * 1000 * 60;
-
-    const lastChatDate = moment
-      .unix(chatMember?.lastMessage?.messageTime)
-      .local()
-      .format("MM/DD/yyyy");
-
-    const time = daysDifference
-      ? lastChatDate
-      : hoursDifference
-        ? `${hoursDifference} ${hoursDifference > 1 ? "hours" : "hour"} ago`
-        : minutesDifference > 0
-          ? `${minutesDifference} ${minutesDifference > 1 ? "mins" : "min"} ago`
-          : !isNaN(msgTimeStamp)
-            ? "Now"
-            : "";
-
-    const handleClickAway = () => {
-      setIsPopupOpen(false);
-    };
-    return (
-      chatMember[userDetails[0]?.id]?.name && (
-        <ConversationWrapper key={key}>
-          <Conversation
-            style={{
-              padding: "12px 5px",
-              width: "90%",
-              background:
-                chatMember?.chatID == showSelectedChatId
-                  ? "#e2dfdfed"
-                  : "transparent",
-            }}
-            onClick={() => {
-              setShowSelectedChatId(chatMember?.chatID);
-              setFakeUserLocation(
-                chatMember[currentUserUserInfo[0].id]?.fakeUserAddress ||
-                  chatMember[selectedUserInfo[0].id]?.fakeUserAddress
-              );
-
-              getSelectedCoversation(
-                chatMember?.chatID,
-                chatMember[selectedUserInfo[0].id]?.name,
-                chatMember[selectedUserInfo[0].id]?.image,
-                selectedUserInfo?.[0].id,
-                currentUserUserInfo?.[0].id,
-                chatMember,
-                chatMember[currentUserUserInfo[0].id]
-              );
-
-              setSelectedChatDetails({
-                chatid: chatMember?.chatID,
-                name: chatMember[selectedUserInfo[0].id]?.name,
-                image: chatMember[selectedUserInfo[0].id]?.image,
-                selectedId: selectedUserInfo?.[0].id,
-                currentUserId: currentUserUserInfo?.[0].id,
-                chatMember: chatMember,
-                chatMemberData: chatMember[currentUserUserInfo[0].id],
-              });
-              handleSubscriptionUserStatus(currentUserUser);
-            }}
-          >
-            <AvatarGroup size="md" max={2} activeIndex={1}>
-              <Avatar
-                src={
-                  process.env.REACT_APP_BASEURL_IMAGE +
-                  chatMember[userDetails[0]?.id]?.image
-                }
-                name={chatMember[userDetails[0]?.id]?.name}
-              />
-              <Avatar
-                src={
-                  process.env.REACT_APP_BASEURL_IMAGE +
-                  chatMember[userDetails[1]?.id]?.image
-                }
-                name={chatMember[userDetails[1]?.id]?.name}
-              />
-            </AvatarGroup>
-
-            <Conversation.Content style={{ marginRight: "5px" }}>
-              <div style={{ display: "flex" }}>
-                <AvatarUsernameWrapper>
-                  <div style={{ width: "100%" }}>
-                    <div>
-                      {chatMember[userDetails[0]?.id]?.name} &{" "}
-                      {chatMember[userDetails[1]?.id]?.name}
-                    </div>
-                    <div className="lastMessage">
-                      <div className="message">
-                        {chatMember?.lastMessage?.messageType == "3"
-                          ? "Audio"
-                          : chatMember?.lastMessage?.messageType === "2"
-                            ? "Gif"
-                            : chatMember?.lastMessage?.message}
-                      </div>{" "}
-                      <div className="messageTime">{time}</div>
-                    </div>
-                  </div>
-                </AvatarUsernameWrapper>
-              </div>
-            </Conversation.Content>
-          </Conversation>
-
-          <ClickAwayListener onClickAway={handleClickAway}>
-            <SettingOption>
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={() => setIsPopupOpen(!isPopupOpen)}
-                className="three-dot"
-              >
-                {" "}
-                ...
-              </div>
-              {getUnReadCount(chatMember)}
-              {isPopupOpen && (
-                <div className="hiddenHeaderDiv">
-                  <h4
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Unmatch user"
-                    onClick={() =>
-                      handleUnMatchUser(
-                        selectedUserInfo?.[0].id,
-                        currentUserUserInfo?.[0].id
-                      )
-                    }
-                    className="hiddenHead1"
-                  >
-                    Unmatch
-                  </h4>
-                  <hr className="hrTag" />
-                  <h4
-                    role="button"
-                    tabIndex={0}
-                    onClick={() =>
-                      handleBlockUser(
-                        selectedUserInfo?.[0].id,
-                        currentUserUserInfo?.[0].id
-                      )
-                    }
-                    className="hiddenHead2"
-                  >
-                    Block
-                  </h4>
-                </div>
-              )}
-            </SettingOption>
-          </ClickAwayListener>
-        </ConversationWrapper>
-      )
-    );
-  };
   const [showPrivateMessageButton, setShowPrivateMessageButton] =
     useState(false);
 
@@ -1412,7 +1440,7 @@ export default function FakeMessager() {
                 </LoaderWrapper>
               ) : (
                 <InfiniteScroll
-                  dataLength={allChat && allChat?.length}
+                  dataLength={allChat?.length}
                   next={checkingNextFunc}
                   hasMore={hasMore}
                   onScroll={(e) => {
@@ -1438,11 +1466,22 @@ export default function FakeMessager() {
                     ) : (
                       <>
                         {allChat?.length > 0 &&
-                          allChat?.map((allChat, idx) => (
+                          allChat?.map((allChat) => (
                             <>
                               <MemberConversation
                                 chatMember={allChat}
-                                key={idx}
+                                key={allChat?.chatID}
+                                showSelectedChatId={showSelectedChatId}
+                                setShowSelectedChatId={setShowSelectedChatId}
+                                setFakeUserLocation={setFakeUserLocation}
+                                getSelectedCoversation={getSelectedCoversation}
+                                setSelectedChatDetails={setSelectedChatDetails}
+                                handleSubscriptionUserStatus={
+                                  handleSubscriptionUserStatus
+                                }
+                                currentUserUser={currentUserUser}
+                                handleUnMatchUser={handleUnMatchUser}
+                                handleBlockUser={handleBlockUser}
                               />
                             </>
                           ))}
@@ -1488,16 +1527,25 @@ export default function FakeMessager() {
                     ) : (
                       <>
                         {getAllUnreadChatData?.length > 0 &&
-                          getAllUnreadChatData?.map(
-                            (getAllUnreadChatData, idx) => (
-                              <>
-                                <MemberConversation
-                                  chatMember={getAllUnreadChatData}
-                                  key={idx}
-                                />
-                              </>
-                            )
-                          )}
+                          getAllUnreadChatData?.map((getAllUnreadChatData) => (
+                            <>
+                              <MemberConversation
+                                chatMember={getAllUnreadChatData}
+                                key={getAllUnreadChatData?.chatID}
+                                showSelectedChatId={showSelectedChatId}
+                                setShowSelectedChatId={setShowSelectedChatId}
+                                setFakeUserLocation={setFakeUserLocation}
+                                getSelectedCoversation={getSelectedCoversation}
+                                setSelectedChatDetails={setSelectedChatDetails}
+                                handleSubscriptionUserStatus={
+                                  handleSubscriptionUserStatus
+                                }
+                                currentUserUser={currentUserUser}
+                                handleUnMatchUser={handleUnMatchUser}
+                                handleBlockUser={handleBlockUser}
+                              />
+                            </>
+                          ))}
                       </>
                     )}
                   </div>
@@ -1538,11 +1586,22 @@ export default function FakeMessager() {
                     ) : (
                       <>
                         {allReadChat?.length > 0 &&
-                          allReadChat?.map((allReadChat, idx) => (
+                          allReadChat?.map((allReadChat) => (
                             <>
                               <MemberConversation
                                 chatMember={allReadChat}
-                                key={idx}
+                                key={allReadChat?.chatID}
+                                showSelectedChatId={showSelectedChatId}
+                                setShowSelectedChatId={setShowSelectedChatId}
+                                setFakeUserLocation={setFakeUserLocation}
+                                getSelectedCoversation={getSelectedCoversation}
+                                setSelectedChatDetails={setSelectedChatDetails}
+                                handleSubscriptionUserStatus={
+                                  handleSubscriptionUserStatus
+                                }
+                                currentUserUser={currentUserUser}
+                                handleUnMatchUser={handleUnMatchUser}
+                                handleBlockUser={handleBlockUser}
                               />
                             </>
                           ))}
@@ -1586,11 +1645,22 @@ export default function FakeMessager() {
                     ) : (
                       <>
                         {allWomensChat?.length > 0 &&
-                          allWomensChat?.map((allWomensChat, idx) => (
+                          allWomensChat?.map((allWomensChat) => (
                             <>
                               <MemberConversation
                                 chatMember={allWomensChat}
-                                key={idx}
+                                key={allWomensChat?.chatID}
+                                showSelectedChatId={showSelectedChatId}
+                                setShowSelectedChatId={setShowSelectedChatId}
+                                setFakeUserLocation={setFakeUserLocation}
+                                getSelectedCoversation={getSelectedCoversation}
+                                setSelectedChatDetails={setSelectedChatDetails}
+                                handleSubscriptionUserStatus={
+                                  handleSubscriptionUserStatus
+                                }
+                                currentUserUser={currentUserUser}
+                                handleUnMatchUser={handleUnMatchUser}
+                                handleBlockUser={handleBlockUser}
                               />
                             </>
                           ))}
@@ -1638,7 +1708,18 @@ export default function FakeMessager() {
                             <>
                               <MemberConversation
                                 chatMember={privateChat}
-                                key={idx}
+                                key={privateChat?.chatID}
+                                showSelectedChatId={showSelectedChatId}
+                                setShowSelectedChatId={setShowSelectedChatId}
+                                setFakeUserLocation={setFakeUserLocation}
+                                getSelectedCoversation={getSelectedCoversation}
+                                setSelectedChatDetails={setSelectedChatDetails}
+                                handleSubscriptionUserStatus={
+                                  handleSubscriptionUserStatus
+                                }
+                                currentUserUser={currentUserUser}
+                                handleUnMatchUser={handleUnMatchUser}
+                                handleBlockUser={handleBlockUser}
                               />
                             </>
                           ))}
@@ -1693,9 +1774,13 @@ export default function FakeMessager() {
                     role="button"
                     tabIndex={0}
                     onClick={() => setEmojiPicker(!emojiPicker)}
+                    onKeyPress={(e) =>
+                      e.key === "Enter" && setEmojiPicker(!emojiPicker)
+                    }
                     src={emojiBtn}
                     className="CustomEmoji"
                     alt=""
+                    aria-label="Toggle Emoji Picker"
                   />
                 )}
               <MainContainer>

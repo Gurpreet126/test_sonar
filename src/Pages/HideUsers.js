@@ -25,6 +25,18 @@ import {
   HideUserTitle,
 } from "StyledComponents";
 
+const FooterComponent = ({ currentpage, onChange, totalData, pagesize }) => (
+  <div>
+    <Pagination
+      current={currentpage}
+      onChange={onChange}
+      total={totalData}
+      showSizeChanger
+      defaultPageSize={pagesize}
+    />
+  </div>
+);
+
 export default function HideUsers() {
   const [tableinfo, settableinfo] = useState([]);
 
@@ -252,15 +264,12 @@ export default function HideUsers() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalData}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <FooterComponent
+                currentpage={currentpage}
+                onChange={onChange}
+                totalData={totalData}
+                pagesize={pagesize}
+              />
             )}
           />
         </Tabledata>

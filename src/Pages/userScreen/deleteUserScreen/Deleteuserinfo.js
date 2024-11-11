@@ -329,7 +329,7 @@ export default function Deleteuserinfo() {
                 <div className="user-data">
                   <h4>Pets</h4>
                   <span>
-                    {personlDetail?.pets && personlDetail?.pets.length
+                    {personlDetail?.pets?.length
                       ? personlDetail?.pets.toString()
                       : ""}
                     {personlDetail?.childrens}

@@ -86,7 +86,7 @@ const WaveCreator = ({
 
   useEffect(() => {
     if (currentId !== messageId) {
-      wavesurfer.current && wavesurfer.current.pause();
+      wavesurfer.current?.pause();
       setIsPlaying(false);
     }
   }, [currentId, messageId]);
@@ -105,7 +105,6 @@ const WaveCreator = ({
         <div className="playPause">
           {isReadyToPlay ? (
             <img
-              role="button"
               tabIndex={0}
               src={isPlaying ? PauseBtn : PlayBtn}
               alt=""

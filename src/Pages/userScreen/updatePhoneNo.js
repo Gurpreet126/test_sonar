@@ -6,8 +6,7 @@ import { dialingCodeList } from "Component/contactData/dialing";
 import { FieldWrapper, LabelWrapper } from "models/UserScreenStyle";
 import PropTypes from "prop-types";
 
-const NUMERIC_REGEXP = /[-]{0,1}[\d]*/g;
-
+const NUMERIC_REGEXP = /[-]?\d*/g;
 const UpdateUserPhoneNo = (props) => {
   const {
     data = "",
@@ -121,8 +120,12 @@ const UpdateUserPhoneNo = (props) => {
             className="custome-select"
             data-placeholder="Choose a Category"
           >
-            {dialingCodeList.map((list, index) => (
-              <option key={index} data-countryCode={list.iso} value={list.code}>
+            {dialingCodeList.map((list) => (
+              <option
+                key={list?.code}
+                data-countryCode={list.iso}
+                value={list.code}
+              >
                 {list.country + "(" + list.code + ")"}
               </option>
             ))}

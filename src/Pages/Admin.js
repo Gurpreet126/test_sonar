@@ -32,6 +32,18 @@ import {
   Status,
 } from "StyledComponents";
 
+const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
+  <div>
+    <Pagination
+      current={currentpage}
+      onChange={onChange}
+      total={totalCount}
+      showSizeChanger
+      defaultPageSize={pageSize}
+    />
+  </div>
+);
+
 const DeleteModalFooter = ({ deleteLoading, handleCancel, handleOk }) =>
   deleteLoading ? (
     <div
@@ -323,15 +335,12 @@ export default function Admin() {
             dataSource={tableInfo}
             pagination={false}
             footer={() => (
-              <div>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalCount}
-                  showSizeChanger
-                  defaultPageSize={pageSize}
-                />
-              </div>
+              <PaginationFooter
+                currentpage={currentpage}
+                onChange={onChange}
+                totalCount={totalCount}
+                pageSize={pageSize}
+              />
             )}
           />
         )}

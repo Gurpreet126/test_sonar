@@ -73,11 +73,11 @@ const AppearanceAndHabit = (props) => {
                   onChange={handleChange}
                   className="select-style"
                 >
-                  {heightArray.map((list, index) => {
+                  {heightArray.map((list) => {
                     return (
                       <option
                         value={list.cm}
-                        key={index}
+                        key={list?.cm}
                         selected={values.height === list.cm}
                       >
                         {list.height}
@@ -87,7 +87,9 @@ const AppearanceAndHabit = (props) => {
                 </select>
               </div>
               <div className="field-wrapper">
-                <label className="subheading" htmlFor="bodyType">BodyType</label>
+                <label className="subheading" htmlFor="bodyType">
+                  BodyType
+                </label>
                 <RadioBoxGroup
                   options={bodyType}
                   name="bodyType"
@@ -99,7 +101,9 @@ const AppearanceAndHabit = (props) => {
 
             <div className="flex-section">
               <div className="field-wrapper">
-                <label className="subheading" htmlFor="exercise">Exercise</label>
+                <label className="subheading" htmlFor="exercise">
+                  Exercise
+                </label>
                 <RadioBoxGroup
                   options={excercise}
                   name="exercise"
@@ -108,7 +112,9 @@ const AppearanceAndHabit = (props) => {
                 />
               </div>
               <div className="field-wrapper">
-                <label className="subheading" htmlFor="drink">Drink</label>
+                <label className="subheading" htmlFor="drink">
+                  Drink
+                </label>
                 <RadioBoxGroup
                   options={drink}
                   name="drink"
@@ -119,7 +125,9 @@ const AppearanceAndHabit = (props) => {
             </div>
             <div className="flex-section">
               <div className="field-wrapper">
-                <label className="subheading" htmlFor="smoker">Smoker</label>
+                <label className="subheading" htmlFor="smoker">
+                  Smoker
+                </label>
                 <RadioBoxGroup
                   options={drink}
                   name="smoker"
@@ -128,7 +136,9 @@ const AppearanceAndHabit = (props) => {
                 />
               </div>
               <div className="field-wrapper">
-                <label className="subheading" htmlFor="marijuana">Marijuana</label>
+                <label className="subheading" htmlFor="marijuana">
+                  Marijuana
+                </label>
                 <RadioBoxGroup
                   options={drink}
                   name="marijuana"

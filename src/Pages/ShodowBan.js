@@ -323,15 +323,13 @@ export default function ShadowBan() {
             dataSource={tableinfo}
             pagination={false}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <Pagination
+                current={currentpage}
+                onChange={onChange}
+                total={totalcount}
+                showSizeChanger
+                defaultPageSize={pagesize}
+              />
             )}
           />
         </Tabledata>

@@ -59,12 +59,10 @@ export default function Navbar() {
           )}
           <div
             className="menu-logo"
-            role="button"
-            tabIndex={0}
             onClick={onclick}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
-                onclick(e);
+                onclick();
               }
             }}
             aria-label="Menu"
@@ -87,8 +85,6 @@ export default function Navbar() {
               content={
                 <Popoverinfo>
                   <div
-                    role="button"
-                    tabIndex={0}
                     onClick={(e) => {
                       e.preventDefault();
                       Navigate("/dashboard/updateprofile");
@@ -107,8 +103,6 @@ export default function Navbar() {
 
                   <div>
                     <div
-                      role="button"
-                      tabIndex={0}
                       onClick={(e) => {
                         e.preventDefault();
                         Navigate("/dashboard/superadmin");
@@ -209,6 +203,8 @@ export default function Navbar() {
               </div>
               <div
                 className="color-box"
+                role="button"
+                tabIndex={0}
                 onClick={() => {
                   dispatch(navcolor("lightgrey"));
                   dispatch(sidecolor("white"));

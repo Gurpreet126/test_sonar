@@ -25,6 +25,67 @@ import {
   Tabledata,
 } from "models/EmailStyle";
 
+const TitleComponent = () => (
+  <Emailbox>
+    <div className="Top_bar">
+      <div className="Inbox">
+        <p>Inbox</p>
+      </div>
+    </div>
+  </Emailbox>
+);
+
+const Loginmodal = ({ validation, handleloginsubmit, loadinglogin }) => {
+  return (
+    <Loginsection>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={validation}
+        onSubmit={handleloginsubmit}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <div className="login_section">
+              <p>User ID</p>
+              <Field id="email" type="email" name="email" />
+
+              {errors.email && touched.email ? (
+                <Validationbox>
+                  {" "}
+                  <p className="error-text">{errors.email}</p>{" "}
+                </Validationbox>
+              ) : null}
+            </div>
+            <div className="login_section">
+              <p>Password</p>
+              <Field id="password" type="password" name="password" />
+              {errors.password && touched.password ? (
+                <Validationbox>
+                  {" "}
+                  <p className="error-text">{errors.password}</p>{" "}
+                </Validationbox>
+              ) : null}
+            </div>
+            <div className="login-btn">
+              {loadinglogin ? (
+                <LoaderWrappersmall>
+                  {" "}
+                  <Spin size="60" />
+                </LoaderWrappersmall>
+              ) : (
+                <button className="loginbtn"> Login</button>
+              )}
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </Loginsection>
+  );
+};
+
 export default function EmailLayout() {
   const navigate = useNavigate();
   const [tableInfo, setTableInfo] = useState([]);
@@ -176,57 +237,6 @@ export default function EmailLayout() {
     fetchingMail(req);
   };
 
-  const Loginmodal = () => {
-    return (
-      <Loginsection>
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validationSchema={validation}
-          onSubmit={handleloginsubmit}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <div className="login_section">
-                <p>User ID</p>
-                <Field id="email" type="email" name="email" />
-
-                {errors.email && touched.email ? (
-                  <Validationbox>
-                    {" "}
-                    <p className="error-text">{errors.email}</p>{" "}
-                  </Validationbox>
-                ) : null}
-              </div>
-              <div className="login_section">
-                <p>Password</p>
-                <Field id="password" type="password" name="password" />
-                {errors.password && touched.password ? (
-                  <Validationbox>
-                    {" "}
-                    <p className="error-text">{errors.password}</p>{" "}
-                  </Validationbox>
-                ) : null}
-              </div>
-              <div className="login-btn">
-                {loadinglogin ? (
-                  <LoaderWrappersmall>
-                    {" "}
-                    <Spin size="60" />
-                  </LoaderWrappersmall>
-                ) : (
-                  <button className="loginbtn"> Login</button>
-                )}
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </Loginsection>
-    );
-  };
-
   return (
     <Mainwrapper>
       <Mainheading>
@@ -243,7 +253,11 @@ export default function EmailLayout() {
       </Mainheading>
 
       <Modal footer={false} onCancel={handleCancel} open={isModalOpen}>
-        <Loginmodal />
+        <Loginmodal
+          validation={validation}
+          handleloginsubmit={handleloginsubmit}
+          loadinglogin={loadinglogin}
+        />
       </Modal>
 
       {loading ? (
@@ -258,7 +272,11 @@ export default function EmailLayout() {
             open={modalForMessage}
           >
             <Loginsection>
-              <Loginmodal />
+              <Loginmodal
+                validation={validation}
+                handleloginsubmit={handleloginsubmit}
+                loadinglogin={loadinglogin}
+              />
             </Loginsection>
           </Modal>
 
@@ -269,17 +287,7 @@ export default function EmailLayout() {
             pagination={false}
             rowSelection={rowSelection}
             dataSource={tableInfo}
-            title={() => (
-              <div>
-                <Emailbox>
-                  <div className="Top_bar">
-                    <div className="Inbox">
-                      <p>Inbox</p>
-                    </div>
-                  </div>
-                </Emailbox>
-              </div>
-            )}
+            title={() => <TitleComponent />}
           />
         </Tabledata>
       )}

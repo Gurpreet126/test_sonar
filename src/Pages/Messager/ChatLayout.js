@@ -149,6 +149,7 @@ const MemberConversation = ({
 export default function ChatLayout() {
   const currentUser = useLocation()?.state;
   const [chatMember, setChatMember] = useState([]);
+  console.log(chatMember, "chatMember");
   const [selectedChat, setSelectedChat] = useState([]);
   const [selectedUserInfo, setSelectedUserInfo] = useState(null);
   const [selectedChatLoading, setSelectedChatLoading] = useState(false);
@@ -536,9 +537,9 @@ export default function ChatLayout() {
                   ) : (
                     <>
                       {chatMember?.length > 0 &&
-                        chatMember?.map((chatMember, index) => (
+                        chatMember?.map((chatMember) => (
                           <MemberConversation
-                            key={index}
+                            key={chatMember?.chatID}
                             chatMember={chatMember}
                             currentUser={currentUser}
                             getSelectedCoversation={getSelectedCoversation}
@@ -561,6 +562,9 @@ export default function ChatLayout() {
                   src={emojiBtn}
                   className="CustomEmoji"
                   alt=""
+                  role="button"
+                  tabIndex="0"
+                  aria-label="Toggle Emoji Picker"
                 />
               )}
               <MainContainer>

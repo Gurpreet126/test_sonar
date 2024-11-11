@@ -29,17 +29,16 @@ export default function Userlisting() {
   const saveSearchWord = useSelector((e) => e.UserCounts?.searchValueForReal);
 
   const listingname = () => {
-    let name = "";
-    if (state?.cardName == 1) {
-      return (name = "All users");
+    if (state?.cardName === 1) {
+      return "All users";
     }
     if (state?.cardName === "United States") {
-      return (name = "United States");
+      return "United States";
     }
-    if (state?.cardName == "Canada") {
-      return (name = "Canada");
+    if (state?.cardName === "Canada") {
+      return "Canada";
     }
-    return name;
+    return ""; // Default case if no condition matches
   };
 
   const columns = [
@@ -230,15 +229,13 @@ export default function Userlisting() {
             pagination={false}
             scroll={{ x: true }}
             footer={() => (
-              <>
-                <Pagination
-                  current={currentpage}
-                  onChange={onChange}
-                  total={totalcount}
-                  showSizeChanger
-                  defaultPageSize={pagesize}
-                />
-              </>
+              <Pagination
+                current={currentpage}
+                onChange={onChange}
+                total={totalcount}
+                showSizeChanger
+                defaultPageSize={pagesize}
+              />
             )}
           />
         </Tabledata>
