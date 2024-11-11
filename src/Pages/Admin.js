@@ -31,18 +31,7 @@ import {
   Onlinebtn,
   Status,
 } from "StyledComponents";
-
-const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
-  <div>
-    <Pagination
-      current={currentpage}
-      onChange={onChange}
-      total={totalCount}
-      showSizeChanger
-      defaultPageSize={pageSize}
-    />
-  </div>
-);
+import PaginationFooter from "./PaginationFooter";
 
 const DeleteModalFooter = ({ deleteLoading, handleCancel, handleOk }) =>
   deleteLoading ? (

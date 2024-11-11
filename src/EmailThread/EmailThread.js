@@ -209,10 +209,15 @@ export const EmailThread = () => {
                       alt=""
                       src={deleteIcons}
                       className="deleteIcon"
-                      role="button"
                       tabIndex={0}
-                      aria-label="Delete"
                       onClick={() => setOpenMessage(false)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setOpenMessage(false);
+                        }
+                      }}
+                      aria-label="Delete"
                     />
                   </div>
                 </TextAreaWrapper>
