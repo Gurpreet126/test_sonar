@@ -59,6 +59,8 @@ export default function Navbar() {
           )}
           <div
             className="menu-logo"
+            role="button"
+            tabIndex={0}
             onClick={onclick}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
