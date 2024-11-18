@@ -28,6 +28,7 @@ import {
   NotificationsTableheader,
   NotificationsTimeField,
 } from "StyledComponents";
+import PropTypes from "prop-types";
 
 const TableTitle = ({ onClick }) => (
   <NotificationsTableheader>
@@ -277,3 +278,7 @@ export default function Notifications() {
     </Mainwrapper>
   );
 }
+
+TableTitle.propTypes = {
+  onClick: PropTypes.any,
+};

@@ -17,6 +17,7 @@ import {
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import moment from "moment";
+import PropTypes from "prop-types";
 
 const TableFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
   <Pagination

@@ -36,6 +36,7 @@ import {
   SearchboxForPendingPages,
   RealUserTitle,
 } from "StyledComponents";
+import PropTypes from "prop-types";
 
 const DropdownContent = ({
   online,
@@ -507,3 +508,16 @@ export default function Realusers() {
     </Mainwrapper>
   );
 }
+
+DropdownContent.propTypes = {
+  online: PropTypes.any,
+  handleChange_online: PropTypes.func,
+  faceVerificationStatus: PropTypes.any,
+  handleChange_verified: PropTypes.func,
+  countries: PropTypes.any,
+  setCountry: PropTypes.any,
+  Male_female: PropTypes.func,
+  genderValue: PropTypes.any,
+  dateSelection: PropTypes.func,
+  getAllData: PropTypes.func,
+};

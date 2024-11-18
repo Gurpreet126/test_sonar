@@ -6,6 +6,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { DeleteCountry, EditCountry } from "Utils/Image";
 import * as Yup from "yup";
 import { CountryInfoModalWrapper } from "models/SuperAdminStyle";
+import PropTypes from "prop-types";
 
 const CountryInfoModal = ({
   deleteData,
@@ -148,3 +149,10 @@ const CountryInfoModal = ({
   );
 };
 export default CountryInfoModal;
+
+CountryInfoModal.propTypes = {
+  deleteData: PropTypes.any,
+  openCountryInfoModal: PropTypes.any,
+  handleCancelOpenCountryModal: PropTypes.func,
+  handleGetCountryListing: PropTypes.func,
+};

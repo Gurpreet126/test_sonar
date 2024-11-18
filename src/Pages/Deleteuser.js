@@ -352,9 +352,9 @@ export default function Deleteuser() {
   );
 }
 
-
 PaginationFooter.propTypes = {
-  fullScreen: PropTypes.bool,
-  setFullScreen: PropTypes.any,
-  handle: PropTypes.any,
+  currentpage: PropTypes.any,
+  onChange: PropTypes.any,
+  totalCount: PropTypes.any,
+  pageSize: PropTypes.any,
 };

@@ -814,3 +814,9 @@ export default function ChatLayout() {
 ChatLayout.propTypes = {
   chatMember: PropTypes.any,
 };
+
+MemberConversation.propTypes = {
+  chatMember: PropTypes.any,
+  currentUser: PropTypes.any,
+  getSelectedCoversation: PropTypes.func,
+};

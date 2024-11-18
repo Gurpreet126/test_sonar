@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { AddCountryModalWrapper } from "models/SuperAdminStyle";
+import PropTypes from "prop-types";
 
 const AddCountryModal = ({
   openAddCountryModal,
@@ -75,3 +76,9 @@ const AddCountryModal = ({
   );
 };
 export default AddCountryModal;
+
+AddCountryModal.propTypes = {
+  openAddCountryModal: PropTypes.any,
+  handleCancelAddCountryModl: PropTypes.func,
+  handleGetCountryListing: PropTypes.func
+}

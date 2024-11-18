@@ -2078,3 +2078,17 @@ FakeMessager.propTypes = {
   chatMember: PropTypes.any,
   key: PropTypes.any,
 };
+
+MemberConversation.propTypes = {
+  chatMember: PropTypes.any,
+  key: PropTypes.any,
+  showSelectedChatId: PropTypes.any,
+  setShowSelectedChatId: PropTypes.func,
+  setFakeUserLocation: PropTypes.func,
+  getSelectedCoversation: PropTypes.func,
+  setSelectedChatDetails: PropTypes.func,
+  handleSubscriptionUserStatus: PropTypes.any,
+  currentUserUser: PropTypes.any,
+  handleUnMatchUser: PropTypes.func,
+  handleBlockUser: PropTypes.func,
+};

@@ -18,6 +18,7 @@ import { getAllMessagerListing, searchMatch } from "Services/Collection";
 import { toast } from "react-toastify";
 import { LoaderWrapper } from "Styles/Globalstyle";
 import moment from "moment";
+import PropTypes from "prop-types";
 
 const SeleteDTabHeading = ({ selectedTab }) => {
   if (selectedTab === 2) {
@@ -326,6 +327,10 @@ export default function Messanger() {
     </Mainwrapper>
   );
 }
+
+SeleteDTabHeading.propTypes = {
+  selectedTab: PropTypes.number,
+};
 
 const SwitchTab = styled.div`
   width: 100%;

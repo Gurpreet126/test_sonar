@@ -282,6 +282,6 @@ export default function HideUsers() {
 FooterComponent.propTypes = {
   currentpage: PropTypes.any,
   onChange: PropTypes.any,
-  totalCount: PropTypes.any,
+  totalData: PropTypes.any,
   pageSize: PropTypes.any,
 };
