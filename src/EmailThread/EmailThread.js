@@ -210,6 +210,7 @@ export const EmailThread = () => {
                       src={deleteIcons}
                       className="deleteIcon"
                       tabIndex={0}
+                      role="button"
                       onClick={() => setOpenMessage(false)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
