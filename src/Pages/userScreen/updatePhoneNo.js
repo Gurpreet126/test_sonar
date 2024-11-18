@@ -17,7 +17,7 @@ const UpdateUserPhoneNo = (props) => {
     countryCode,
   } = props;
 
-  const [phoneNumber, SetPhoneNumber] = useState(data);
+  const [phoneNumber, setPhoneNumber] = useState(data);
   const [dialingCode, setDialingCode] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +66,7 @@ const UpdateUserPhoneNo = (props) => {
   };
 
   const handleChange = (e) => {
-    SetPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value);
   };
 
   const handleCancel = () => {

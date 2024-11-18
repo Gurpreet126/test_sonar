@@ -1867,3 +1867,8 @@ Userdetails.propTypes = {
   originNode: PropTypes.any,
   file: PropTypes.any,
 };
+
+DraggableUploadListItem.propTypes = {
+  originNode: PropTypes.any,
+  file: PropTypes.any,
+};

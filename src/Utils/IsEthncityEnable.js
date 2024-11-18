@@ -1,6 +1,7 @@
 import { ethnicities, ethnicities as options } from "Pages/userScreen/data";
 import { Checkbox } from "antd";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 export const IsEthncityEnable = ({ values, handleChange, field }) => {
   const isIbeor_v2 = process.env.REACT_APP_BASEURL;
@@ -52,4 +53,10 @@ const CheckboxGroup = ({ options, name, defaultValue, onChange, ...rest }) => {
       />
     </div>
   );
+};
+
+IsEthncityEnable.propTypes = {
+  values: PropTypes.any,
+  handleChange: PropTypes.func,
+  field: PropTypes.any,
 };

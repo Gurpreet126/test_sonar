@@ -34,7 +34,7 @@ import {
 
 export default function Reportedusers() {
   const dispatch = useDispatch();
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [sortBasis, setsortBasis] = useState({
     sortBasis: undefined,
     sortOrder: undefined,
@@ -65,7 +65,7 @@ export default function Reportedusers() {
       if (searchBy.status === 200) {
         setTotalCount(searchBy?.extraData);
         setLoading(false);
-        settableinfo(
+        setTableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -95,7 +95,7 @@ export default function Reportedusers() {
       } else {
         setLoading(false);
 
-        settableinfo([]);
+        setTableInfo([]);
       }
     }
   };
@@ -126,7 +126,7 @@ export default function Reportedusers() {
 
     if (res.status === 200) {
       setTotalCount(res?.extraData);
-      settableinfo(
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -401,7 +401,7 @@ export default function Reportedusers() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <Pagination
