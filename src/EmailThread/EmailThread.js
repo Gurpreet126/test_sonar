@@ -69,6 +69,13 @@ const ConvertArrayBufferToBase64 = ({ data }) => {
         role="button"
         tabIndex={0}
         onClick={() => view(base64Code, data[0]?.contentType)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault(); // Prevent default behavior (e.g., scrolling for space)
+            view(base64Code, data[0]?.contentType);
+          }
+        }}
+        aria-label="View attachment"
       >
         <img alt="docIcons" src={docIcons} />
       </div>

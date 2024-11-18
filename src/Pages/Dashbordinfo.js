@@ -110,6 +110,13 @@ const TableHeader = ({ fullScreen, setFullScreen, handle }) => (
       role="button"
       tabIndex={0}
       onClick={() => setFullScreen((value) => !value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault(); // Prevent default behavior (e.g., scrolling for space)
+          setFullScreen((value) => !value);
+        }
+      }}
+      aria-label="Toggle full screen"
     >
       {fullScreen ? (
         <FullscreenOutlined onClick={handle.enter} />

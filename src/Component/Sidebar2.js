@@ -36,7 +36,7 @@ export default function Sidebar2() {
   const shouldDisplayLabel = (over, count) => over || count;
 
   return (
-    <>
+    <div>
       <SSidebar
         style={{ background: `${sidebarcolor}` }}
         onMouseOver={() => dispatch(Over(true))}
@@ -317,6 +317,6 @@ export default function Sidebar2() {
           </SLinkContainer>
         </div>
       </SSidebar>
-    </>
+    </div>
   );
 }

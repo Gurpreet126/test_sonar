@@ -22,31 +22,31 @@ import {
   Searchbox,
 } from "StyledComponents";
 
-const PaginationFooter = ({ currentpage, onChange, totalcount, pagesize }) => (
+const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
   <Pagination
     current={currentpage}
     onChange={onChange}
-    total={totalcount}
+    total={totalCount}
     showSizeChanger
-    defaultPageSize={pagesize}
+    defaultPageSize={pageSize}
   />
 );
 
 export default function Deleteuser() {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, settableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(20);
+  const [pageSize, setpagesize] = useState(20);
   const [loading, setLoading] = useState(false);
   const [currentDate, setCurrentDate] = useState(null);
-  const [searchtext, setsearchtext] = useState(null);
+  const [searchText, setSearchText] = useState(null);
   const dispatch = useDispatch();
   const userCount = useSelector((e) => e.UserCounts?.userCounts?.deletedUsers);
-  const [totalcount, settotalcount] = useState(userCount);
+  const [totalCount, setTotalCount] = useState(userCount);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setpagesize(pageSize);
   };
   let isFilter = currentDate?.start?._d ? true : false;
   const getDate = (date) => {
@@ -54,16 +54,16 @@ export default function Deleteuser() {
     return newDate;
   };
   const handleSearch = (value) => {
-    setsearchtext(value);
+    setSearchText(value);
   };
   const searchInputValue = () => {
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
   const getAllData = async () => {
     setLoading(true);
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("perPage", pagesize);
+    params.append("perPage", pageSize);
     params.append("isFilter", isFilter);
     currentDate?.start?._d &&
       params.append(
@@ -77,8 +77,8 @@ export default function Deleteuser() {
       );
     const res = await allDeletedUsersList(params.toString());
     if (res.status === 200) {
-      settotalcount(userCount);
-      settableinfo(
+      setTotalCount(userCount);
+      settableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -120,13 +120,13 @@ export default function Deleteuser() {
     let searchtype = {
       search: value.trim(),
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await deletesearchapi(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData);
-        settableinfo(
+        setTotalCount(searchBy?.extraData);
+        settableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -153,20 +153,20 @@ export default function Deleteuser() {
         setLoading(false);
       } else {
         setLoading(false);
-        settableinfo([]);
+        settableInfo([]);
       }
     }
   };
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else {
       getAllData();
     }
     return () => clearTimeout(timeoutId);
-  }, [currentpage, pagesize, currentDate, searchtext]);
+  }, [currentpage, pageSize, currentDate, searchText]);
   const columns = [
     {
       title: "COUNTRY",
@@ -280,7 +280,7 @@ export default function Deleteuser() {
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Delete Users({totalcount || 0})</p>
+          <p>Delete Users({totalCount || 0})</p>
         </div>
         <div className="page-info">
           <p>
@@ -334,14 +334,14 @@ export default function Deleteuser() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={roleType == 1 || roleType == 2 ? columns2 : columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <PaginationFooter
                 currentpage={currentpage}
                 onChange={onChange}
-                totalcount={totalcount}
-                pagesize={pagesize}
+                totalCount={totalCount}
+                pageSize={pageSize}
               />
             )}
           />
