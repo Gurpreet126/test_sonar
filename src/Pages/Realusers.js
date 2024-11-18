@@ -96,27 +96,27 @@ const DropdownContent = ({
 
 export default function Realusers() {
   const dispatch = useDispatch();
-  const [tableinfo, settableinfo] = useState([]);
-  const [sortBasis, setsortBasis] = useState({
+  const [tableInfo, setTableInfo] = useState([]);
+  const [sortBasis, setSortBasis] = useState({
     sortBasis: undefined,
     sortOrder: undefined,
   });
   const [country, setCountry] = useState("");
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
-  const [searchtext, setsearchtext] = useState(null);
+  const [pageSize, setPageSize] = useState(25);
+  const [searchText, setSearchText] = useState(null);
   const [loading, setLoading] = useState(false);
   const [createdAt, setCreatedAt] = useState();
-  const [genderValue, SetgenderValue] = useState();
-  const [sortuser, setsortuser] = useState(false);
-  const [sortcountry, setsortcountry] = useState(false);
-  const [sortPhone, setsortPhone] = useState(false);
-  const [sortEmail, setsortEmail] = useState(false);
+  const [genderValue, SetGenderValue] = useState();
+  const [sortUser, setSortUser] = useState(false);
+  const [sortCountry, setSortCountry] = useState(false);
+  const [sortPhone, setSortPhone] = useState(false);
+  const [sortEmail, setSortEmail] = useState(false);
   const adminDetails = useSelector((state) => state?.Authlogin?.data);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
-  const [faceVerificationStatus, setfaceVerificationStatus] = useState();
-  const [online, setonline] = useState();
-  const [totalcount, settotalcount] = useState();
+  const [faceVerificationStatus, setFaceVerificationStatus] = useState();
+  const [online, setOnline] = useState();
+  const [totalCount, setTotalCount] = useState();
   const saveSearchWord = useSelector((e) => e.UserCounts?.searchValueForReal);
 
   const Searchtable = async (value) => {
@@ -126,14 +126,14 @@ export default function Realusers() {
       search: value.trim(),
       status: 1,
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await Search(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData?.totalRecords);
+        setTotalCount(searchBy?.extraData?.totalRecords);
         setLoading(false);
-        settableinfo(
+        setTableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -162,15 +162,14 @@ export default function Realusers() {
         );
       } else {
         setLoading(false);
-
-        settableinfo([]);
+        setTableInfo([]);
       }
     }
   };
 
   const handleSearch = (value) => {
     dispatch(saveSearchField(value));
-    setsearchtext(value);
+    setSearchText(value);
   };
 
   const getDate = (date) => {
@@ -201,12 +200,12 @@ export default function Realusers() {
     }
   };
 
-  const Male_female = (e) => SetgenderValue(e.target.value);
+  const Male_female = (e) => SetGenderValue(e.target.value);
 
   const handleChange_verified = (e) =>
-    setfaceVerificationStatus(Boolean(e.target.checked));
+    setFaceVerificationStatus(Boolean(e.target.checked));
 
-  const handleChange_online = (e) => setonline(Boolean(e.target.checked));
+  const handleChange_online = (e) => setOnline(Boolean(e.target.checked));
 
   const getAllData = async () => {
     setLoading(true);
@@ -216,7 +215,7 @@ export default function Realusers() {
 
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("perPage", pagesize);
+    params.append("perPage", pageSize);
     params.append("status", 1);
     params.append("sortBasis", sortBasis.sortBasis);
     params.append("sortOrder", sortBasis.sortOrder);
@@ -234,8 +233,8 @@ export default function Realusers() {
     let res = await getUserListing(params, reqe);
 
     if (res.status === 200) {
-      settotalcount(res?.extraData.TotalRecords);
-      settableinfo(
+      setTotalCount(res?.extraData.TotalRecords);
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -271,9 +270,9 @@ export default function Realusers() {
     }
   };
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const items = [
@@ -289,11 +288,11 @@ export default function Realusers() {
           COUNTRY
           <SortAscendingOutlined
             onClick={() => {
-              setsortcountry((e) => !e);
-              if (sortcountry === true) {
-                setsortBasis({ sortBasis: "country", sortOrder: "ASC" });
+              setSortCountry((e) => !e);
+              if (sortCountry === true) {
+                setSortBasis({ sortBasis: "country", sortOrder: "ASC" });
               } else {
-                setsortBasis({ sortBasis: "country", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "country", sortOrder: "DESC" });
               }
             }}
             style={{
@@ -312,12 +311,12 @@ export default function Realusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortuser((e) => !e);
+              setSortUser((e) => !e);
 
-              if (sortuser === true) {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
+              if (sortUser === true) {
+                setSortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
-                setsortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
               }
             }}
           />
@@ -334,11 +333,11 @@ export default function Realusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortPhone((e) => !e);
+              setSortPhone((e) => !e);
               if (sortPhone === true) {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "ASC" });
               }
             }}
           />
@@ -364,11 +363,11 @@ export default function Realusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortEmail((e) => !e);
+              setSortEmail((e) => !e);
               if (sortEmail === true) {
-                setsortBasis({ sortBasis: "email", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "email", sortOrder: "ASC" });
               } else {
-                setsortBasis({ sortBasis: "email", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "email", sortOrder: "DESC" });
               }
             }}
           />
@@ -410,26 +409,26 @@ export default function Realusers() {
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else if (saveSearchWord) {
       timeoutId = setTimeout(() => Searchtable(saveSearchWord), 500);
     } else {
       getAllData();
     }
     return () => clearTimeout(timeoutId);
-  }, [sortBasis, currentpage, pagesize, searchtext]);
+  }, [sortBasis, currentpage, pageSize, searchText]);
 
   const searchInputValue = () => {
     if (saveSearchWord) return saveSearchWord;
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
 
   return (
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Real Users({totalcount})</p>
+          <p>Real Users({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -491,15 +490,15 @@ export default function Realusers() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
           />

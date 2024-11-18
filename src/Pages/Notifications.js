@@ -36,15 +36,15 @@ const TableTitle = ({ onClick }) => (
 );
 
 export default function Notifications() {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(20);
+  const [pageSize, setPageSize] = useState(20);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
-  const [totalcount, settotalcount] = useState();
+  const [totalCount, setTotalCount] = useState();
 
   const dispatch = useDispatch();
   const showedit = (payload) => {
@@ -56,9 +56,9 @@ export default function Notifications() {
     setDeleteId(payload);
     setIsModalOpen(true);
   };
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const handleOk = async () => {
@@ -92,11 +92,11 @@ export default function Notifications() {
 
   const getAllData = async () => {
     setLoading(true);
-    let res = await notificationlist(currentpage, pagesize);
+    let res = await notificationlist(currentpage, pageSize);
     if (res.status === 200) {
       setLoading(false);
-      settotalcount(res?.extraData);
-      settableinfo(
+      setTotalCount(res?.extraData);
+      setTableInfo(
         res?.data?.map((ele, index) => ({
           key: index + 1,
           Title: ele?.Title,
@@ -125,7 +125,7 @@ export default function Notifications() {
   };
   useEffect(() => {
     getAllData();
-  }, [currentpage, pagesize]);
+  }, [currentpage, pageSize]);
 
   const columns = [
     {
@@ -181,7 +181,7 @@ export default function Notifications() {
       title: "DELETE",
       key: "action",
       render: (data) => (
-        <>
+        <div>
           <Space size="middle">
             <NotificationsDeletebtn onClick={() => showModal(data)}>
               <DeleteOutlined />
@@ -223,7 +223,7 @@ export default function Notifications() {
               </NotificationsModalbox>
             </Modal>
           </Space>
-        </>
+        </div>
       ),
     },
   ];
@@ -255,15 +255,15 @@ export default function Notifications() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
             title={() => (

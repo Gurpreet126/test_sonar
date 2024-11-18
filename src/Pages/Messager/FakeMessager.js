@@ -120,8 +120,8 @@ const MemberConversation = ({
         </span>
       );
     }
-    return;
   };
+
   const currentTimeStamp = Date.now();
   const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
 
@@ -242,7 +242,14 @@ const MemberConversation = ({
               role="button"
               tabIndex={0}
               onClick={() => setIsPopupOpen(!isPopupOpen)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault(); // Prevent default action for Enter/Space
+                  setIsPopupOpen(!isPopupOpen); // Trigger the click handler
+                }
+              }}
               className="three-dot"
+              aria-label="Toggle popup"
             >
               {" "}
               ...
@@ -333,11 +340,11 @@ export default function FakeMessager() {
   const [width] = FindWidth();
   const [btnLoader, setBtnLoader] = useState(null);
   const [selectedChatDetails, setSelectedChatDetails] = useState(null);
-  const [savalastdata, setsavelastdata] = useState(null);
+  const [saveLastData, setsaveLastData] = useState(null);
   const [selectedTab, setSelectedTab] = useState(1);
   const [fakeUserLocation, setFakeUserLocation] = useState(null);
   const [filterchattype, setFilterchattype] = useState();
-  const [FilterChatLastData, setFilterChatLastData] = useState(null);
+  const [filterChatLastData, setFilterChatLastData] = useState(null);
   const [privateChatLastVisible, setPrivateChatLastVisible] = useState(null);
   const [womensChatLastVisible, setWomensChatLastVisible] = useState(null);
   const [unreadFilterChatLastData, setUnreadFilterChatLastData] =
@@ -359,7 +366,7 @@ export default function FakeMessager() {
     // else if (error.code===429) toast.error("Firebase limit exceed.")
   };
 
-  const [isMessageRequestAccepted, SetIsMessageRequestAccepted] =
+  const [isMessageRequestAccepted, setIsMessageRequestAccepted] =
     useState(true);
   const [checkFirstSenderID, setCheckFirstSenderID] = useState(null);
   const [isSubscibed, setIsSubscibed] = useState(false);
@@ -489,7 +496,7 @@ export default function FakeMessager() {
     setSelectedUserHandle(true);
     setSelectedChatLoading(true);
     setShowPrivateMessageButton(wholeChat?.isPrivateMessage);
-    SetIsMessageRequestAccepted(wholeChat?.isMessageRequestAccepted);
+    setIsMessageRequestAccepted(wholeChat?.isMessageRequestAccepted);
     setCurrentUserInfo(currentUserDetailInfo);
     setEmojis([]);
     chatContainer.current = wholeChat;
@@ -703,7 +710,7 @@ export default function FakeMessager() {
       const documentSnapshots = await getDocs(collectionRef);
       const lastVisible =
         documentSnapshots?.docs[documentSnapshots?.docs?.length - 1];
-      setsavelastdata(lastVisible);
+      setsaveLastData(lastVisible);
 
       onSnapshot(collectionRef, (querySnapshot) => {
         const arr = [];
@@ -764,7 +771,7 @@ export default function FakeMessager() {
         where("isDeletedChat", "==", false),
         where("blockedStatus", "==", false),
         orderBy("updatedAt", "desc"),
-        startAfter(savalastdata),
+        startAfter(saveLastData),
         limit(100)
       );
 
@@ -811,7 +818,7 @@ export default function FakeMessager() {
         const lastVisible =
           documentSnapshots?.docs[documentSnapshots?.docs?.length - 1];
 
-        setsavelastdata(lastVisible);
+        setsaveLastData(lastVisible);
       });
       setAllConversationLoading(false);
     } catch (error) {
@@ -1010,7 +1017,7 @@ export default function FakeMessager() {
         where("isDeletedChat", "==", false),
         where("blockedStatus", "==", false),
         orderBy("updatedAt", "desc"),
-        startAfter(FilterChatLastData),
+        startAfter(filterChatLastData),
         limit(100)
       );
       const documentSnapshots = await getDocs(collectionRef);
@@ -1464,10 +1471,10 @@ export default function FakeMessager() {
                         <img src={messanger} alt="" />
                       </NoMessageYet>
                     ) : (
-                      <>
+                      <div>
                         {allChat?.length > 0 &&
                           allChat?.map((allChat) => (
-                            <>
+                            <div>
                               <MemberConversation
                                 chatMember={allChat}
                                 key={allChat?.chatID}
@@ -1483,9 +1490,9 @@ export default function FakeMessager() {
                                 handleUnMatchUser={handleUnMatchUser}
                                 handleBlockUser={handleBlockUser}
                               />
-                            </>
+                            </div>
                           ))}
-                      </>
+                      </div>
                     )}
                   </div>
                 </InfiniteScroll>
@@ -1584,7 +1591,7 @@ export default function FakeMessager() {
                         <img src={messanger} alt="" />
                       </NoMessageYet>
                     ) : (
-                      <>
+                      <div>
                         {allReadChat?.length > 0 &&
                           allReadChat?.map((allReadChat) => (
                             <>
@@ -1605,7 +1612,7 @@ export default function FakeMessager() {
                               />
                             </>
                           ))}
-                      </>
+                      </div>
                     )}
                   </div>
                 </InfiniteScroll>
@@ -1643,7 +1650,7 @@ export default function FakeMessager() {
                         <img src={messanger} alt="" />
                       </NoMessageYet>
                     ) : (
-                      <>
+                      <div>
                         {allWomensChat?.length > 0 &&
                           allWomensChat?.map((allWomensChat) => (
                             <>
@@ -1664,7 +1671,7 @@ export default function FakeMessager() {
                               />
                             </>
                           ))}
-                      </>
+                      </div>
                     )}
                   </div>
                 </InfiniteScroll>
@@ -1702,7 +1709,7 @@ export default function FakeMessager() {
                         <img src={messanger} alt="" />
                       </NoMessageYet>
                     ) : (
-                      <>
+                      <div>
                         {privateChat?.length > 0 &&
                           privateChat?.map((privateChat, idx) => (
                             <>
@@ -1723,7 +1730,7 @@ export default function FakeMessager() {
                               />
                             </>
                           ))}
-                      </>
+                      </div>
                     )}
                   </div>
                 </InfiniteScroll>
@@ -1944,6 +1951,15 @@ export default function FakeMessager() {
                                               tabIndex={0}
                                               className="LikeMessageButton"
                                               onClick={() => LikeMessage(item)}
+                                              onKeyDown={(e) => {
+                                                if (
+                                                  e.key === "Enter" ||
+                                                  e.key === " "
+                                                ) {
+                                                  LikeMessage(item); // Trigger the same action as the click event
+                                                }
+                                              }}
+                                              aria-label="Like Message"
                                             >
                                               {item.heartLikeMessage ? (
                                                 <HeartIcon

@@ -30,38 +30,38 @@ const SeleteDTabHeading = ({ selectedTab }) => {
 };
 
 export default function Messanger() {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
-  const [searchtext, setsearchtext] = useState("");
+  const [pageSize, setPageSize] = useState(25);
+  const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
-  const [totaluser, settotaluser] = useState();
+  const [totalUser, setTotalUser] = useState();
   const [selectedTab, setSelectedTab] = useState(1);
   const navigate = useNavigate();
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext !== "") timeoutId = setTimeout(() => handleSearch(), 500);
+    if (searchText !== "") timeoutId = setTimeout(() => handleSearch(), 500);
     else messagerListing();
     return () => clearTimeout(timeoutId);
-  }, [searchtext]);
+  }, [searchText]);
 
   const handleSearch = async () => {
     let queryParameters = new URLSearchParams();
     queryParameters.append("pageNumber", currentpage);
-    queryParameters.append("perPage", pagesize);
-    queryParameters.append("search", searchtext);
+    queryParameters.append("perPage", pageSize);
+    queryParameters.append("search", searchText);
     queryParameters.append("type", selectedTab);
     setLoading(true);
     let res = await searchMatch(queryParameters);
     if (res.status === 200) {
       manupilateData(res.data);
-      settotaluser(res.extraData?.count);
+      setTotalUser(res.extraData?.count);
     } else {
       setLoading(false);
     }
@@ -69,7 +69,7 @@ export default function Messanger() {
   };
 
   const Searchtable = async (e) => {
-    setsearchtext(e.target.value);
+    setSearchText(e.target.value);
   };
 
   const columns = [
@@ -214,21 +214,21 @@ export default function Messanger() {
 
   const manupilateData = (payload) => {
     let response = parseData(payload);
-    settableinfo(response);
+    setTableInfo(response);
   };
 
   const messagerListing = async () => {
     setLoading(true);
     let queryParameters = new URLSearchParams();
     queryParameters.append("pageNumber", currentpage);
-    queryParameters.append("perPage", pagesize);
+    queryParameters.append("perPage", pageSize);
     queryParameters.append("type", selectedTab);
 
     let res = await getAllMessagerListing(queryParameters);
     if (res.status === 200) {
       let response = parseData(res.data);
-      settableinfo(response);
-      settotaluser(res.extraData?.count);
+      setTableInfo(response);
+      setTotalUser(res.extraData?.count);
       setLoading(false);
     } else {
       setLoading(false);
@@ -239,12 +239,12 @@ export default function Messanger() {
   };
 
   useEffect(() => {
-    if (searchtext) {
+    if (searchText) {
       handleSearch();
     } else {
       messagerListing();
     }
-  }, [pagesize, currentpage, selectedTab]);
+  }, [pageSize, currentpage, selectedTab]);
 
   return (
     <Mainwrapper>
@@ -293,7 +293,7 @@ export default function Messanger() {
         <SeleteDTabHeading selectedTab={selectedTab} />
         <Searchbox>
           <input
-            value={searchtext}
+            value={searchText}
             onChange={Searchtable}
             placeholder="Search"
           />
@@ -308,16 +308,16 @@ export default function Messanger() {
           <Table
             className="recent-users-table"
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             scroll={{ x: true }}
             footer={() => (
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totaluser}
+                total={totalUser}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
           />

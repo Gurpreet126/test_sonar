@@ -157,7 +157,7 @@ export default function ChatLayout() {
   const [selectedUserHandle, setSelectedUserHandle] = useState(false);
   const [emojiPicker, setEmojiPicker] = useState(false);
   const [emojis, setEmojis] = useState([]);
-  const [chatsListCount, setChatListCount] = useState(0);
+  const [chatListCount, setChatListCount] = useState(0);
   const [isSubscibed, setIsSubscibed] = useState(false);
   const chatContainer = useRef(null);
   const [currentUserInfo, setCurrentUserInfo] = useState([]);
@@ -468,9 +468,9 @@ export default function ChatLayout() {
         orderBy("updatedAt", "asc"),
         startAfter(last),
         limit(
-          chatsListCount - chatMember.length >= 10
+          chatListCount - chatMember.length >= 10
             ? 10
-            : chatsListCount - chatMember.length
+            : chatListCount - chatMember.length
         )
       );
       onSnapshot(collectionRef, (querySnapshot) => {
@@ -524,7 +524,7 @@ export default function ChatLayout() {
               <InfiniteScroll
                 dataLength={chatMember.length}
                 next={fetchAllRemainingChats}
-                hasMore={chatMember.length < chatsListCount ? true : false}
+                hasMore={chatMember.length < chatListCount ? true : false}
                 loader={<h4>Loading...</h4>}
                 height="100%"
               >
@@ -565,6 +565,12 @@ export default function ChatLayout() {
                   role="button"
                   tabIndex="0"
                   aria-label="Toggle Emoji Picker"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault(); // Prevent default behavior for space
+                      setEmojiPicker(!emojiPicker);
+                    }
+                  }}
                 />
               )}
               <MainContainer>
@@ -704,6 +710,16 @@ export default function ChatLayout() {
                                             tabIndex={0}
                                             className="LikeMessageButton"
                                             onClick={() => LikeMessage(item)}
+                                            onKeyDown={(e) => {
+                                              if (
+                                                e.key === "Enter" ||
+                                                e.key === " "
+                                              ) {
+                                                e.preventDefault(); // Prevent default behavior for space key (scrolling)
+                                                LikeMessage(item);
+                                              }
+                                            }}
+                                            aria-label="Like message"
                                           >
                                             {item?.heartLikeMessage ? (
                                               <HeartIcon
