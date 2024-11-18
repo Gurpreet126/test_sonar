@@ -16,7 +16,7 @@ import {
 import PropTypes from "prop-types";
 
 export default function MatchUserListing({ user_id }) {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -119,7 +119,7 @@ export default function MatchUserListing({ user_id }) {
   const getAllData = async () => {
     let res = await getParticularUserMatches(user_id);
     if (res.status === 200) {
-      settableinfo(
+      setTableInfo(
         res?.data?.map((item, index) => ({
           key: index + 1,
           id: item?._id,
@@ -157,7 +157,7 @@ export default function MatchUserListing({ user_id }) {
           className="recent-users-table"
           scroll={{ x: true, y: 300 }}
           columns={columns}
-          dataSource={tableinfo}
+          dataSource={tableInfo}
           pagination={false}
         />
       )}

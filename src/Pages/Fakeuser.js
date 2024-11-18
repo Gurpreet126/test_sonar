@@ -74,12 +74,12 @@ const FilterDropdown = ({
 export default function Fakeuser() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const [tableInfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [searchText, setSearchText] = useState(null);
   const [currentpage, setCurrentpage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [loading, setLoading] = useState(false);
-  const [genderValue, SetgenderValue] = useState();
+  const [genderValue, SetGenderValue] = useState();
   const sortBasis = "";
   const status = "";
   const [totalCount, setTotalCount] = useState();
@@ -102,7 +102,7 @@ export default function Fakeuser() {
       let searchBy = await Search(searchtype);
       if (searchBy.status === 200) {
         setTotalCount(searchBy?.extraData?.totalRecords);
-        settableinfo(
+        setTableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -126,7 +126,7 @@ export default function Fakeuser() {
         setLoading(false);
       } else {
         setLoading(false);
-        settableinfo();
+        setTableInfo();
         setTotalCount(searchBy?.extraData?.totalRecords);
       }
     }
@@ -155,7 +155,7 @@ export default function Fakeuser() {
     }
   };
   const Male_female = (e) => {
-    SetgenderValue(e.target.value);
+    SetGenderValue(e.target.value);
   };
 
   const getAllData = async () => {
@@ -180,7 +180,7 @@ export default function Fakeuser() {
     const res = await getUserListing(params, req);
     if (res.status === 200) {
       setTotalCount(res?.extraData.TotalRecords);
-      settableinfo(
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,

@@ -17,10 +17,10 @@ export default function Status() {
   const [userListing, setUserListing] = useState([]);
   const [selectedValue, setSelectedValue] = useState(24);
   const [loading, setLoading] = useState(false);
-  const [totalusers, settotalusers] = useState();
+  const [totalUsers, setTotalUsers] = useState();
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
-  const [totalcount, settotalcount] = useState();
+  const [pageSize, setPageSize] = useState(25);
+  const [totalCount, setTotalCount] = useState();
   const columns = [
     {
       title: "COUNTRY",
@@ -97,9 +97,9 @@ export default function Status() {
       setLoading(false);
     }
   };
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const getDailyOnlineStatusUserListing = async () => {
@@ -107,13 +107,13 @@ export default function Status() {
     let req = {
       online_status_time: selectedValue,
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     let res = await getDailyOnlineStatus(req);
     if (res.status === 200) {
       manupilatedata(res.data);
-      settotalusers(res.extraData);
-      settotalcount(res.extraData);
+      setTotalUsers(res.extraData);
+      setTotalCount(res.extraData);
       setLoading(false);
     } else {
       setLoading(false);
@@ -129,7 +129,7 @@ export default function Status() {
 
   useEffect(() => {
     getDailyOnlineStatusUserListing();
-  }, [selectedValue, currentpage, pagesize]);
+  }, [selectedValue, currentpage, pageSize]);
 
   return (
     <Mainwrapper>
@@ -168,7 +168,7 @@ export default function Status() {
         </div>
         <div className="user-info">
           <div>
-            <h3>{totalusers}</h3>
+            <h3>{totalUsers}</h3>
             <p>ONLINE USERS</p>
           </div>
           <div>
@@ -192,9 +192,9 @@ export default function Status() {
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
             title={() => <Tableheader />}

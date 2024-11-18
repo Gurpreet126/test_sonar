@@ -54,7 +54,7 @@ const AppearanceAndHabit = (props) => {
     // height: Yup.string().required("field is required")
   });
   return (
-    <>
+    <div>
       <Formik
         initialValues={apperanceList}
         validationSchema={validateSchema}
@@ -178,7 +178,7 @@ const AppearanceAndHabit = (props) => {
           </form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };
 

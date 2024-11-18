@@ -13,7 +13,7 @@ const UserBasicInfo = (props) => {
   const { setOpen, getalldetails, personlDetail, id } = props;
   const iduser = id;
   const [loading, setLoading] = useState(false);
-  const [language, setlanguage] = useState(personlDetail?.lang);
+  const [language, setLanguage] = useState(personlDetail?.lang);
 
   const options = lang.map((list) => ({
     label: list.name,
@@ -197,7 +197,7 @@ const UserBasicInfo = (props) => {
               name="language"
               className="abcd"
               placeholder="Please select"
-              onChange={(value) => setlanguage(value)}
+              onChange={(value) => setLanguage(value)}
               style={{
                 width: "100%",
                 color: "white",

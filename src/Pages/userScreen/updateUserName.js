@@ -39,7 +39,7 @@ const UpdateUserName = (props) => {
   };
 
   return (
-    <>
+    <div>
       <Modal
         title="Update Settings"
         open={modal1Open}
@@ -69,7 +69,9 @@ const UpdateUserName = (props) => {
           ),
         ]}
       >
-        <label style={{ color: "white" }} htmlFor="firstName">Name</label>
+        <label style={{ color: "white" }} htmlFor="firstName">
+          Name
+        </label>
         <br />
         <input
           name="firstName"
@@ -84,7 +86,7 @@ const UpdateUserName = (props) => {
           }}
         />
       </Modal>
-    </>
+    </div>
   );
 };
 export default UpdateUserName;

@@ -19,25 +19,25 @@ import {
 } from "StyledComponents";
 
 export default function Suspendeduser() {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(20);
-  const [totalcount, settotalcount] = useState();
+  const [pageSize, setPageSize] = useState(20);
+  const [totalCount, setTotalCount] = useState();
   const [loading, setLoading] = useState(false);
-  const [searchtext, setsearchtext] = useState(null);
+  const [searchText, setSearchText] = useState(null);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const getAllData = async () => {
     setLoading(true);
-    let res = await listblockuser(currentpage, pagesize);
+    let res = await listblockuser(currentpage, pageSize);
     if (res.status === 200) {
-      settotalcount(res?.extraData);
-      settableinfo(
+      setTotalCount(res?.extraData);
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -71,23 +71,23 @@ export default function Suspendeduser() {
     }
   };
   const handleSearch = (value) => {
-    setsearchtext(value);
+    setSearchText(value);
   };
   const searchInputValue = () => {
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
   const Searchtable = async (value) => {
     setLoading(true);
     let searchtype = {
       search: value.trim(),
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await Suspendedusersearchapi(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData);
-        settableinfo(
+        setTotalCount(searchBy?.extraData);
+        setTableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -116,19 +116,19 @@ export default function Suspendeduser() {
         setLoading(false);
       } else {
         setLoading(false);
-        settableinfo([]);
+        setTableInfo([]);
       }
     }
   };
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else {
       getAllData();
     }
     return () => clearTimeout(timeoutId);
-  }, [currentpage, pagesize, searchtext]);
+  }, [currentpage, pageSize, searchText]);
   const columns = [
     {
       title: "USER",
@@ -222,7 +222,7 @@ export default function Suspendeduser() {
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Suspended user({totalcount})</p>
+          <p>Suspended user({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -252,15 +252,15 @@ export default function Suspendeduser() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={roleType == 1 || roleType == 2 ? columns2 : columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
           />

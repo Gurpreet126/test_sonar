@@ -173,17 +173,17 @@ export default function Userdetails() {
   const [previewTitle, setPreviewTitle] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [Personaledit, setPersonaledit] = useState(false);
+  const [personalEdit, setPersonalEdit] = useState(false);
   const [userInfo, setUserInfo] = useState(initialValues);
-  const [verificationbox, setverificationbox] = useState();
+  const [verificationBox, setVerificationBox] = useState();
   const [exportLoading, setExportLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [extraData, setExtraData] = useState([]);
-  const [personlDetail, setPersonalDetail] = useState({});
+  const [personlDetail, setPersonlDetail] = useState({});
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
-  const [modalswipe, setModalSwipe] = useState(false);
-  const [showPrompts, setshowPrompts] = useState(false);
+  const [modalSwipe, setModalSwipe] = useState(false);
+  const [showPrompts, setShowPrompts] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
@@ -193,23 +193,23 @@ export default function Userdetails() {
   const [suspendedModal, setSuspendedModal] = useState(false);
   const [exportModal, setExportModal] = useState(false);
   const [openShadowModal, setOpenShadowModal] = useState(false);
-  const [imagswaploading, setimgswaploading] = useState(false);
+  const [imagSwapLoading, setImagSwapLoading] = useState(false);
 
   const [personalInfo, setPersonalInfo] = useState(initPersonalInfo);
   const [showAppearanceModal, setShowAppearanceModal] = useState(false);
-  const [appearenceAndHabit, setAppearenceHabit] = useState(
+  const [appearenceAndHabit, setAppearenceAndHabit] = useState(
     appearenceAndHabitInit
   );
   const [suspendLoading, setSuspendLoading] = useState(false);
   const [handleCloseVerification, setHandleCloseVerification] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
-  const [Pausebtn, setPausebtn] = useState(false);
-  const [firstIndex, setfirstIndex] = useState();
-  const [secondIndex, setsecondIndex] = useState();
-  const [deleteModal, setdeleteModal] = useState(false);
-  const [imageName, setimageName] = useState();
-  const [firstimage, setfirstimage] = useState();
-  const [secondimage, setsecondimage] = useState();
+  const [pauseBtn, setPauseBtn] = useState(false);
+  const [firstIndex, setFirstIndex] = useState();
+  const [secondIndex, setSecondIndex] = useState();
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [imageName, setImageName] = useState();
+  const [firstImage, setFirstImage] = useState();
+  const [secondImage, setSecondImage] = useState();
   const [deleteImageLoading, setDeleteImageLoading] = useState(false);
   const [approveModal, setApproveModal] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
@@ -220,7 +220,7 @@ export default function Userdetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const ActiveTab = useSelector((state) => state?.UserCounts?.activeTab);
-  const CanceldeleteModal = () => setdeleteModal(false);
+  const CanceldeleteModal = () => setDeleteModal(false);
   const params = useParams();
   const { id } = params;
   const iddata = params;
@@ -243,7 +243,7 @@ export default function Userdetails() {
 
   const handleCancel = () => {
     setPreviewOpen(false);
-    setdeleteModal(false);
+    setDeleteModal(false);
   };
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -264,9 +264,9 @@ export default function Userdetails() {
   };
 
   const handleRemove = (data) => {
-    setdeleteModal(true);
+    setDeleteModal(true);
     let imageBaseUrl = data?.url.split("/", -1);
-    setimageName(imageBaseUrl[imageBaseUrl.length - 1]);
+    setImageName(imageBaseUrl[imageBaseUrl.length - 1]);
   };
 
   const image = process.env.REACT_APP_BASEURL_IMAGE;
@@ -329,7 +329,7 @@ export default function Userdetails() {
 
       setUserInfo(obj);
       setPersonalInfo(personalInfo);
-      setAppearenceHabit(appearenceAndHabitobj);
+      setAppearenceAndHabit(appearenceAndHabitobj);
     }
   };
 
@@ -360,24 +360,24 @@ export default function Userdetails() {
   }, [personlDetail, firstIndex, secondIndex]);
 
   const dragimages = async () => {
-    setimgswaploading(true);
+    setImagSwapLoading(true);
     const req = {
       userId: iddata.id,
       firstIndex: firstIndex,
       secondIndex: secondIndex,
-      firstImage: firstimage,
-      secondImage: secondimage,
+      firstImage: firstImage,
+      secondImage: secondImage,
     };
     const res = await dragAndDropImages(req);
     if (res.status === 200) {
-      setimgswaploading(false);
+      setImagSwapLoading(false);
     } else {
-      setimgswaploading(false);
+      setImagSwapLoading(false);
     }
   };
 
   const verification = async () => {
-    if (!verificationbox) {
+    if (!verificationBox) {
       let req = {
         user_id: iddata.id,
         type: 1,
@@ -385,7 +385,7 @@ export default function Userdetails() {
 
       let res = await userverification(req);
       if (res.status === 200) {
-        setverificationbox(true);
+        setVerificationBox(true);
       } else {
         toast.error(
           res?.response?.data?.message ||
@@ -401,14 +401,14 @@ export default function Userdetails() {
   };
 
   const unverification = async () => {
-    if (verificationbox) {
+    if (verificationBox) {
       let req = {
         user_id: iddata.id,
         type: 2,
       };
       let res = await userverification(req);
       if (res.status === 200) {
-        setverificationbox(false);
+        setVerificationBox(false);
       } else {
         toast.error(
           res?.response?.data?.message ||
@@ -430,7 +430,7 @@ export default function Userdetails() {
     };
     let res = await useraccountPause(req);
     if (res.status === 200) {
-      setPausebtn((e) => !e);
+      setPauseBtn((e) => !e);
       toast.success(res.message);
       setPauseModal(false);
       setPauseLoading(false);
@@ -447,11 +447,11 @@ export default function Userdetails() {
     setLoading(true);
     const res = await getParticularUserInfo(id);
     if (res?.status === 200) {
-      setverificationbox(res?.data?.faceVerificationStatus);
+      setVerificationBox(res?.data?.faceVerificationStatus);
       setLoading(false);
       setExtraData(res?.extraData);
-      setPersonalDetail(res?.data);
-      setPausebtn(res?.data?.pauseStatus);
+      setPersonlDetail(res?.data);
+      setPauseBtn(res?.data?.pauseStatus);
       setUploadImage(res?.data?.photos);
     } else {
       setLoading(false);
@@ -481,9 +481,9 @@ export default function Userdetails() {
       toast.success("Image deleted successfully");
       setDeleteImageLoading(false);
       getUserInfo();
-      setdeleteModal(false);
+      setDeleteModal(false);
     } else {
-      setdeleteModal(false);
+      setDeleteModal(false);
       setDeleteImageLoading(false);
     }
   };
@@ -677,10 +677,10 @@ export default function Userdetails() {
           let activeImage_Name = activeImage[0]?.url?.split("/", -1);
           let overImage_Name = overImage[0]?.url?.split("/", -1);
 
-          setfirstimage(activeImage_Name[activeImage_Name?.length - 1]);
-          setsecondimage(overImage_Name[overImage_Name?.length - 1]);
-          setfirstIndex(activeIndex);
-          setsecondIndex(overIndex);
+          setFirstImage(activeImage_Name[activeImage_Name?.length - 1]);
+          setSecondImage(overImage_Name[overImage_Name?.length - 1]);
+          setFirstIndex(activeIndex);
+          setSecondIndex(overIndex);
           return arrayMove(prev, activeIndex, overIndex);
         });
       }
@@ -805,7 +805,7 @@ export default function Userdetails() {
                 <div className="bottom-btn">
                   <VoiletBtn onClick={handleRemoveUser}>Remove</VoiletBtn>
                   <Yellow onClick={() => setPauseModal(true)}>
-                    {!Pausebtn ? "Pause" : "Resume"}
+                    {!pauseBtn ? "Pause" : "Resume"}
                   </Yellow>
 
                   {adminDetails?.role == 3 && (
@@ -911,7 +911,7 @@ export default function Userdetails() {
             <li className="follow-list">
               <div className="follow-data">
                 <div className="bottom-btn">
-                  <Greenbtn onClick={() => setPersonaledit(true)}>
+                  <Greenbtn onClick={() => setPersonalEdit(true)}>
                     Edit
                   </Greenbtn>
                 </div>
@@ -926,12 +926,12 @@ export default function Userdetails() {
       label: "Photos & Videos",
       children: (
         <>
-          {imagswaploading ? (
-            <>
+          {imagSwapLoading ? (
+            <div>
               <UserDetailLoaderWrapper>
                 <Spin size="large" />
               </UserDetailLoaderWrapper>
-            </>
+            </div>
           ) : (
             <Followerwrap>
               <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
@@ -957,6 +957,13 @@ export default function Userdetails() {
                             tabIndex={0}
                             className="delete-icon"
                             onClick={() => handleRemove(file)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault(); // Prevent default action for Space key.
+                                handleRemove(file);
+                              }
+                            }}
+                            aria-label="Delete item"
                           >
                             <DeleteOutlined />
                           </div>
@@ -1095,7 +1102,7 @@ export default function Userdetails() {
             <li className="follow-list">
               <div className="follo-data">
                 <div className="bottom-btn">
-                  <Greenbtn onClick={() => setshowPrompts(true)}>Edit</Greenbtn>
+                  <Greenbtn onClick={() => setShowPrompts(true)}>Edit</Greenbtn>
                 </div>
               </div>
             </li>
@@ -1329,7 +1336,7 @@ export default function Userdetails() {
           <Modalbox>
             <WarningOutlined />
             <h2>
-              Are you sure you want to {!Pausebtn ? "Pause" : "Resume"} this
+              Are you sure you want to {!pauseBtn ? "Pause" : "Resume"} this
               profile?
             </h2>
           </Modalbox>
@@ -1545,8 +1552,15 @@ export default function Userdetails() {
                 tabIndex={0}
                 className="unverifed-account-box"
                 onClick={showVerificationModal}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault(); // Prevent scrolling on Space key.
+                    showVerificationModal();
+                  }
+                }}
+                aria-label="Show verification modal"
               >
-                {verificationbox ? (
+                {verificationBox ? (
                   <div className="verifed-box">
                     <CheckOutlined style={{ color: "white" }} />
                     <p>VERIFIED</p>
@@ -1591,6 +1605,13 @@ export default function Userdetails() {
                     tabIndex={0}
                     style={{ cursor: "pointer" }}
                     onClick={() => setMatchListingModal(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault(); // Prevent scrolling for Space key.
+                        setMatchListingModal(true);
+                      }
+                    }}
+                    aria-label="Open match listing modal"
                   >
                     <p className="number-count">{extraData?.totalMatch}</p>
                     <p className="name-info">Match</p>
@@ -1599,7 +1620,14 @@ export default function Userdetails() {
                     role="button"
                     tabIndex={0}
                     onClick={() => handleOpenHeartLikeModal()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault(); // Prevent default scroll behavior for the Space key.
+                        handleOpenHeartLikeModal();
+                      }
+                    }}
                     style={{ cursor: "pointer" }}
+                    aria-label="Open heart like modal"
                   >
                     <p className="number-count">{extraData?.totalHertLike}</p>
                     <p className="name-info">Superlike</p>
@@ -1613,18 +1641,25 @@ export default function Userdetails() {
                     tabIndex={0}
                     className="swipe-btn"
                     onClick={() => setModalSwipe(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setModalSwipe(true);
+                      }
+                    }}
+                    aria-label="Open swipe modal"
                   >
                     <p className="number-count">{extraData?.totalSwipes}</p>
                     <p className="name-info">Swipes</p>
                   </div>
 
-                  {modalswipe && (
+                  {modalSwipe && (
                     <Modal
                       style={{
                         left: "10%",
                         top: "30%",
                       }}
-                      open={modalswipe}
+                      open={modalSwipe}
                       onOk={() => setModalSwipe(false)}
                       onCancel={() => setModalSwipe(false)}
                       width="60%"
@@ -1770,15 +1805,15 @@ export default function Userdetails() {
                 <Modal
                   title="Personal Basic Info"
                   centered
-                  open={Personaledit}
-                  onCancel={() => setPersonaledit(false)}
+                  open={personalEdit}
+                  onCancel={() => setPersonalEdit(false)}
                   width={700}
                   footer={null}
                 >
                   <Personalinfoedit>
                     <PersonalInfo
                       personalInfo={personalInfo}
-                      setPersonaledit={setPersonaledit}
+                      setPersonaledit={setPersonalEdit}
                       getalldetails={getUserInfo}
                       id={id}
                     />
@@ -1804,15 +1839,15 @@ export default function Userdetails() {
                 <Modal
                   title="Prompts and Inspiration"
                   open={showPrompts}
-                  onCancel={() => setshowPrompts(false)}
+                  onCancel={() => setShowPrompts(false)}
                   width={600}
                   footer={null}
                 >
                   <Modalbox>
                     <PromptsAndInspiration
-                      setshowPrompts={setshowPrompts}
+                      setshowPrompts={setShowPrompts}
                       personalInfo={personalInfo}
-                      setPersonaledit={setPersonaledit}
+                      setPersonaledit={setPersonalEdit}
                       getalldetails={getUserInfo}
                       id={id}
                       personlDetail={personlDetail}

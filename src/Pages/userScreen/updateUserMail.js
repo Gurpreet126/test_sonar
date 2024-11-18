@@ -39,7 +39,7 @@ const UpdateUserMail = (props) => {
   };
 
   return (
-    <>
+    <div>
       <Modal
         title="Update Email Settings"
         open={modal2Open}
@@ -86,7 +86,7 @@ const UpdateUserMail = (props) => {
           }}
         />
       </Modal>
-    </>
+    </div>
   );
 };
 export default UpdateUserMail;

@@ -26,7 +26,7 @@ import {
 
 export default function SuperAdminAction() {
   const navigate = useNavigate();
-  const [isopen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [listingLoader, setListingLoader] = useState(false);
   const adminDetails = useSelector((state) => state?.Authlogin?.data);
@@ -82,17 +82,17 @@ export default function SuperAdminAction() {
     if (e === true) {
       setIsModalOpen(true);
     } else {
-      setOpen(e);
+      setIsOpen(e);
       disableOrders(e);
     }
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const handleToggle = () => {
-    setOpen(true);
+    setIsOpen(true);
     setIsModalOpen(false);
     disableOrders(true);
   };
@@ -103,7 +103,7 @@ export default function SuperAdminAction() {
       let res = await getDoc(doc(db, "EmergencyToggle", "toggle"));
       let data = res.data();
       setLoading(false);
-      setOpen(data?.EmergencyToggle);
+      setIsOpen(data?.EmergencyToggle);
     } catch (error) {
       setLoading(false);
     }
@@ -236,7 +236,14 @@ export default function SuperAdminAction() {
                 role="button"
                 tabIndex={0}
                 onClick={() => navigate("/dashboard/editcontact")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault(); // Prevent default scrolling for Space key.
+                    navigate("/dashboard/editcontact");
+                  }
+                }}
                 className="edit-icon"
+                aria-label="Navigate to Edit Contact"
               >
                 <img src={pencil} alt="" />
               </div>
@@ -253,7 +260,14 @@ export default function SuperAdminAction() {
                 role="button"
                 tabIndex={0}
                 onClick={() => navigate("/dashboard/editemail")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault(); // Prevent default scrolling for Space key.
+                    navigate("/dashboard/editemail");
+                  }
+                }}
                 className="edit-icon"
+                aria-label="Navigate to Edit Email"
               >
                 <img src={pencil} alt="" />
               </div>
@@ -271,14 +285,21 @@ export default function SuperAdminAction() {
                 role="button"
                 tabIndex={0}
                 onClick={() => navigate("/dashboard/changepassword")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault(); // Prevent default scrolling for Space key.
+                    navigate("/dashboard/changepassword");
+                  }
+                }}
                 className="edit-icon"
+                aria-label="Navigate to Change Password"
               >
                 <img src={pencil} alt="" />
               </div>
             </div>
 
             {adminDetails?.role == "2" || adminDetails?.role == "3" ? (
-              <>
+              <div>
                 <div className="admin-actions">
                   <div className="actions">
                     <img src={AddAccount} alt="" />
@@ -296,7 +317,7 @@ export default function SuperAdminAction() {
                     aria-label="Add admin"
                   />
                 </div>
-              </>
+              </div>
             ) : null}
 
             {adminDetails?.isSuperAdmin == "Yes" && (
@@ -309,7 +330,7 @@ export default function SuperAdminAction() {
                 </div>
                 <div>
                   <Switch
-                    checked={isopen}
+                    checked={isOpen}
                     loading={loading}
                     disabled={isModalOpen}
                     onChange={(e) => handleConfirmModal(e)}

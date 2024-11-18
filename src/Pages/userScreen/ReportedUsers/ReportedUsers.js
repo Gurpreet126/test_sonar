@@ -41,16 +41,16 @@ export default function Reportedusers() {
   });
 
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
-  const [searchtext, setsearchtext] = useState(null);
+  const [pageSize, setPageSize] = useState(25);
+  const [searchText, setSearchText] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [sortuser, setsortuser] = useState(false);
-  const [sortcountry, setsortcountry] = useState(false);
-  const [sortPhone, setsortPhone] = useState(false);
-  const [sortEmail, setsortEmail] = useState(false);
+  const [sortUser, setSortUser] = useState(false);
+  const [sortCountry, setSortCountry] = useState(false);
+  const [sortPhone, setSortPhone] = useState(false);
+  const [sortEmail, setSortEmail] = useState(false);
   const [openStickyNote, setOpenStickyNote] = useState(false);
   const [stickyNoteContent, setStickyNoteContent] = useState("");
-  const [totalcount, settotalcount] = useState();
+  const [totalCount, setTotalCount] = useState();
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
   const Searchtable = async (value) => {
@@ -58,12 +58,12 @@ export default function Reportedusers() {
     let searchtype = {
       search: value.trim(),
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await getSearchReportedUserData(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData);
+        setTotalCount(searchBy?.extraData);
         setLoading(false);
         settableinfo(
           roleType == 1 || roleType == 2
@@ -102,7 +102,7 @@ export default function Reportedusers() {
 
   const handleSearch = (value) => {
     dispatch(saveSearchField(value));
-    setsearchtext(value);
+    setSearchText(value);
   };
 
   const getDate = (date) => {
@@ -120,12 +120,12 @@ export default function Reportedusers() {
 
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("limit", pagesize);
+    params.append("limit", pageSize);
 
     let res = await getReportedUserListing(params);
 
     if (res.status === 200) {
-      settotalcount(res?.extraData);
+      setTotalCount(res?.extraData);
       settableinfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
@@ -166,9 +166,9 @@ export default function Reportedusers() {
     }
   };
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const handleResolved = async (id) => {
@@ -202,8 +202,8 @@ export default function Reportedusers() {
           COUNTRY
           <SortAscendingOutlined
             onClick={() => {
-              setsortcountry((e) => !e);
-              if (sortcountry === true) {
+              setSortCountry((e) => !e);
+              if (sortCountry === true) {
                 setsortBasis({ sortBasis: "country", sortOrder: "ASC" });
               } else {
                 setsortBasis({ sortBasis: "country", sortOrder: "DESC" });
@@ -225,9 +225,9 @@ export default function Reportedusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortuser((e) => !e);
+              setSortUser((e) => !e);
 
-              if (sortuser === true) {
+              if (sortUser === true) {
                 setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
                 setsortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
@@ -247,7 +247,7 @@ export default function Reportedusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortPhone((e) => !e);
+              setSortPhone((e) => !e);
               if (sortPhone === true) {
                 setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
@@ -277,7 +277,7 @@ export default function Reportedusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortEmail((e) => !e);
+              setSortEmail((e) => !e);
               if (sortEmail === true) {
                 setsortBasis({ sortBasis: "email", sortOrder: "ASC" });
               } else {
@@ -306,6 +306,13 @@ export default function Reportedusers() {
           role="button"
           tabIndex={0}
           onClick={() => handleNoteOpenClose(record?.reason)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleNoteOpenClose(record?.reason);
+            }
+          }}
+          aria-label="Open or Close Note"
         >
           <img src={sticky_note} height="20px" alt="note" />
         </div>
@@ -337,16 +344,16 @@ export default function Reportedusers() {
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else {
       getAllData();
     }
     return () => clearTimeout(timeoutId);
-  }, [sortBasis, currentpage, pagesize, searchtext]);
+  }, [sortBasis, currentpage, pageSize, searchText]);
 
   const searchInputValue = () => {
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
 
   const handleNoteOpenClose = (reason) => {
@@ -365,7 +372,7 @@ export default function Reportedusers() {
       )}
       <Mainheading>
         <div>
-          <p>Reported Users({totalcount})</p>
+          <p>Reported Users({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -400,9 +407,9 @@ export default function Reportedusers() {
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
           />

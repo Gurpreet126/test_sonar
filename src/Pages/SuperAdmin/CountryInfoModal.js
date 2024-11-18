@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Modal, Spin } from "antd";
-import styled from "styled-components";
 import { deletecountry, editcountry } from "Services/Collection";
 import { toast } from "react-toastify";
 import { ErrorMessage, Field, Form, Formik } from "formik";

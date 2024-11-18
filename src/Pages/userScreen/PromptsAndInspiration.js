@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 export default function PromptsAndInspiration(props) {
   const { setshowPrompts, getalldetails, id, personlDetail } = props;
-  const [inspiration, setinspiration] = useState(true);
+  const [inspiration, setInspiration] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const iduser = id;
@@ -141,7 +141,7 @@ export default function PromptsAndInspiration(props) {
               <label className="subheading" htmlFor="inspiration">Inspiration </label>
               <PlusCircleOutlined
                 className="add-inspiration"
-                onClick={() => setinspiration(false)}
+                onClick={() => setInspiration(false)}
               />
               <br />
               <Field as="select" name="inspiration" id="inspiration">
@@ -237,7 +237,7 @@ export default function PromptsAndInspiration(props) {
               <label className="subheading" htmlFor="Owninspiration">My own inspiration </label>
               <LeftOutlined
                 className="add-inspiration"
-                onClick={() => setinspiration(true)}
+                onClick={() => setInspiration(true)}
               />
               <br />
               <Field name="Owninspiration" />

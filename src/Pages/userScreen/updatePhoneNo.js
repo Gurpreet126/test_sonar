@@ -17,7 +17,7 @@ const UpdateUserPhoneNo = (props) => {
     countryCode,
   } = props;
 
-  const [phoneNumber, SetPhoneNo] = useState(data);
+  const [phoneNumber, SetPhoneNumber] = useState(data);
   const [dialingCode, setDialingCode] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +66,7 @@ const UpdateUserPhoneNo = (props) => {
   };
 
   const handleChange = (e) => {
-    SetPhoneNo(e.target.value);
+    SetPhoneNumber(e.target.value);
   };
 
   const handleCancel = () => {
@@ -78,7 +78,7 @@ const UpdateUserPhoneNo = (props) => {
   };
 
   return (
-    <>
+    <div>
       <Modal
         title="Update Settings"
         open={showPhoneModal}
@@ -138,7 +138,7 @@ const UpdateUserPhoneNo = (props) => {
           />
         </FieldWrapper>
       </Modal>
-    </>
+    </div>
   );
 };
 export default UpdateUserPhoneNo;

@@ -29,37 +29,37 @@ import {
 } from "StyledComponents";
 
 export default function PreRegusers() {
-  const [tableinfo, settableinfo] = useState([]);
-  const [sortBasis, setsortBasis] = useState({
+  const [tableInfo, setTableInfo] = useState([]);
+  const [sortBasis, setSortBasis] = useState({
     sortBasis: undefined,
     sortOrder: undefined,
   });
 
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
-  const [searchtext, setsearchtext] = useState(null);
+  const [pageSize, setPageSize] = useState(25);
+  const [searchText, setSearchText] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [sortuser, setsortuser] = useState(false);
-  const [sortcountry, setsortcountry] = useState(false);
-  const [sortPhone, setsortPhone] = useState(false);
-  const [sortEmail, setsortEmail] = useState(false);
+  const [sortUser, setSortUser] = useState(false);
+  const [sortCountry, setSortCountry] = useState(false);
+  const [sortPhone, setSortPhone] = useState(false);
+  const [sortEmail, setSortEmail] = useState(false);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
-  const [totalcount, settotalcount] = useState();
+  const [totalCount, setTotalCount] = useState();
 
   const Searchtable = async (value) => {
     setLoading(true);
     let searchtype = {
       search: value.trim(),
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await getSearchPreRegUserData(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData);
+        setTotalCount(searchBy?.extraData);
         setLoading(false);
-        settableinfo(
+        setTableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -88,13 +88,13 @@ export default function PreRegusers() {
         );
       } else {
         setLoading(false);
-        settableinfo([]);
+        setTableInfo([]);
       }
     }
   };
 
   const handleSearch = (value) => {
-    setsearchtext(value);
+    setSearchText(value);
   };
 
   const getDate = (date) => {
@@ -112,13 +112,13 @@ export default function PreRegusers() {
 
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("perPage", pagesize);
+    params.append("perPage", pageSize);
 
     let res = await getPreRegUsersListing(params);
 
     if (res.status === 200) {
-      settotalcount(res?.extraData);
-      settableinfo(
+      setTotalCount(res?.extraData);
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -154,9 +154,9 @@ export default function PreRegusers() {
     }
   };
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const columns = [
@@ -166,11 +166,11 @@ export default function PreRegusers() {
           COUNTRY
           <SortAscendingOutlined
             onClick={() => {
-              setsortcountry((e) => !e);
-              if (sortcountry === true) {
-                setsortBasis({ sortBasis: "country", sortOrder: "ASC" });
+              setSortCountry((e) => !e);
+              if (sortCountry === true) {
+                setSortBasis({ sortBasis: "country", sortOrder: "ASC" });
               } else {
-                setsortBasis({ sortBasis: "country", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "country", sortOrder: "DESC" });
               }
             }}
             style={{
@@ -189,12 +189,12 @@ export default function PreRegusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortuser((e) => !e);
+              setSortUser((e) => !e);
 
-              if (sortuser === true) {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
+              if (sortUser === true) {
+                setSortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
-                setsortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
               }
             }}
           />
@@ -211,11 +211,11 @@ export default function PreRegusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortPhone((e) => !e);
+              setSortPhone((e) => !e);
               if (sortPhone === true) {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "ASC" });
               }
             }}
           />
@@ -241,11 +241,11 @@ export default function PreRegusers() {
           <SwapOutlined
             rotate={90}
             onClick={() => {
-              setsortEmail((e) => !e);
+              setSortEmail((e) => !e);
               if (sortEmail === true) {
-                setsortBasis({ sortBasis: "email", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "email", sortOrder: "ASC" });
               } else {
-                setsortBasis({ sortBasis: "email", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "email", sortOrder: "DESC" });
               }
             }}
           />
@@ -288,23 +288,23 @@ export default function PreRegusers() {
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else {
       getAllData();
     }
     return () => clearTimeout(timeoutId);
-  }, [sortBasis, currentpage, pagesize, searchtext]);
+  }, [sortBasis, currentpage, pageSize, searchText]);
 
   const searchInputValue = () => {
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
 
   return (
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Pre-Reg({totalcount})</p>
+          <p>Pre-Reg({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -333,7 +333,7 @@ export default function PreRegusers() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={columns}
-            dataSource={tableinfo?.sort((a, b) => {
+            dataSource={tableInfo?.sort((a, b) => {
               const dateA = new Date(a.date + " " + a.time);
               const dateB = new Date(b.date + " " + b.time);
               return dateA - dateB;
@@ -343,9 +343,9 @@ export default function PreRegusers() {
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
           />

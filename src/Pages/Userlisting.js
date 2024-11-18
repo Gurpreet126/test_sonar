@@ -19,12 +19,12 @@ export default function Userlisting() {
   const Navigate = useNavigate();
   const location = useLocation();
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
+  const [pageSize, setPageSize] = useState(25);
   const state = location?.state;
-  const [totalcount, settotalcount] = useState();
+  const [totalCount, setTotalCount] = useState();
   const [loading, setLoading] = useState(false);
-  const [tableinfo, settableinfo] = useState([]);
-  const [searchtext, setsearchtext] = useState(null);
+  const [tableInfo, setTableInfo] = useState([]);
+  const [searchText, setSearchText] = useState(null);
   const dispatch = useDispatch();
   const saveSearchWord = useSelector((e) => e.UserCounts?.searchValueForReal);
 
@@ -94,32 +94,32 @@ export default function Userlisting() {
     },
   ];
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const searchInputValue = () => {
     if (saveSearchWord) return saveSearchWord;
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
   const Searchtable = async (value) => {
     setLoading(true);
     dispatch(saveSearchField(value));
-    setsearchtext(value);
+    setSearchText(value);
     let searchtype = {
       searchType: "mobile",
       search: value.trim(),
       status: 1,
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await Search(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData?.totalRecords);
+        setTotalCount(searchBy?.extraData?.totalRecords);
         setLoading(false);
-        settableinfo(
+        setTableInfo(
           searchBy?.data?.map((ele, index) => ({
             key: index + 1,
             id: ele?._id,
@@ -136,7 +136,7 @@ export default function Userlisting() {
       } else {
         setLoading(false);
 
-        settableinfo([]);
+        setTableInfo([]);
       }
     }
   };
@@ -148,13 +148,13 @@ export default function Userlisting() {
     };
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("perPage", pagesize);
+    params.append("perPage", pageSize);
 
     let res = await getUserListing(params, state?.cardName === "1" ? {} : reqe);
     if (res.status === 200) {
-      settotalcount(res?.extraData.TotalRecords);
+      setTotalCount(res?.extraData.TotalRecords);
       setLoading(false);
-      settableinfo(
+      setTableInfo(
         res?.data?.map((ele, index) => ({
           key: index + 1,
           id: ele?._id,
@@ -181,14 +181,14 @@ export default function Userlisting() {
   };
 
   useEffect(() => {
-    if (searchtext) {
-      Searchtable(searchtext);
+    if (searchText) {
+      Searchtable(searchText);
     } else if (saveSearchWord) {
       Searchtable(saveSearchWord);
     } else {
       getAllData();
     }
-  }, [currentpage, pagesize, searchtext]);
+  }, [currentpage, pageSize, searchText]);
 
   return (
     <Mainwrapper>
@@ -225,16 +225,16 @@ export default function Userlisting() {
           <Table
             className="recent-users-table"
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             scroll={{ x: true }}
             footer={() => (
               <Pagination
                 current={currentpage}
                 onChange={onChange}
-                total={totalcount}
+                total={totalCount}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
           />

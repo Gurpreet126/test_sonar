@@ -13,7 +13,7 @@ const ApperanceHabit = (props) => {
   };
   const validateSchema = Yup.object().shape({});
   return (
-    <>
+    <div>
       <Formik
         initialValues={apperanceList}
         validationSchema={validateSchema}
@@ -89,7 +89,7 @@ const ApperanceHabit = (props) => {
           </form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };
 

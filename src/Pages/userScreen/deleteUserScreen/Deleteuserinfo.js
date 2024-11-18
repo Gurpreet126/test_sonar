@@ -90,14 +90,14 @@ export default function Deleteuserinfo() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [personlDetail, setpersonlDetail] = useState();
+  const [personlDetail, setPersonlDetail] = useState();
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [deleteModal, setdeleteModal] = useState(false);
-  const [imageName, setimageName] = useState();
-  const CanceldeleteModal = () => setdeleteModal(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [imageName, setImageName] = useState();
+  const CanceldeleteModal = () => setDeleteModal(false);
   const [deleteImageLoading, setDeleteImageLoading] = useState(false);
   const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -162,9 +162,9 @@ export default function Deleteuserinfo() {
       toast.success("Image deleted successfully");
       setDeleteImageLoading(false);
       getAllData();
-      setdeleteModal(false);
+      setDeleteModal(false);
     } else {
-      setdeleteModal(false);
+      setDeleteModal(false);
       setDeleteImageLoading(false);
     }
   };
@@ -181,7 +181,7 @@ export default function Deleteuserinfo() {
     };
     let res = await deletedPersonalDetail(req);
     if (res.status === 200) {
-      setpersonlDetail(res.data);
+      setPersonlDetail(res.data);
       setUploadImage(res?.data?.photos);
     } else {
       toast.error(
@@ -193,9 +193,9 @@ export default function Deleteuserinfo() {
     }
   };
   const handleRemove = (data) => {
-    setdeleteModal(true);
+    setDeleteModal(true);
     let imageBaseUrl = data?.url.split("/", -1);
-    setimageName(imageBaseUrl[imageBaseUrl.length - 1]);
+    setImageName(imageBaseUrl[imageBaseUrl.length - 1]);
   };
   useEffect(() => {
     getAllData();
@@ -385,7 +385,7 @@ export default function Deleteuserinfo() {
       key: "3",
       label: "Photos & Videos",
       children: (
-        <>
+        <div>
           <Followerwrap>
             <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
               <SortableContext
@@ -410,6 +410,12 @@ export default function Deleteuserinfo() {
                           tabIndex={0}
                           className="delete-icon"
                           onClick={() => handleRemove(file)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              handleRemove(file);
+                            }
+                          }}
+                          aria-label="Remove file"
                         >
                           <DeleteOutlined />
                         </div>
@@ -467,7 +473,7 @@ export default function Deleteuserinfo() {
               <img alt="example" style={{ width: "100%" }} src={previewImage} />
             </Modal>
           </Followerwrap>
-        </>
+        </div>
       ),
     },
 

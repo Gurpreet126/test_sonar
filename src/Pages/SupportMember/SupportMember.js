@@ -22,12 +22,12 @@ import {
 
 export default function SupportMember() {
   const [loading, setLoading] = useState(false);
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState();
+  const [pageSize, setPageSize] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [count, setcount] = useState(0);
-  const [userId, setuserId] = useState();
+  const [count, setCount] = useState(0);
+  const [userId, setUserId] = useState();
   const Navigate = useNavigate();
 
   const getDate = (date) => {
@@ -35,14 +35,14 @@ export default function SupportMember() {
     return newDate;
   };
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const showModal = (data) => {
     setIsModalOpen(true);
-    setuserId(data.id);
+    setUserId(data.id);
   };
 
   const handleOk = async () => {
@@ -93,12 +93,12 @@ export default function SupportMember() {
   const getuserdetails = async () => {
     setLoading(true);
 
-    let res = await allmemberlisting(currentpage, pagesize);
+    let res = await allmemberlisting(currentpage, pageSize);
     if (res.status === 200) {
       setLoading(false);
-      setcount(res?.data);
+      setCount(res?.data);
 
-      settableinfo(
+      setTableInfo(
         res?.extraData?.map((ele, index) => ({
           key: index + 1,
           id: ele?._id,
@@ -109,7 +109,7 @@ export default function SupportMember() {
         }))
       );
     } else {
-      settableinfo([]);
+      setTableInfo([]);
       setLoading(false);
       toast.error(res.response.data.message || res.error || res.message, {
         theme: "colored",
@@ -119,7 +119,7 @@ export default function SupportMember() {
 
   useEffect(() => {
     getuserdetails();
-  }, [currentpage, pagesize]);
+  }, [currentpage, pageSize]);
 
   return (
     <Mainwrapper>
@@ -173,14 +173,14 @@ export default function SupportMember() {
             }}
             pagination={false}
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             footer={() => (
               <Pagination
                 current={currentpage}
                 onChange={onChange}
                 total={count}
                 showSizeChanger
-                defaultPageSize={pagesize}
+                defaultPageSize={pageSize}
               />
             )}
             title={() => <TableHeading>Staff Member</TableHeading>}

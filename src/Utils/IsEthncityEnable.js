@@ -40,7 +40,7 @@ const CheckboxGroup = ({ options, name, defaultValue, onChange, ...rest }) => {
     onChange(checkedValues);
   };
   return (
-    <>
+    <div>
       <Checkbox.Group
         {...rest}
         name={name}
@@ -50,6 +50,6 @@ const CheckboxGroup = ({ options, name, defaultValue, onChange, ...rest }) => {
         value={state}
         onChange={handleChange}
       />
-    </>
+    </div>
   );
 };

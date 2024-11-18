@@ -9,16 +9,16 @@ import { LoaderWrapper } from "Styles/Globalstyle";
 import PropTypes from "prop-types";
 
 export default function SwipeMatch({ user_id, onCancel }) {
-  const [tableinfo, settableinfo] = useState();
-  const [matchid, setmatchid] = useState();
-  const [matchUserName, setmatchUserName] = useState();
+  const [tableInfo, setTableInfo] = useState();
+  const [matchId, setMatchId] = useState();
+  const [matchUserName, setMatchUserName] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMatch, setisMatch] = useState();
+  const [isMatch, setIsMatch] = useState();
   const showModal = (data) => {
-    setisMatch(data.isMatch);
+    setIsMatch(data.isMatch);
     setIsModalOpen(true);
-    setmatchid(data.id);
-    setmatchUserName(data.user);
+    setMatchId(data.id);
+    setMatchUserName(data.user);
   };
   const [loading, setLoading] = useState(true);
   const [loadingMatch, setLoadingMatch] = useState(false);
@@ -29,7 +29,7 @@ export default function SwipeMatch({ user_id, onCancel }) {
       receiverId: user_id,
       isLike: true,
       isAdmin: true,
-      _id: matchid,
+      _id: matchId,
       type: isMatch ? 2 : 1,
       isPrivateMessage: false,
     };
@@ -139,7 +139,7 @@ export default function SwipeMatch({ user_id, onCancel }) {
   const getAllData = async () => {
     let res = await userSwipeMatchinfo(user_id);
     if (res.status === 200) {
-      settableinfo(
+      setTableInfo(
         res?.data?.map((ele, index) => ({
           key: index + 1,
           id: ele?.userData[0]._id,
@@ -191,7 +191,7 @@ export default function SwipeMatch({ user_id, onCancel }) {
           className="recent-users-table"
           scroll={{ x: true, y: 400 }}
           columns={columns}
-          dataSource={tableinfo}
+          dataSource={tableInfo}
           pagination={false}
         />
       )}
