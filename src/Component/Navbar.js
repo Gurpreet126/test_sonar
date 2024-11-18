@@ -222,6 +222,13 @@ export default function Navbar() {
                   dispatch(navcolor("lightgrey"));
                   dispatch(sidecolor("white"));
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    dispatch(navcolor("lightgrey"));
+                    dispatch(sidecolor("white"));
+                  }
+                }}
               >
                 <div
                   className="box-header"
@@ -243,6 +250,14 @@ export default function Navbar() {
                   dispatch(navcolor("black"));
                   dispatch(sidecolor("white"));
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    dispatch(navcolor("black"));
+                    dispatch(sidecolor("white"));
+                  }
+                }}
+                aria-label="Change colors to black and white"
               >
                 <div className="box-header" style={{ background: "black" }} />
                 <div className="box-main">
@@ -261,6 +276,14 @@ export default function Navbar() {
                   dispatch(navcolor("#212121"));
                   dispatch(sidecolor("#333333"));
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    dispatch(navcolor("#212121"));
+                    dispatch(sidecolor("#333333"));
+                  }
+                }}
+                aria-label="Change colors to dark gray shades"
               >
                 <div className="box-header" style={{ background: "black" }} />
                 <div className="box-main">
@@ -279,6 +302,14 @@ export default function Navbar() {
                   dispatch(navcolor("#284152"));
                   dispatch(sidecolor("#375468"));
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    dispatch(navcolor("#284152"));
+                    dispatch(sidecolor("#375468"));
+                  }
+                }}
+                aria-label="Change colors to blue-gray shades"
               >
                 <div className="box-header" style={{ background: "#284152" }} />
                 <div className="box-main">
@@ -297,6 +328,14 @@ export default function Navbar() {
                   dispatch(navcolor("#351e28"));
                   dispatch(sidecolor("#462b36"));
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    dispatch(navcolor("#351e28"));
+                    dispatch(sidecolor("#462b36"));
+                  }
+                }}
+                aria-label="Change colors to dark red and brown shades"
               >
                 <div className="box-header" style={{ background: "#351e28" }} />
                 <div className="box-main">
