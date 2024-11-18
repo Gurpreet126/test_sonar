@@ -25,23 +25,23 @@ import {
   HideUserTitle,
 } from "StyledComponents";
 
-const FooterComponent = ({ currentpage, onChange, totalData, pagesize }) => (
+const FooterComponent = ({ currentpage, onChange, totalData, pageSize }) => (
   <div>
     <Pagination
       current={currentpage}
       onChange={onChange}
       total={totalData}
       showSizeChanger
-      defaultPageSize={pagesize}
+      defaultPageSize={pageSize}
     />
   </div>
 );
 
 export default function HideUsers() {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
 
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(25);
+  const [pageSize, setPageSize] = useState(25);
   const [totalData, setTotalData] = useState(null);
   const [loading, setLoading] = useState(false);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
@@ -58,11 +58,11 @@ export default function HideUsers() {
 
   const handleGetHideUserListing = async () => {
     setLoading(true);
-    let res = await gethideuserlist(pagesize, currentpage);
+    let res = await gethideuserlist(pageSize, currentpage);
     if (res.status === 200) {
       setLoading(false);
       setTotalData(res?.extraData);
-      settableinfo(
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -97,9 +97,9 @@ export default function HideUsers() {
     }
   };
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const columns = [
@@ -196,13 +196,13 @@ export default function HideUsers() {
       search: e,
       searchType: "hideSearch",
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     let res = await Search(searchtype);
     if (res.status === 200) {
       setLoading(false);
       setTotalData(res?.extraData?.totalRecords);
-      settableinfo(
+      setTableInfo(
         res?.data?.map((ele, index) => ({
           key: index + 1,
           id: ele?._id,
@@ -261,14 +261,14 @@ export default function HideUsers() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <FooterComponent
                 currentpage={currentpage}
                 onChange={onChange}
                 totalData={totalData}
-                pagesize={pagesize}
+                pageSize={pageSize}
               />
             )}
           />

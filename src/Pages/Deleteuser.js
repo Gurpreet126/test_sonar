@@ -33,9 +33,9 @@ const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
 );
 
 export default function Deleteuser() {
-  const [tableInfo, settableInfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pageSize, setpagesize] = useState(20);
+  const [pageSize, setPageSize] = useState(20);
   const [loading, setLoading] = useState(false);
   const [currentDate, setCurrentDate] = useState(null);
   const [searchText, setSearchText] = useState(null);
@@ -46,7 +46,7 @@ export default function Deleteuser() {
 
   const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pageSize);
+    setPageSize(pageSize);
   };
   let isFilter = currentDate?.start?._d ? true : false;
   const getDate = (date) => {
@@ -78,7 +78,7 @@ export default function Deleteuser() {
     const res = await allDeletedUsersList(params.toString());
     if (res.status === 200) {
       setTotalCount(userCount);
-      settableInfo(
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -126,7 +126,7 @@ export default function Deleteuser() {
       let searchBy = await deletesearchapi(searchtype);
       if (searchBy.status === 200) {
         setTotalCount(searchBy?.extraData);
-        settableInfo(
+        setTableInfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
                 key: index + 1,
@@ -153,7 +153,7 @@ export default function Deleteuser() {
         setLoading(false);
       } else {
         setLoading(false);
-        settableInfo([]);
+        setTableInfo([]);
       }
     }
   };

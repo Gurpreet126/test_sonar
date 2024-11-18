@@ -18,31 +18,31 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import moment from "moment";
 
-const TableFooter = ({ currentpage, onChange, totalcount, pagesize }) => (
+const TableFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
   <Pagination
     current={currentpage}
     onChange={onChange}
-    total={totalcount}
+    total={totalCount}
     showSizeChanger
-    defaultPageSize={pagesize}
+    defaultPageSize={pageSize}
   />
 );
 
 export default function Incomplete() {
-  const [tableinfo, settableinfo] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState("20");
+  const [pageSize, setPageSize] = useState("20");
   const [loading, setLoading] = useState(false);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
-  const [searchtext, setsearchtext] = useState();
+  const [searchText, setSearchText] = useState();
   const sortBasis = "";
   const status = "";
-  const [totalcount, settotalcount] = useState();
+  const [totalCount, setTotalCount] = useState();
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
 
   const Searchtable = async (value) => {
@@ -51,13 +51,13 @@ export default function Incomplete() {
       search: value.trim(),
       searchType: "incompleteUsers",
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     let searchBy = await Search(searchtype);
     if (searchBy.status === 200) {
       setLoading(false);
-      settotalcount(searchBy?.extraData?.totalRecords);
-      settableinfo(
+      setTotalCount(searchBy?.extraData?.totalRecords);
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? searchBy?.data?.map((ele, index) => ({
               key: index + 1,
@@ -78,20 +78,20 @@ export default function Incomplete() {
       );
     } else {
       setLoading(false);
-      settableinfo();
-      settotalcount(searchBy?.extraData?.totalRecords);
+      setTableInfo();
+      setTotalCount(searchBy?.extraData?.totalRecords);
     }
   };
 
   const handleSearch = (value) => {
-    setsearchtext(value);
+    setSearchText(value);
   };
 
   const getAllData = async () => {
     setLoading(true);
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("perPage", pagesize);
+    params.append("perPage", pageSize);
     params.append("status", status);
     params.append("sortBasis", sortBasis.sortBasis);
     params.append("sortOrder", sortBasis.sortOrder);
@@ -102,8 +102,8 @@ export default function Incomplete() {
     };
     let res = await getUserListing(params, reqe);
     if (res.status === 200) {
-      settotalcount(res?.extraData?.TotalRecords);
-      settableinfo(
+      setTotalCount(res?.extraData?.TotalRecords);
+      setTableInfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
               key: index + 1,
@@ -160,12 +160,12 @@ export default function Incomplete() {
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else getAllData();
 
     return () => clearTimeout(timeoutId);
-  }, [currentpage, pagesize, searchtext]);
+  }, [currentpage, pageSize, searchText]);
 
   const columns = [
     {
@@ -289,7 +289,7 @@ export default function Incomplete() {
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Incomplete users({totalcount})</p>
+          <p>Incomplete users({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -303,7 +303,7 @@ export default function Incomplete() {
       </Mainheading>
       <Searchbox>
         <input
-          value={searchtext}
+          value={searchText}
           onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search"
         />
@@ -318,14 +318,14 @@ export default function Incomplete() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={roleType == 1 || roleType == 2 ? columns2 : columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <TableFooter
                 currentpage={currentpage}
                 onChange={onChange}
-                totalcount={totalcount}
-                pagesize={pagesize}
+                totalCount={totalCount}
+                pageSize={pageSize}
               />
             )}
           />

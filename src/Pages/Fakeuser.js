@@ -25,20 +25,20 @@ import {
   LoaderWrapper,
 } from "StyledComponents";
 
-const FooterComponent = ({ currentpage, onChange, totalcount, pagesize }) => (
+const FooterComponent = ({ currentpage, onChange, totalCount, pageSize }) => (
   <div>
     <Pagination
       current={currentpage}
       onChange={onChange}
-      total={totalcount}
+      total={totalCount}
       showSizeChanger
-      defaultPageSize={pagesize}
+      defaultPageSize={pageSize}
     />
   </div>
 );
 
 const FilterDropdown = ({
-  tableinfo,
+  tableInfo,
   genderValue,
   switchchange,
   Male_female,
@@ -51,7 +51,7 @@ const FilterDropdown = ({
         <Switch
           onChange={switchchange}
           className="pause-switch"
-          checked={tableinfo?.[0]?.pauseStatus}
+          checked={tableInfo?.[0]?.pauseStatus}
         />
       </div>
       <div className="radio-btns-date">
@@ -74,21 +74,21 @@ const FilterDropdown = ({
 export default function Fakeuser() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const [tableinfo, settableinfo] = useState([]);
-  const [searchtext, setsearchtext] = useState(null);
+  const [tableInfo, settableinfo] = useState([]);
+  const [searchText, setSearchText] = useState(null);
   const [currentpage, setCurrentpage] = useState(1);
-  const [pagesize, setpagesize] = useState(20);
+  const [pageSize, setPageSize] = useState(20);
   const [loading, setLoading] = useState(false);
   const [genderValue, SetgenderValue] = useState();
   const sortBasis = "";
   const status = "";
-  const [totalcount, settotalcount] = useState();
+  const [totalCount, setTotalCount] = useState();
   const saveSearchWord = useSelector((e) => e.UserCounts?.searchValueForFake);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
-  const onChange = (page, pagesize) => {
+  const onChange = (page, pageSize) => {
     setCurrentpage(page);
-    setpagesize(pagesize);
+    setPageSize(pageSize);
   };
   const Searchtable = async (value) => {
     setLoading(true);
@@ -96,12 +96,12 @@ export default function Fakeuser() {
       search: value.trim(),
       searchType: "web",
       pageNumber: currentpage,
-      perPage: pagesize,
+      perPage: pageSize,
     };
     if (value) {
       let searchBy = await Search(searchtype);
       if (searchBy.status === 200) {
-        settotalcount(searchBy?.extraData?.totalRecords);
+        setTotalCount(searchBy?.extraData?.totalRecords);
         settableinfo(
           roleType == 1 || roleType == 2
             ? searchBy?.data?.map((ele, index) => ({
@@ -127,14 +127,14 @@ export default function Fakeuser() {
       } else {
         setLoading(false);
         settableinfo();
-        settotalcount(searchBy?.extraData?.totalRecords);
+        setTotalCount(searchBy?.extraData?.totalRecords);
       }
     }
   };
 
   const handleSearch = (value) => {
     dispatch(saveSearchFieldForFake(value));
-    setsearchtext(value);
+    setSearchText(value);
   };
 
   const switchchange = async (checked) => {
@@ -165,7 +165,7 @@ export default function Fakeuser() {
     };
     let params = new URLSearchParams();
     params.append("pageNumber", currentpage);
-    params.append("perPage", pagesize);
+    params.append("perPage", pageSize);
     params.append("status", status);
     params.append("sortBasis", sortBasis.sortBasis);
     params.append("sortOrder", sortBasis.sortOrder);
@@ -179,7 +179,7 @@ export default function Fakeuser() {
 
     const res = await getUserListing(params, req);
     if (res.status === 200) {
-      settotalcount(res?.extraData.TotalRecords);
+      setTotalCount(res?.extraData.TotalRecords);
       settableinfo(
         roleType == 1 || roleType == 2
           ? res?.data?.map((ele, index) => ({
@@ -214,15 +214,15 @@ export default function Fakeuser() {
 
   let timeoutId;
   useEffect(() => {
-    if (searchtext) {
-      timeoutId = setTimeout(() => Searchtable(searchtext), 500);
+    if (searchText) {
+      timeoutId = setTimeout(() => Searchtable(searchText), 500);
     } else if (saveSearchWord) {
       timeoutId = setTimeout(() => Searchtable(saveSearchWord), 500);
     } else {
       getAllData();
     }
     return () => clearTimeout(timeoutId);
-  }, [currentpage, pagesize, searchtext]);
+  }, [currentpage, pageSize, searchText]);
 
   const columns = [
     {
@@ -314,14 +314,14 @@ export default function Fakeuser() {
 
   const searchInputValue = () => {
     if (saveSearchWord) return saveSearchWord;
-    if (searchtext) return searchtext;
+    if (searchText) return searchText;
   };
 
   return (
     <Mainwrapper>
       <Mainheading>
         <div>
-          <p>Fake Users({totalcount})</p>
+          <p>Fake Users({totalCount})</p>
         </div>
         <div className="page-info">
           <p>
@@ -344,7 +344,7 @@ export default function Fakeuser() {
           <Dropdown
             overlay={
               <FilterDropdown
-                tableinfo={tableinfo}
+                tableInfo={tableInfo}
                 genderValue={genderValue}
                 switchchange={switchchange}
                 Male_female={Male_female}
@@ -377,14 +377,14 @@ export default function Fakeuser() {
             className="recent-users-table"
             scroll={{ x: true }}
             columns={roleType == 1 || roleType == 2 ? columns2 : columns}
-            dataSource={tableinfo}
+            dataSource={tableInfo}
             pagination={false}
             footer={() => (
               <FooterComponent
                 currentpage={currentpage}
                 onChange={onChange}
-                totalcount={totalcount}
-                pagesize={pagesize}
+                totalCount={totalCount}
+                pageSize={pageSize}
               />
             )}
           />
