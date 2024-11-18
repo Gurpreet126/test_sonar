@@ -243,3 +243,6 @@ EmailThread.propTypes = {
 DomTest.propTypes = {
   data: PropTypes.any,
 };
+ConvertArrayBufferToBase64.propTypes = {
+  data: PropTypes.any,
+};

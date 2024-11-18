@@ -31,6 +31,7 @@ import {
   Onlinebtn,
   Status,
 } from "StyledComponents";
+import PropTypes from "prop-types";
 
 const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
   <div>
@@ -348,3 +349,14 @@ export default function Admin() {
     </Mainwrapper>
   );
 }
+PaginationFooter.propTypes = {
+  currentpage: PropTypes.any,
+  onChange: PropTypes.any,
+  totalCount: PropTypes.any,
+  pageSize: PropTypes.any,
+};
+DeleteModalFooter.propTypes = {
+  deleteLoading: PropTypes.bool,
+  handleCancel: PropTypes.func,
+  handleOk: PropTypes.func,
+};
