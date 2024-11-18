@@ -240,3 +240,6 @@ export const EmailThread = () => {
 EmailThread.propTypes = {
   data: PropTypes.any,
 };
+DomTest.propTypes = {
+  data: PropTypes.any,
+};
