@@ -59,6 +59,7 @@ export default function Navbar() {
           )}
           <div
             className="menu-logo"
+            role="button"
             tabIndex={0}
             onClick={onclick}
             onKeyDown={(e) => {
@@ -193,6 +194,13 @@ export default function Navbar() {
                 onClick={() => {
                   dispatch(navcolor("white"));
                   dispatch(sidecolor("white"));
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    dispatch(navcolor("white"));
+                    dispatch(sidecolor("white"));
+                  }
                 }}
               >
                 <div className="box-header" style={{ background: "white" }} />
