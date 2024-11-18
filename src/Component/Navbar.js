@@ -68,6 +68,7 @@ export default function Navbar() {
               }
             }}
             aria-label="Menu"
+            aria-pressed="false"
           >
             <img src={menu} alt="menu" />
           </div>
@@ -100,6 +101,7 @@ export default function Navbar() {
                       }
                     }}
                     aria-label="Update Profile"
+                    className="update-profile-button"
                   >
                     <img className="Online-Status" src={OnlineStatus} alt="" />
                     <p> Online</p>
