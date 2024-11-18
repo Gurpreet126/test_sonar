@@ -24,6 +24,7 @@ import {
   Pageinfobox,
   Tabledata,
 } from "models/EmailStyle";
+import PropTypes from "prop-types";
 
 const TitleComponent = () => (
   <Emailbox>
@@ -294,3 +295,9 @@ export default function EmailLayout() {
     </Mainwrapper>
   );
 }
+
+Loginmodal.propTypes = {
+  validation: PropTypes.any,
+  handleloginsubmit: PropTypes.func,
+  loadinglogin: PropTypes.bool,
+};

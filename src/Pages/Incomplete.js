@@ -334,6 +334,14 @@ export default function Incomplete() {
     </Mainwrapper>
   );
 }
+
+TableFooter.propTypes = {
+  currentpage: PropTypes.any,
+  onChange: PropTypes.any,
+  totalCount: PropTypes.any,
+  pageSize: PropTypes.any,
+};
+
 const LoaderWrapper = styled.div`
   width: 100%;
   height: 450px;

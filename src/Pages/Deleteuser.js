@@ -21,6 +21,7 @@ import {
   LoaderWrapper,
   Searchbox,
 } from "StyledComponents";
+import PropTypes from "prop-types";
 
 const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
   <Pagination
@@ -350,3 +351,10 @@ export default function Deleteuser() {
     </Mainwrapper>
   );
 }
+
+
+PaginationFooter.propTypes = {
+  fullScreen: PropTypes.bool,
+  setFullScreen: PropTypes.any,
+  handle: PropTypes.any,
+};

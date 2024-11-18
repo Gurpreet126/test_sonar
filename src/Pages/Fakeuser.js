@@ -24,6 +24,7 @@ import {
   FakeUserSearchbox,
   LoaderWrapper,
 } from "StyledComponents";
+import PropTypes from "prop-types";
 
 const FooterComponent = ({ currentpage, onChange, totalCount, pageSize }) => (
   <div>
@@ -393,3 +394,16 @@ export default function Fakeuser() {
     </Mainwrapper>
   );
 }
+FooterComponent.propTypes = {
+  currentpage: PropTypes.any,
+  onChange: PropTypes.any,
+  totalCount: PropTypes.any,
+  pageSize: PropTypes.any,
+};
+FilterDropdown.propTypes = {
+  tableInfo: PropTypes.any,
+  genderValue: PropTypes.any,
+  switchchange: PropTypes.func,
+  Male_female: PropTypes.func,
+  getAllData: PropTypes.func,
+};

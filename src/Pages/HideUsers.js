@@ -24,6 +24,7 @@ import {
   SearchboxForPendingPages,
   HideUserTitle,
 } from "StyledComponents";
+import PropTypes from "prop-types";
 
 const FooterComponent = ({ currentpage, onChange, totalData, pageSize }) => (
   <div>
@@ -277,3 +278,10 @@ export default function HideUsers() {
     </Mainwrapper>
   );
 }
+
+FooterComponent.propTypes = {
+  currentpage: PropTypes.any,
+  onChange: PropTypes.any,
+  totalCount: PropTypes.any,
+  pageSize: PropTypes.any,
+};

@@ -27,6 +27,7 @@ import {
   Cardlogo,
   Tableheader,
 } from "../StyledComponents";
+import PropTypes from "prop-types";
 
 const cardarray = [
   {
@@ -305,3 +306,9 @@ export default function Dashbordinfo() {
     </Mainwrapper>
   );
 }
+
+TableHeader.propTypes = {
+  fullScreen: PropTypes.bool,
+  setFullScreen: PropTypes.any,
+  handle: PropTypes.any,
+};
