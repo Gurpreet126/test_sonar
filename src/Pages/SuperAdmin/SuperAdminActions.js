@@ -136,37 +136,35 @@ export default function SuperAdminAction() {
     }
   };
 
+  const addItemToSelectedRows = (obj) => {
+    if (selectedRowsData?.find((el) => el?.countryName === obj?.countryName)) {
+      return selectedRowsData?.map((el) =>
+        el.countryName === obj.countryName ? obj : el
+      );
+    } else {
+      return [...selectedRowsData, obj];
+    }
+  };
+
+  const removeItemFromSelectedRows = (obj) => {
+    return selectedRowsData?.filter(
+      (el) => el?.countryName.toUpperCase() !== obj?.countryName.toUpperCase()
+    );
+  };
+
   const handleAddRem = (obj, type, all) => {
     if (!all) {
       if (type) {
+        // If there are selected rows
         if (selectedRowsData?.length > 0) {
-          if (Array.isArray(selectedRowsData)) {
-            if (
-              selectedRowsData.find(
-                (el) => el?.countryName === obj?.countryName
-              )
-            ) {
-              return selectedRowsData?.forEach((el) => {
-                if (el.countryName === obj.countryName) {
-                  setSelectedRowsData(obj);
-                }
-                setSelectedRowsData(el);
-              });
-            } else {
-              setSelectedRowsData([...selectedRowsData, obj]);
-            }
-          } else {
-            setSelectedRowsData([obj]);
-          }
+          setSelectedRowsData(
+            Array.isArray(selectedRowsData) ? addItemToSelectedRows(obj) : [obj]
+          );
         } else {
           setSelectedRowsData([obj]);
         }
       } else {
-        let arr = selectedRowsData.filter(
-          (el) =>
-            el?.countryName.toUpperCase() !== obj?.countryName.toUpperCase()
-        );
-        setSelectedRowsData(arr);
+        setSelectedRowsData(removeItemFromSelectedRows(obj));
       }
     } else if (type) {
       setSelectedRowsData(countryListing);

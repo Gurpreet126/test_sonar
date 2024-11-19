@@ -22,46 +22,61 @@ const PersonalInfo = (props) => {
   const { personalInfo, getalldetails, setPersonaledit, id } = props;
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (values) => {
-    if (values?.interest.length > 5) {
-      toast.error("You can select only upto 5 Interests ");
-      setLoading(false);
-    } else {
-      setLoading(true);
-      let req = {
-        Education: values?.Education !== "None" ? values?.Education : "",
-        astrologicalSign:
-          values?.astrologicalSign !== "None" ? values?.astrologicalSign : "",
-        childrens: values?.childrens !== "None" ? values?.childrens : "",
-        interest: values?.interest,
-        lookingFor: values?.lookingFor,
-        pets: values?.pets,
-        religion: values?.religion !== "None" ? values?.religion : "",
-        id: id,
-        marriage: values?.marriage,
-      };
+  const validateInterests = (interest) => {
+    if (interest.length > 5) {
+      toast.error("You can select only up to 5 Interests");
+      return false;
+    }
+    return true;
+  };
 
-      try {
-        let res = await updateBasicPersonalInfo(req);
-        if (res?.status === 200) {
-          toast.info(res?.message || "update successfully");
-          setLoading(false);
-          setPersonaledit(false);
-          getalldetails();
-        } else {
-          toast.error(
-            res.response.data.message ||
-              res.error ||
-              res.message ||
-              "Something went wrong"
-          );
-          setPersonaledit(false);
-          setLoading(false);
-        }
-      } catch (e) {
-        toast.error("Something went wrong");
-        setLoading(false);
-      }
+  const createRequestBody = (values) => {
+    return {
+      Education: values?.Education !== "None" ? values?.Education : "",
+      astrologicalSign:
+        values?.astrologicalSign !== "None" ? values?.astrologicalSign : "",
+      childrens: values?.childrens !== "None" ? values?.childrens : "",
+      interest: values?.interest,
+      lookingFor: values?.lookingFor,
+      pets: values?.pets,
+      religion: values?.religion !== "None" ? values?.religion : "",
+      id: id,
+      marriage: values?.marriage,
+    };
+  };
+
+  const handleResponse = (res) => {
+    if (res?.status === 200) {
+      toast.info(res?.message || "Updated successfully");
+      setPersonaledit(false);
+      getalldetails();
+    } else {
+      toast.error(
+        res.response.data.message ||
+          res.error ||
+          res.message ||
+          "Something went wrong"
+      );
+      setPersonaledit(false);
+    }
+    setLoading(false);
+  };
+
+  const handleSubmit = async (values) => {
+    if (!validateInterests(values?.interest)) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    const req = createRequestBody(values);
+
+    try {
+      const res = await updateBasicPersonalInfo(req);
+      handleResponse(res);
+    } catch (e) {
+      toast.error("Something went wrong");
+      setLoading(false);
     }
   };
 

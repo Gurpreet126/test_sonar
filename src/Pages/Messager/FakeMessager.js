@@ -95,7 +95,8 @@ const MemberConversation = ({
   handleBlockUser,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  let userDetails = [
+
+  const userDetails = [
     {
       userType: chatMember?.userType?.[0],
       id: chatMember?.members?.[0],
@@ -105,64 +106,82 @@ const MemberConversation = ({
       id: chatMember?.members?.[1],
     },
   ];
-  let selectedUserInfo = userDetails?.filter((item) => {
-    if (!item?.userType) return item;
-  });
-  let currentUserUserInfo = userDetails?.filter((item) => {
-    if (item?.userType) return item;
-  });
+
+  const selectedUserInfo = userDetails?.filter((item) => !item?.userType);
+  const currentUserUserInfo = userDetails?.filter((item) => item?.userType);
 
   const getUnReadCount = (payload) => {
-    if (payload?.unreadMessageCount?.[currentUserUserInfo?.[0].id] > 0) {
-      return (
-        <span className="unreadCount">
-          {payload?.unreadMessageCount[currentUserUserInfo?.[0].id]}
-        </span>
-      );
-    }
+    const unreadCount =
+      payload?.unreadMessageCount?.[currentUserUserInfo?.[0].id];
+    return unreadCount > 0 ? (
+      <span className="unreadCount">{unreadCount}</span>
+    ) : null;
   };
 
-  const currentTimeStamp = Date.now();
-  const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
+  const getTimeAgo = (msgTimeStamp) => {
+    const currentTimeStamp = Date.now();
+    let difference = currentTimeStamp - msgTimeStamp * 1000;
 
-  let difference = currentTimeStamp - msgTimeStamp;
+    const daysDifference = Math.floor(difference / (1000 * 60 * 60 * 24));
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
 
-  let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-  difference -= daysDifference * 1000 * 60 * 60 * 24;
+    const hoursDifference = Math.floor(difference / (1000 * 60 * 60));
+    difference -= hoursDifference * 1000 * 60 * 60;
 
-  let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-  difference -= hoursDifference * 1000 * 60 * 60;
+    const minutesDifference = Math.floor(difference / (1000 * 60));
 
-  let minutesDifference = Math.floor(difference / 1000 / 60);
+    const lastChatDate = moment.unix(msgTimeStamp).local().format("MM/DD/yyyy");
 
-  const lastChatDate = moment
-    .unix(chatMember?.lastMessage?.messageTime)
-    .local()
-    .format("MM/DD/yyyy");
+    if (daysDifference) return lastChatDate;
+    if (hoursDifference)
+      return `${hoursDifference} ${hoursDifference > 1 ? "hours" : "hour"} ago`;
+    if (minutesDifference)
+      return `${minutesDifference} ${minutesDifference > 1 ? "mins" : "min"} ago`;
 
-  const time = daysDifference
-    ? lastChatDate
-    : hoursDifference
-      ? `${hoursDifference} ${hoursDifference > 1 ? "hours" : "hour"} ago`
-      : minutesDifference > 0
-        ? `${minutesDifference} ${minutesDifference > 1 ? "mins" : "min"} ago`
-        : !isNaN(msgTimeStamp)
-          ? "Now"
-          : "";
+    return "Now";
+  };
 
   const getMessage = (messageType, message) => {
-    if (messageType === "3") {
-      return "Audio";
-    } else if (messageType === "2") {
-      return "Gif";
-    } else {
-      return message;
-    }
+    if (messageType === "3") return "Audio";
+    if (messageType === "2") return "Gif";
+    return message;
+  };
+
+  const handleConversationClick = () => {
+    const selectedUser = chatMember[selectedUserInfo[0].id];
+    setShowSelectedChatId(chatMember?.chatID);
+    setFakeUserLocation(
+      selectedUser?.fakeUserAddress ||
+        chatMember[currentUserUserInfo[0].id]?.fakeUserAddress
+    );
+
+    getSelectedCoversation(
+      chatMember?.chatID,
+      selectedUser?.name,
+      selectedUser?.image,
+      selectedUserInfo?.[0].id,
+      currentUserUserInfo?.[0].id,
+      chatMember,
+      chatMember[currentUserUserInfo[0].id]
+    );
+
+    setSelectedChatDetails({
+      chatid: chatMember?.chatID,
+      name: selectedUser?.name,
+      image: selectedUser?.image,
+      selectedId: selectedUserInfo?.[0].id,
+      currentUserId: currentUserUserInfo?.[0].id,
+      chatMember: chatMember,
+      chatMemberData: chatMember[currentUserUserInfo[0].id],
+    });
+
+    handleSubscriptionUserStatus(currentUserUser);
   };
 
   const handleClickAway = () => {
     setIsPopupOpen(false);
   };
+
   return (
     chatMember[userDetails[0]?.id]?.name && (
       <ConversationWrapper key={key}>
@@ -171,52 +190,19 @@ const MemberConversation = ({
             padding: "12px 5px",
             width: "90%",
             background:
-              chatMember?.chatID == showSelectedChatId
+              chatMember?.chatID === showSelectedChatId
                 ? "#e2dfdfed"
                 : "transparent",
           }}
-          onClick={() => {
-            setShowSelectedChatId(chatMember?.chatID);
-            setFakeUserLocation(
-              chatMember[currentUserUserInfo[0].id]?.fakeUserAddress ||
-                chatMember[selectedUserInfo[0].id]?.fakeUserAddress
-            );
-
-            getSelectedCoversation(
-              chatMember?.chatID,
-              chatMember[selectedUserInfo[0].id]?.name,
-              chatMember[selectedUserInfo[0].id]?.image,
-              selectedUserInfo?.[0].id,
-              currentUserUserInfo?.[0].id,
-              chatMember,
-              chatMember[currentUserUserInfo[0].id]
-            );
-
-            setSelectedChatDetails({
-              chatid: chatMember?.chatID,
-              name: chatMember[selectedUserInfo[0].id]?.name,
-              image: chatMember[selectedUserInfo[0].id]?.image,
-              selectedId: selectedUserInfo?.[0].id,
-              currentUserId: currentUserUserInfo?.[0].id,
-              chatMember: chatMember,
-              chatMemberData: chatMember[currentUserUserInfo[0].id],
-            });
-            handleSubscriptionUserStatus(currentUserUser);
-          }}
+          onClick={handleConversationClick}
         >
           <AvatarGroup size="md" max={2} activeIndex={1}>
             <Avatar
-              src={
-                process.env.REACT_APP_BASEURL_IMAGE +
-                chatMember[userDetails[0]?.id]?.image
-              }
+              src={`${process.env.REACT_APP_BASEURL_IMAGE}${chatMember[userDetails[0]?.id]?.image}`}
               name={chatMember[userDetails[0]?.id]?.name}
             />
             <Avatar
-              src={
-                process.env.REACT_APP_BASEURL_IMAGE +
-                chatMember[userDetails[1]?.id]?.image
-              }
+              src={`${process.env.REACT_APP_BASEURL_IMAGE}${chatMember[userDetails[1]?.id]?.image}`}
               name={chatMember[userDetails[1]?.id]?.name}
             />
           </AvatarGroup>
@@ -235,8 +221,10 @@ const MemberConversation = ({
                         chatMember?.lastMessage?.messageType,
                         chatMember?.lastMessage?.message
                       )}
-                    </div>{" "}
-                    <div className="messageTime">{time}</div>
+                    </div>
+                    <div className="messageTime">
+                      {getTimeAgo(chatMember?.lastMessage?.messageTime)}
+                    </div>
                   </div>
                 </div>
               </AvatarUsernameWrapper>
@@ -252,8 +240,8 @@ const MemberConversation = ({
               onClick={() => setIsPopupOpen(!isPopupOpen)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault(); // Prevent default action for Enter/Space
-                  setIsPopupOpen(!isPopupOpen); // Trigger the click handler
+                  e.preventDefault();
+                  setIsPopupOpen(!isPopupOpen);
                 }
               }}
               className="three-dot"
