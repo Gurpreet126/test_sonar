@@ -37,8 +37,8 @@ export default function CreateFakeUser() {
       data.append("lat", values?.long);
       data.append("long", values?.lat);
       data.append("dialingCode", values.countryCode);
-      for (let i = 0; i < image.length; i++) {
-        data.append("photo", image[i], image[i].name);
+      for (const img of image) {
+        data.append("photo", img, img.name);
       }
 
       let res = await addUserByAdmin(data);

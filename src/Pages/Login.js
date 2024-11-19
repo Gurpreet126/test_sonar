@@ -124,7 +124,7 @@ export default function Login() {
           <h6>Login</h6>
         </div>
         <LoginPagedetails>
-          {isAdminFirstTime == false ? (
+          {!isAdminFirstTime ? (
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -178,9 +178,15 @@ export default function Login() {
                         ) : null}
                         <span
                           onClick={() => setShowNewPassword(!showNewPassword)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              setShowNewPassword(!showNewPassword);
+                            }
+                          }}
                           className="eye-icon"
                           role="button"
                           tabIndex={0}
+                          aria-label="Toggle password visibility"
                         >
                           {showNewPassword ? (
                             <EyeTwoTone />

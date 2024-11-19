@@ -60,3 +60,9 @@ IsEthncityEnable.propTypes = {
   handleChange: PropTypes.func,
   field: PropTypes.any,
 };
+CheckboxGroup.propTypes = {
+  options: PropTypes.any,
+  name: PropTypes.string,
+  defaultValue: PropTypes.any,
+  onChange: PropTypes.func,
+};

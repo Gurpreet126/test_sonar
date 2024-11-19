@@ -668,7 +668,6 @@ export default function FakeMessager() {
           Object.keys(getunreadMessageCount).forEach((item) => {
             if (item === selectedUserInfo?.opponentID) {
               getunreadMessageCount[selectedUserInfo?.opponentID]++;
-              return;
             }
           });
           await updateDoc(docRef, {

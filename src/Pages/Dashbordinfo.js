@@ -189,12 +189,11 @@ export default function Dashbordinfo() {
           platform: ele?.deviceType,
         }))
       );
-      for (let i = 0; i < cardarray.length; i++) {
-        cardarray[i]["count"] =
-          res.extraData[cardarray[i].key] !== null
-            ? res.extraData[cardarray[i].key]
-            : "---";
+      for (const card of cardarray) {
+        card["count"] =
+          res.extraData[card.key] !== null ? res.extraData[card.key] : "---";
       }
+
       setCardList(cardarray);
       setShowTableLoading(false);
     } else {

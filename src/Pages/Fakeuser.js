@@ -80,7 +80,7 @@ export default function Fakeuser() {
   const [currentpage, setCurrentpage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [loading, setLoading] = useState(false);
-  const [genderValue, SetGenderValue] = useState();
+  const [genderValue, SetGenderValue] = useState(null);
   const sortBasis = "";
   const status = "";
   const [totalCount, setTotalCount] = useState();

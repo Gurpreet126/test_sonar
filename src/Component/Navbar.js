@@ -69,7 +69,6 @@ export default function Navbar() {
             }}
             aria-label="Menu"
             aria-pressed="false"
-            aria-role="button"
           >
             <img src={menu} alt="menu" />
           </div>

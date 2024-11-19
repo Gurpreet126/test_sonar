@@ -1737,10 +1737,9 @@ export default function Userdetails() {
                         className="shadow-ban-btn"
                         onClick={() => handleOpenShadowModal()}
                         style={{
-                          background:
-                            personlDetail?.isShadowBanned == true
-                              ? "red"
-                              : "green",
+                          background: personlDetail?.isShadowBanned
+                            ? "red"
+                            : "green",
                           margin: "0px 5px",
                         }}
                       >

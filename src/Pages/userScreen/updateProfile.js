@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import RadioBoxGroup from "Component/radioButton";
 import { bodyType, exercise, drink } from "./data";
+import PropTypes from "prop-types";
 
 const ApperanceHabit = (props) => {
   const { apperanceList, setShowAppearanceModal } = props;
@@ -94,3 +95,8 @@ const ApperanceHabit = (props) => {
 };
 
 export default ApperanceHabit;
+
+ApperanceHabit.propTypes = {
+  apperanceList: PropTypes.any,
+  setShowAppearanceModal: PropTypes.func,
+};

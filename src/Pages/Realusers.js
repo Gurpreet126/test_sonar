@@ -108,7 +108,7 @@ export default function Realusers() {
   const [searchText, setSearchText] = useState(null);
   const [loading, setLoading] = useState(false);
   const [createdAt, setCreatedAt] = useState();
-  const [genderValue, SetGenderValue] = useState();
+  const [genderValue, SetGenderValue] = useState(null);
   const [sortUser, setSortUser] = useState(false);
   const [sortCountry, setSortCountry] = useState(false);
   const [sortPhone, setSortPhone] = useState(false);

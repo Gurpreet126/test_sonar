@@ -552,7 +552,7 @@ export default function ChatLayout() {
               <InfiniteScroll
                 dataLength={chatMember.length}
                 next={fetchAllRemainingChats}
-                hasMore={chatMember.length < chatListCount ? true : false}
+                hasMore={chatMember.length < chatListCount}
                 loader={<h4>Loading...</h4>}
                 height="100%"
               >

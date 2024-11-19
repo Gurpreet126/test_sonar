@@ -35,7 +35,7 @@ import {
 export default function Reportedusers() {
   const dispatch = useDispatch();
   const [tableInfo, setTableInfo] = useState([]);
-  const [sortBasis, setsortBasis] = useState({
+  const [sortBasis, setSortBasis] = useState({
     sortBasis: undefined,
     sortOrder: undefined,
   });
@@ -204,9 +204,9 @@ export default function Reportedusers() {
             onClick={() => {
               setSortCountry((e) => !e);
               if (sortCountry === true) {
-                setsortBasis({ sortBasis: "country", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "country", sortOrder: "ASC" });
               } else {
-                setsortBasis({ sortBasis: "country", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "country", sortOrder: "DESC" });
               }
             }}
             style={{
@@ -228,9 +228,9 @@ export default function Reportedusers() {
               setSortUser((e) => !e);
 
               if (sortUser === true) {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
-                setsortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "lastName", sortOrder: "ASC" });
               }
             }}
           />
@@ -249,9 +249,9 @@ export default function Reportedusers() {
             onClick={() => {
               setSortPhone((e) => !e);
               if (sortPhone === true) {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "DESC" });
               } else {
-                setsortBasis({ sortBasis: "firstName", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "firstName", sortOrder: "ASC" });
               }
             }}
           />
@@ -279,9 +279,9 @@ export default function Reportedusers() {
             onClick={() => {
               setSortEmail((e) => !e);
               if (sortEmail === true) {
-                setsortBasis({ sortBasis: "email", sortOrder: "ASC" });
+                setSortBasis({ sortBasis: "email", sortOrder: "ASC" });
               } else {
-                setsortBasis({ sortBasis: "email", sortOrder: "DESC" });
+                setSortBasis({ sortBasis: "email", sortOrder: "DESC" });
               }
             }}
           />
