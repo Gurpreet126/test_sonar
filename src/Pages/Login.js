@@ -299,13 +299,8 @@ export default function Login() {
                         </span>
                       </div>
                       <p
-                        tabIndex={0}
+                        aria-label="Forget Password"
                         onClick={() => navigate("/Forgetpassword")}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            navigate("/Forgetpassword");
-                          }
-                        }}
                       >
                         Forget password?
                       </p>
