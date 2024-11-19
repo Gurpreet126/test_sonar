@@ -227,6 +227,12 @@ export default function Userdetails() {
   const [openHideUserModal, setOpenHideUserModal] = useState(false);
   const roleType = useSelector((state) => state?.Authlogin?.data?.role);
 
+  const buttonText = suspendLoading
+    ? "Loading"
+    : personlDetail?.blockedByAdmin
+      ? "Unsuspend"
+      : "Suspend";
+
   const handleOpenHideUserModal = () => {
     setOpenHideUserModal(true);
   };
@@ -373,6 +379,12 @@ export default function Userdetails() {
       setImagSwapLoading(false);
     } else {
       setImagSwapLoading(false);
+      toast.error(
+        res.response.data.message ||
+          res.error ||
+          res.message ||
+          "Something went wrong"
+      );
     }
   };
 
@@ -818,11 +830,7 @@ export default function Userdetails() {
                     Delete
                   </Orangebtn>
                   <Orangebtn onClick={() => setSuspendedModal(true)}>
-                    {suspendLoading
-                      ? "Loading"
-                      : personlDetail?.blockedByAdmin
-                        ? "Unsuspend"
-                        : "Suspend"}{" "}
+                    {buttonText}
                   </Orangebtn>
                   <Greenbtn onClick={() => setOpen(true)}>Edit</Greenbtn>
                 </div>
@@ -861,7 +869,7 @@ export default function Userdetails() {
                 <div className="user-data">
                   <h4>Pets</h4>
                   <span>
-                    {personlDetail?.pets && personlDetail?.pets.length
+                    {personlDetail?.pets.length
                       ? personlDetail?.pets?.join(", ")?.toString()
                       : ""}
                   </span>

@@ -168,12 +168,10 @@ export default function SuperAdminAction() {
         );
         setSelectedRowsData(arr);
       }
+    } else if (type) {
+      setSelectedRowsData(countryListing);
     } else {
-      if (type) {
-        setSelectedRowsData(countryListing);
-      } else {
-        setSelectedRowsData([]);
-      }
+      setSelectedRowsData([]);
     }
   };
 

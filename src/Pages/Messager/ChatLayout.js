@@ -83,7 +83,6 @@ const MemberConversation = ({
   difference -= hoursDifference * 1000 * 60 * 60;
 
   let minutesDifference = Math.floor(difference / 1000 / 60);
-  difference -= minutesDifference * 1000 * 60;
 
   const lastChatDate = moment
     .unix(chatMember?.lastMessage?.messageTime)
@@ -399,8 +398,7 @@ export default function ChatLayout() {
 
         Object.keys(getunreadMessageCount).forEach((item) => {
           if (item === selectedUserInfo?.opponentID) {
-            return (getunreadMessageCount[item] =
-              getunreadMessageCount[item] + 1);
+            getunreadMessageCount[item] = getunreadMessageCount[item] + 1;
           }
         });
         await updateDoc(docRef, {
@@ -557,21 +555,25 @@ export default function ChatLayout() {
           <SelectedInbox>
             <div style={{ position: "relative", height: "100%" }}>
               {selectedUserInfo && (
-                <img
-                  onClick={() => setEmojiPicker(!emojiPicker)}
-                  src={emojiBtn}
-                  className="CustomEmoji"
-                  alt=""
+                <div
                   role="button"
                   tabIndex="0"
                   aria-label="Toggle Emoji Picker"
+                  className="CustomEmojiOuter"
+                  onClick={() => setEmojiPicker(!emojiPicker)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault(); // Prevent default behavior for space
                       setEmojiPicker(!emojiPicker);
                     }
                   }}
-                />
+                >
+                  <img
+                    src={emojiBtn}
+                    className="CustomEmoji"
+                    alt="Emoji Button"
+                  />
+                </div>
               )}
               <MainContainer>
                 {!selectedUserHandle ? (

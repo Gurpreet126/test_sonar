@@ -63,14 +63,18 @@
   color: #484748 !important;
   font-weight: 600;
 }
-
-.CustomEmoji {
+.CustomEmojiOuter {
   position: absolute;
   bottom: 12px;
   z-index: 9999;
   width: 27px;
   height: 27px;
   left: 10px;
+  cursor: pointer;
+}
+.CustomEmoji {
+  width: 27px;
+  height: 27px;
   cursor: pointer;
 }
 

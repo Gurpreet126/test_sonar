@@ -134,7 +134,6 @@ const MemberConversation = ({
   difference -= hoursDifference * 1000 * 60 * 60;
 
   let minutesDifference = Math.floor(difference / 1000 / 60);
-  difference -= minutesDifference * 1000 * 60;
 
   const lastChatDate = moment
     .unix(chatMember?.lastMessage?.messageTime)
@@ -150,6 +149,16 @@ const MemberConversation = ({
         : !isNaN(msgTimeStamp)
           ? "Now"
           : "";
+
+  const getMessage = (messageType, message) => {
+    if (messageType === "3") {
+      return "Audio";
+    } else if (messageType === "2") {
+      return "Gif";
+    } else {
+      return message;
+    }
+  };
 
   const handleClickAway = () => {
     setIsPopupOpen(false);
@@ -222,11 +231,10 @@ const MemberConversation = ({
                   </div>
                   <div className="lastMessage">
                     <div className="message">
-                      {chatMember?.lastMessage?.messageType == "3"
-                        ? "Audio"
-                        : chatMember?.lastMessage?.messageType === "2"
-                          ? "Gif"
-                          : chatMember?.lastMessage?.message}
+                      {getMessage(
+                        chatMember?.lastMessage?.messageType,
+                        chatMember?.lastMessage?.message
+                      )}
                     </div>{" "}
                     <div className="messageTime">{time}</div>
                   </div>
@@ -258,6 +266,7 @@ const MemberConversation = ({
             {isPopupOpen && (
               <div className="hiddenHeaderDiv">
                 <h4
+                  role="button"
                   tabIndex={0}
                   aria-label="Unmatch user"
                   onClick={() =>
@@ -351,6 +360,13 @@ export default function FakeMessager() {
     useState(null);
   const [hasMore, setHasMore] = useState(true);
   const [currentId, setCurrentId] = useState(null);
+
+  const calculateHeight = () => {
+    if (width <= 700) {
+      return isIOS ? "calc(100vh - 270px)" : "calc(100vh - 210px)";
+    }
+    return "100%";
+  };
 
   const handleLogout = (error) => {
     if (
@@ -543,8 +559,8 @@ export default function FakeMessager() {
   const UpdateUnreadMessageCount = async (chatID, currentUser, wholeChat) => {
     try {
       let getunreadMessageCount = { ...wholeChat?.unreadMessageCount };
-      let getunreadMessageCount2 = wholeChat?.adminUnreadCount;
-      getunreadMessageCount2 = 0;
+      let getunreadMessageCount2 = 0;
+      // getunreadMessageCount2 = 0;
       getunreadMessageCount[currentUser] = 0;
       await updateDoc(doc(db, "Chats", chatID), {
         unreadMessageCount: getunreadMessageCount,
@@ -1474,10 +1490,9 @@ export default function FakeMessager() {
                       <div>
                         {allChat?.length > 0 &&
                           allChat?.map((allChat) => (
-                            <div>
+                            <div key={allChat?.chatID}>
                               <MemberConversation
                                 chatMember={allChat}
-                                key={allChat?.chatID}
                                 showSelectedChatId={showSelectedChatId}
                                 setShowSelectedChatId={setShowSelectedChatId}
                                 setFakeUserLocation={setFakeUserLocation}
@@ -1512,9 +1527,7 @@ export default function FakeMessager() {
                 </LoaderWrapper>
               ) : (
                 <InfiniteScroll
-                  dataLength={
-                    getAllUnreadChatData && getAllUnreadChatData?.length
-                  }
+                  dataLength={getAllUnreadChatData?.length || 0}
                   next={checkingNextFunc}
                   hasMore={hasMore}
                   loader={allConversationLoading && <h4>Loading...</h4>}
@@ -1535,10 +1548,9 @@ export default function FakeMessager() {
                       <>
                         {getAllUnreadChatData?.length > 0 &&
                           getAllUnreadChatData?.map((getAllUnreadChatData) => (
-                            <div>
+                            <div key={getAllUnreadChatData?.chatID}>
                               <MemberConversation
                                 chatMember={getAllUnreadChatData}
-                                key={getAllUnreadChatData?.chatID}
                                 showSelectedChatId={showSelectedChatId}
                                 setShowSelectedChatId={setShowSelectedChatId}
                                 setFakeUserLocation={setFakeUserLocation}
@@ -1573,7 +1585,7 @@ export default function FakeMessager() {
                 </LoaderWrapper>
               ) : (
                 <InfiniteScroll
-                  dataLength={allReadChat && allReadChat?.length}
+                  dataLength={allReadChat?.length || 0}
                   next={checkingNextFunc}
                   hasMore={hasMore}
                   loader={allConversationLoading && <h4>Loading...</h4>}
@@ -1594,10 +1606,9 @@ export default function FakeMessager() {
                       <div>
                         {allReadChat?.length > 0 &&
                           allReadChat?.map((allReadChat) => (
-                            <div>
+                            <div key={allReadChat?.chatID}>
                               <MemberConversation
                                 chatMember={allReadChat}
-                                key={allReadChat?.chatID}
                                 showSelectedChatId={showSelectedChatId}
                                 setShowSelectedChatId={setShowSelectedChatId}
                                 setFakeUserLocation={setFakeUserLocation}
@@ -1632,7 +1643,7 @@ export default function FakeMessager() {
                 </LoaderWrapper>
               ) : (
                 <InfiniteScroll
-                  dataLength={allWomensChat && allWomensChat?.length}
+                  dataLength={allWomensChat?.length || 0}
                   next={checkingNextFunc}
                   hasMore={hasMore}
                   loader={allConversationLoading && <h4>Loading...</h4>}
@@ -1653,10 +1664,9 @@ export default function FakeMessager() {
                       <div>
                         {allWomensChat?.length > 0 &&
                           allWomensChat?.map((allWomensChat) => (
-                            <div>
+                            <div key={allWomensChat?.chatID}>
                               <MemberConversation
                                 chatMember={allWomensChat}
-                                key={allWomensChat?.chatID}
                                 showSelectedChatId={showSelectedChatId}
                                 setShowSelectedChatId={setShowSelectedChatId}
                                 setFakeUserLocation={setFakeUserLocation}
@@ -1691,7 +1701,7 @@ export default function FakeMessager() {
                 </LoaderWrapper>
               ) : (
                 <InfiniteScroll
-                  dataLength={privateChat && privateChat?.length}
+                  dataLength={privateChat?.length || 0}
                   next={checkingNextFunc}
                   hasMore={hasMore}
                   loader={allConversationLoading && <h4>Loading...</h4>}
@@ -1712,10 +1722,9 @@ export default function FakeMessager() {
                       <div>
                         {privateChat?.length > 0 &&
                           privateChat?.map((privateChat, idx) => (
-                            <div>
+                            <div key={privateChat?.chatID}>
                               <MemberConversation
                                 chatMember={privateChat}
-                                key={privateChat?.chatID}
                                 showSelectedChatId={showSelectedChatId}
                                 setShowSelectedChatId={setShowSelectedChatId}
                                 setFakeUserLocation={setFakeUserLocation}
@@ -1763,12 +1772,7 @@ export default function FakeMessager() {
             <div
               style={{
                 position: "relative",
-                height:
-                  width <= 700
-                    ? isIOS
-                      ? "calc(100vh - 270px)"
-                      : "calc(100vh - 210px)"
-                    : "100%",
+                height: calculateHeight(),
               }}
             >
               {/* only visible either if chat request is accepted or both are matched  */}

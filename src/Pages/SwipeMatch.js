@@ -113,13 +113,12 @@ export default function SwipeMatch({ user_id, onCancel }) {
       key: "action",
       render: (_, data) => (
         <Space size="middle">
-          {data?.admin ? (
-            data.isMatch === false ? (
+          {data?.admin &&
+            (data.isMatch === false ? (
               <ButtonMatch onClick={() => showModal(data)}>Match</ButtonMatch>
             ) : (
               <ButtonMatch onClick={() => showModal(data)}>Unmatch</ButtonMatch>
-            )
-          ) : null}
+            ))}
         </Space>
       ),
     },
