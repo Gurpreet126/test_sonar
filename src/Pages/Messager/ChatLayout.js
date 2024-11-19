@@ -64,64 +64,94 @@ import {
 } from "models/MessagerStyle";
 import PropTypes from "prop-types";
 
+const calculateTimeDifference = (msgTimeStamp) => {
+  const currentTimeStamp = Date.now();
+  const difference = currentTimeStamp - msgTimeStamp;
+
+  const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+  let remainingDiff = difference - daysDifference * 1000 * 60 * 60 * 24;
+
+  const hoursDifference = Math.floor(remainingDiff / 1000 / 60 / 60);
+  remainingDiff -= hoursDifference * 1000 * 60 * 60;
+
+  const minutesDifference = Math.floor(remainingDiff / 1000 / 60);
+
+  return { daysDifference, hoursDifference, minutesDifference };
+};
+
+const getSelectedUserInfo = (chatMember, currentUser) => {
+  return chatMember?.members.filter((item) => item !== currentUser.id);
+};
+
+const getLastChatTime = (
+  msgTimeStamp,
+  daysDifference,
+  hoursDifference,
+  minutesDifference
+) => {
+  if (daysDifference) {
+    return moment.unix(msgTimeStamp).local().format("DD/MM/yyyy");
+  }
+
+  if (hoursDifference) {
+    return `${hoursDifference}${hoursDifference > 1 ? " hours" : " hour"} ago`;
+  }
+
+  if (minutesDifference > 0) {
+    return `${minutesDifference}${minutesDifference > 1 ? " mins" : " min"} ago`;
+  }
+
+  return !isNaN(msgTimeStamp) ? "Now" : "";
+};
+
 const MemberConversation = ({
   chatMember,
   currentUser,
   getSelectedCoversation,
 }) => {
-  let selectedUserInfo = chatMember?.members.filter((item) => {
-    if (item !== currentUser.id) return item;
-  });
-  const currentTimeStamp = Date.now();
+  const selectedUserInfo = getSelectedUserInfo(chatMember, currentUser);
   const msgTimeStamp = chatMember?.lastMessage?.messageTime * 1000;
-  let difference = currentTimeStamp - msgTimeStamp;
+  const { daysDifference, hoursDifference, minutesDifference } =
+    calculateTimeDifference(msgTimeStamp);
 
-  let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-  difference -= daysDifference * 1000 * 60 * 60 * 24;
+  const lastChatTime = getLastChatTime(
+    msgTimeStamp,
+    daysDifference,
+    hoursDifference,
+    minutesDifference
+  );
 
-  let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-  difference -= hoursDifference * 1000 * 60 * 60;
+  const selectedUser = chatMember[selectedUserInfo]?.name;
 
-  let minutesDifference = Math.floor(difference / 1000 / 60);
+  const lastSenderName =
+    chatMember?.lastMessage?.senderID === selectedUserInfo[0]
+      ? chatMember[selectedUserInfo]?.name
+      : currentUser?.user;
 
-  const lastChatDate = moment
-    .unix(chatMember?.lastMessage?.messageTime)
-    .local()
-    .format("DD/MM/yyyy");
+  const info =
+    chatMember?.lastMessage?.messageType === "2"
+      ? "Gif"
+      : chatMember?.lastMessage?.message;
 
-  const time = daysDifference
-    ? lastChatDate
-    : hoursDifference
-      ? `${hoursDifference}${hoursDifference > 1 ? "hours" : "hour"} ago`
-      : minutesDifference > 0
-        ? `${minutesDifference}${minutesDifference > 1 ? "mins" : "min"} ago`
-        : !isNaN(msgTimeStamp)
-          ? "Now"
-          : "";
+  const unreadCnt = chatMember?.unreadMessageCount?.[currentUser?.id];
+
+  const handleClick = () => {
+    getSelectedCoversation(
+      chatMember?.chatID,
+      selectedUser,
+      chatMember[selectedUserInfo]?.image,
+      selectedUserInfo?.[0],
+      chatMember[currentUser?.id]
+    );
+  };
 
   return (
     <Conversation
-      name={chatMember[selectedUserInfo]?.name}
-      lastSenderName={
-        chatMember?.lastMessage?.senderID === selectedUserInfo[0]
-          ? chatMember[selectedUserInfo]?.name
-          : currentUser?.user
-      }
-      info={
-        chatMember?.lastMessage?.messageType === "2"
-          ? "Gif"
-          : chatMember?.lastMessage?.message
-      }
-      onClick={() => {
-        getSelectedCoversation(
-          chatMember?.chatID,
-          chatMember[selectedUserInfo]?.name,
-          chatMember[selectedUserInfo]?.image,
-          selectedUserInfo?.[0],
-          chatMember[currentUser?.id]
-        );
-      }}
-      unreadCnt={chatMember?.unreadMessageCount?.[currentUser?.id]}
+      name={selectedUser}
+      lastSenderName={lastSenderName}
+      info={info}
+      onClick={handleClick}
+      unreadCnt={unreadCnt}
       lastActivityTime={
         <span
           style={{
@@ -130,7 +160,7 @@ const MemberConversation = ({
             fontWeight: "bold",
           }}
         >
-          {time}
+          {lastChatTime}
         </span>
       }
     >
@@ -139,7 +169,7 @@ const MemberConversation = ({
           process.env.REACT_APP_BASEURL_IMAGE +
           chatMember[selectedUserInfo]?.image
         }
-        name={chatMember[selectedUserInfo]?.name}
+        name={selectedUser}
       />
     </Conversation>
   );
