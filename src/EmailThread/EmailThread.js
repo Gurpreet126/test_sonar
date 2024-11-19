@@ -212,12 +212,9 @@ export const EmailThread = () => {
                         Send
                       </EmailButtons>
                     )}
-                    <img
-                      alt=""
-                      src={deleteIcons}
-                      className="deleteIcon"
-                      tabIndex={0}
-                      role="button"
+                    <div
+                      role="button" // Makes the div act as a button
+                      tabIndex={0} // Makes the div focusable for keyboard navigation
                       onClick={() => setOpenMessage(false)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
@@ -226,7 +223,10 @@ export const EmailThread = () => {
                         }
                       }}
                       aria-label="Delete"
-                    />
+                      className="deleteIconOuter"
+                    >
+                      <img alt="" src={deleteIcons} className="deleteIcon" />
+                    </div>
                   </div>
                 </TextAreaWrapper>
               </MessageWrapper>

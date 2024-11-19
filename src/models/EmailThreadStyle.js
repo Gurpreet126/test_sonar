@@ -228,10 +228,15 @@ export const MessageWrapper = styled.div`
       top: 10px;
       left: 20px;
     }
-    .deleteIcon {
+    .deleteIconOuter {
       position: absolute;
       bottom: -35px;
       right: 20px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .deleteIcon {
       width: 20px;
       height: 20px;
       cursor: pointer;

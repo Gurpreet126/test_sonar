@@ -265,7 +265,7 @@ const MemberConversation = ({
             {getUnReadCount(chatMember)}
             {isPopupOpen && (
               <div className="hiddenHeaderDiv">
-                <h4
+                <div
                   role="button"
                   tabIndex={0}
                   aria-label="Unmatch user"
@@ -283,12 +283,11 @@ const MemberConversation = ({
                       );
                     }
                   }}
-                  className="hiddenHead1"
                 >
-                  Unmatch
-                </h4>
+                  <h4 className="hiddenHead1">Unmatch</h4>
+                </div>
                 <hr className="hrTag" />
-                <h4
+                <div
                   role="button"
                   tabIndex={0}
                   onClick={() =>
@@ -305,10 +304,9 @@ const MemberConversation = ({
                       );
                     }
                   }}
-                  className="hiddenHead2"
                 >
-                  Block
-                </h4>
+                  <h4 className="hiddenHead2">Block</h4>
+                </div>
               </div>
             )}
           </SettingOption>

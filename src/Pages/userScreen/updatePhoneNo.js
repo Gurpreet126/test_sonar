@@ -6,7 +6,7 @@ import { dialingCodeList } from "Component/contactData/dialing";
 import { FieldWrapper, LabelWrapper } from "models/UserScreenStyle";
 import PropTypes from "prop-types";
 
-const NUMERIC_REGEXP = /[-]?\d*/g;
+const NUMERIC_REGEXP = /[-]?[0-9]*/g;
 const UpdateUserPhoneNo = (props) => {
   const {
     data = "",
