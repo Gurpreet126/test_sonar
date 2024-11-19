@@ -27,6 +27,22 @@ export default function Inbox() {
     }
   };
 
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <LoaderWrapper>
+          <Spin size="large" />
+        </LoaderWrapper>
+      );
+    }
+
+    if (feedbackUserListing?.length > 0) {
+      return <Tabledata>data</Tabledata>;
+    }
+
+    return <NoDataFound>NO DATA FOUND</NoDataFound>;
+  };
+
   useEffect(() => {
     getInboxListing();
   }, []);
@@ -44,15 +60,7 @@ export default function Inbox() {
           </p>
         </div>
       </Mainheading>
-      {loading ? (
-        <LoaderWrapper>
-          <Spin size="large" />
-        </LoaderWrapper>
-      ) : feedbackUserListing.length > 0 ? (
-        <Tabledata>data</Tabledata>
-      ) : (
-        <NoDataFound>NO DATA FOUND</NoDataFound>
-      )}
+      {renderContent()}
     </Mainwrapper>
   );
 }
