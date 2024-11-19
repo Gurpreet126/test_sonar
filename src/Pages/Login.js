@@ -298,7 +298,7 @@ export default function Login() {
                           )}
                         </span>
                       </div>
-                      <p
+                      <div
                         role="button"
                         tabIndex={0}
                         aria-label="Forget Password"
@@ -315,7 +315,7 @@ export default function Login() {
                         }}
                       >
                         Forget password?
-                      </p>
+                      </div>
                     </div>
                     <div className="login">
                       {loading ? (
