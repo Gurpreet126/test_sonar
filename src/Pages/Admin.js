@@ -32,19 +32,19 @@ import {
   Status,
 } from "StyledComponents";
 import PropTypes from "prop-types";
-import TablePagination from "Component/TablePagination";
+import PaginationFooter from "Component/TablePagination";
 
-const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
-  <div>
-    <Pagination
-      current={currentpage}
-      onChange={onChange}
-      total={totalCount}
-      showSizeChanger
-      defaultPageSize={pageSize}
-    />
-  </div>
-);
+// const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
+//   <div>
+//     <Pagination
+//       current={currentpage}
+//       onChange={onChange}
+//       total={totalCount}
+//       showSizeChanger
+//       defaultPageSize={pageSize}
+//     />
+//   </div>
+// );
 
 const DeleteModalFooter = ({ deleteLoading, handleCancel, handleOk }) =>
   deleteLoading ? (
@@ -337,7 +337,7 @@ export default function Admin() {
             dataSource={tableInfo}
             pagination={false}
             footer={() => (
-              <TablePagination
+              <PaginationFooter
                 currentpage={currentpage}
                 onChange={onChange}
                 totalCount={totalCount}
@@ -350,12 +350,12 @@ export default function Admin() {
     </Mainwrapper>
   );
 }
-PaginationFooter.propTypes = {
-  currentpage: PropTypes.any,
-  onChange: PropTypes.any,
-  totalCount: PropTypes.any,
-  pageSize: PropTypes.any,
-};
+// PaginationFooter.propTypes = {
+//   currentpage: PropTypes.any,
+//   onChange: PropTypes.any,
+//   totalCount: PropTypes.any,
+//   pageSize: PropTypes.any,
+// };
 DeleteModalFooter.propTypes = {
   deleteLoading: PropTypes.bool,
   handleCancel: PropTypes.func,
