@@ -1,8 +1,8 @@
-import React from "react";
 import { Pagination } from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 
-const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => {
+const TablePagination = ({ currentpage, onChange, totalCount, pageSize }) => {
   return (
     <div>
       <Pagination
@@ -16,11 +16,11 @@ const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => {
   );
 };
 
-PaginationFooter.propTypes = {
-  currentpage: PropTypes.any,
-  onChange: PropTypes.func,
-  totalCount: PropTypes.number,
-  pageSize: PropTypes.number,
-};
+export default TablePagination;
 
-export default PaginationFooter;
+TablePagination.propTypes = {
+  currentpage: PropTypes.any,
+  onChange: PropTypes.any,
+  totalCount: PropTypes.any,
+  pageSize: PropTypes.any,
+};

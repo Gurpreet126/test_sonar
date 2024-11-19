@@ -32,19 +32,6 @@ import {
   Status,
 } from "StyledComponents";
 import PropTypes from "prop-types";
-import PaginationFooter from "Component/TablePagination";
-
-// const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
-//   <div>
-//     <Pagination
-//       current={currentpage}
-//       onChange={onChange}
-//       total={totalCount}
-//       showSizeChanger
-//       defaultPageSize={pageSize}
-//     />
-//   </div>
-// );
 
 const DeleteModalFooter = ({ deleteLoading, handleCancel, handleOk }) =>
   deleteLoading ? (
@@ -203,6 +190,18 @@ export default function Admin() {
     setPageSize(pageSize);
   };
 
+  const PaginationFooter = () => (
+    <div>
+      <Pagination
+        current={currentpage}
+        onChange={onChange}
+        total={totalCount}
+        showSizeChanger
+        defaultPageSize={pageSize}
+      />
+    </div>
+  );
+
   let timeoutId;
   useEffect(() => {
     if (searchText) {
@@ -336,14 +335,7 @@ export default function Admin() {
             columns={columns}
             dataSource={tableInfo}
             pagination={false}
-            footer={() => (
-              <PaginationFooter
-                currentpage={currentpage}
-                onChange={onChange}
-                totalCount={totalCount}
-                pageSize={pageSize}
-              />
-            )}
+            footer={() => <PaginationFooter />}
           />
         )}
       </Tabledata>{" "}
