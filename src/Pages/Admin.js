@@ -32,6 +32,7 @@ import {
   Status,
 } from "StyledComponents";
 import PropTypes from "prop-types";
+import TablePagination from "Component/TablePagination";
 
 const PaginationFooter = ({ currentpage, onChange, totalCount, pageSize }) => (
   <div>
@@ -336,7 +337,7 @@ export default function Admin() {
             dataSource={tableInfo}
             pagination={false}
             footer={() => (
-              <PaginationFooter
+              <TablePagination
                 currentpage={currentpage}
                 onChange={onChange}
                 totalCount={totalCount}
