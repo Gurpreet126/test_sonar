@@ -298,8 +298,8 @@ export default function Login() {
                           )}
                         </span>
                       </div>
-                      <div
-                        arole="button"
+                      <p
+                        role="button"
                         tabIndex={0}
                         aria-label="Forget Password"
                         style={{
@@ -308,14 +308,14 @@ export default function Login() {
                           display: "block",
                         }}
                         onClick={() => navigate("/Forgetpassword")}
-                        onKeyPress={(e) => {
+                        onKeyDown={(e) => {
                           if (e.key === "Enter" || e.key === " ") {
                             navigate("/Forgetpassword");
                           }
                         }}
                       >
                         Forget password?
-                      </div>
+                      </p>
                     </div>
                     <div className="login">
                       {loading ? (
