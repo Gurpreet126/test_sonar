@@ -299,10 +299,9 @@ export default function Login() {
                         </span>
                       </div>
                       <p
-                        role="button"
                         tabIndex={0}
                         onClick={() => navigate("/Forgetpassword")}
-                        onKeyPress={(e) => {
+                        onKeyDown={(e) => {
                           if (e.key === "Enter" || e.key === " ") {
                             navigate("/Forgetpassword");
                           }
