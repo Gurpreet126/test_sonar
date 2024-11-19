@@ -104,12 +104,19 @@ const WaveCreator = ({
 
         <div className="playPause">
           {isReadyToPlay ? (
-            <img
-              tabIndex={0}
-              src={isPlaying ? PauseBtn : PlayBtn}
-              alt=""
+            <div
+              role="button"
+              tabIndex={0} // Makes the div focusable
               onClick={handlePlay}
-            />
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === "Space") {
+                  handlePlay();
+                }
+              }}
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              <img src={isPlaying ? PauseBtn : PlayBtn} alt="" />
+            </div>
           ) : (
             <Spin
               indicator={

@@ -85,23 +85,37 @@ const CountryInfoModal = ({
           <p className="edit-or-delete">
             {deleteData?.countryName}
             <span>
-              <img
-                src={EditCountry}
-                alt=""
+              <div
+                role="button"
+                tabIndex={0} // Makes the div focusable
                 onClick={() => setShowEditSection(true)}
-                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === "Space") {
+                    setShowEditSection(true); // Handle keyboard events for accessibility
+                  }
+                }}
                 style={{ cursor: "pointer" }}
-              />
+                aria-label="Edit Country"
+              >
+                <img src={EditCountry} alt="" />
+              </div>
               {deleteLoading ? (
                 <Spin />
               ) : (
-                <img
-                  src={DeleteCountry}
-                  alt=""
+                <div
+                  role="button"
+                  tabIndex={0} // Makes the div focusable for keyboard navigation
                   onClick={() => handleDeleteCountry()}
-                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === "Space") {
+                      handleDeleteCountry(); // Handle keyboard events for accessibility
+                    }
+                  }}
                   style={{ cursor: "pointer" }}
-                />
+                  aria-label="Delete Country"
+                >
+                  <img src={DeleteCountry} alt="" />
+                </div>
               )}
             </span>
           </p>

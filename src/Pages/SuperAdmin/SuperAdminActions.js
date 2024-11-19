@@ -305,15 +305,20 @@ export default function SuperAdminAction() {
                       <h3>Add Account</h3>
                     </div>
                   </div>
-
-                  <img
-                    style={{ cursor: "pointer", marginRight: "5px" }}
+                  <div
+                    role="button" // Makes the div behave like a button for screen readers
+                    tabIndex={0} // Makes the div focusable for keyboard navigation
                     onClick={() => navigate("/dashboard/addadmin")}
-                    src={add}
-                    alt=""
-                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === "Space") {
+                        navigate("/dashboard/addadmin"); // Handle keyboard events for accessibility
+                      }
+                    }}
+                    style={{ cursor: "pointer", marginRight: "5px" }}
                     aria-label="Add admin"
-                  />
+                  >
+                    <img src={add} alt="" />
+                  </div>
                 </div>
               </div>
             ) : null}

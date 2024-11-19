@@ -1781,18 +1781,20 @@ export default function FakeMessager() {
                   showPrivateMessageButton,
                   isMessageRequestAccepted
                 ) && (
-                  <img
+                  <div
                     role="button"
-                    tabIndex={0}
+                    tabIndex={0} // Makes the div focusable
                     onClick={() => setEmojiPicker(!emojiPicker)}
-                    onKeyPress={(e) =>
-                      e.key === "Enter" && setEmojiPicker(!emojiPicker)
+                    onKeyDown={(e) =>
+                      e.key === "Enter" || e.key === "Space"
+                        ? setEmojiPicker(!emojiPicker)
+                        : null
                     }
-                    src={emojiBtn}
-                    className="CustomEmoji"
-                    alt=""
+                    className="CustomEmojiOuter"
                     aria-label="Toggle Emoji Picker"
-                  />
+                  >
+                    <img src={emojiBtn} className="CustomEmoji" alt="" />
+                  </div>
                 )}
               <MainContainer>
                 {!selectedUserHandle ? (
